@@ -1,0 +1,7 @@
+node_modules
+src/**/*.js
+src/**/*.js.map
+.vscode
+dist
+target
+typings
