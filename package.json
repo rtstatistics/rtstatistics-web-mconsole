@@ -1,10 +1,10 @@
 {
   "name": "rtstatistics-web-mconsole",
   "version": "1.0.0",
-  "repository" :
-    { "type" : "git"
-    , "url" : "https://github.com/james-hu/rtstatistics-web-mconsole.git"
-    },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/james-hu/rtstatistics-web-mconsole.git"
+  },
   "scripts": {
     "clean": "rimraf node_modules doc dist && npm cache clean",
     "start": "concurrent \"npm run tsc:w\" \"npm run lite\" ",
