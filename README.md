@@ -1,5 +1,7 @@
 # Single page management console application for rtstatistics.com
 
+[ ![Codeship Status for james-hu/rtstatistics-web-mconsole](https://codeship.com/projects/dcfe6b60-0c41-0134-7457-368b7d3cc702/status?branch=master)](https://codeship.com/projects/156034)
+
 The app is built with Angular 2 and Angular Material 2.
 
 The packaged application is embedded in web-manage and served from the Tomcat server.
