@@ -6,3 +6,4 @@ dist
 target
 typings
 coverage
+npm-debug.log
