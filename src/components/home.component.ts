@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
         <button (click)="increaseCount()">Click me</button>
     `
 })
-export class AppComponent { 
+export class HomeComponent { 
     count = 0;
     title = "Hello World!";
     
