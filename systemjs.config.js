@@ -6,13 +6,15 @@
   // map tells the System loader where to look for things
   var map = {
     'src':                        'src', // 'dist',
+     'text-loader':                'node_modules/systemjs-plugin-text/',
     '@angular':                   'node_modules/@angular',
     'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api',
     'rxjs':                       'node_modules/rxjs'
   };
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {
-    'src':                        { main: 'main.js',  defaultExtension: 'js' },
+    'src':                        { main: 'main.js', defaultExtension: 'js' },
+    'text-loader':                { main: 'text.js', defaultExtension: 'js' },
     'rxjs':                       { defaultExtension: 'js' },
     'angular2-in-memory-web-api': { defaultExtension: 'js' },
   };
@@ -33,7 +35,15 @@
   });
   var config = {
     map: map,
-    packages: packages
+    packages: packages,
+    meta:{
+      'src/components/*.html.js':{
+        loader: 'text-loader'
+      },
+      'src/components/*.css.js':{
+        loader: 'text-loader'
+      }
+    }
   }
   System.config(config);
 })(this);

@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
+import {Router,Routes,ROUTER_DIRECTIVES} from '@angular/router';
 
 @Component({
+    moduleId: module.id,
     selector: 'mconsole-app',
-    template: `
-        <h1>Management Console: {{title}}</h1>
-        <span>Clicks: {{count}}<span>
-        <button (click)="increaseCount()">Click me</button>
-    `
+    template: require('./home.component.html'),
+    styles: [require('./home.component.css')]
 })
 export class HomeComponent { 
     count = 0;
