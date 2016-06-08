@@ -6,7 +6,8 @@
   // map tells the System loader where to look for things
   var map = {
     'src':                        'src', // 'dist',
-     'text-loader':                'node_modules/systemjs-plugin-text/',
+    'text-loader':                'node_modules/systemjs-plugin-text/',
+    '@angular2-material':         'node_modules/@angular2-material',
     '@angular':                   'node_modules/@angular',
     'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api',
     'rxjs':                       'node_modules/rxjs'
@@ -29,9 +30,24 @@
     'router-deprecated',
     'upgrade',
   ];
+  var material2PackageNames = [
+    'core',
+    'button',
+    'card',
+    'sidenav',
+    'input',
+    'checkbox',
+    'list',
+    'tabs',
+    'icon'
+  ];
   // Add package entries for angular packages
   ngPackageNames.forEach(function(pkgName) {
     packages['@angular/'+pkgName] = { main: pkgName + '.umd.js', defaultExtension: 'js' };
+  });
+  // Add package entries for angular material 2 packages
+  material2PackageNames.forEach(function(pkgName) {
+    packages['@angular2-material/'+pkgName] = { main: pkgName + '.js', defaultExtension: 'js' };
   });
   var config = {
     map: map,

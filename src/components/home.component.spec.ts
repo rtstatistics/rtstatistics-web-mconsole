@@ -14,7 +14,5 @@ describe('Home', () => {
     // Add real test here
     expect(2).toBe(2);
   }));
-  it('should have hello property', inject([HomeComponent], (home: HomeComponent) =>  {
-    expect(home.title).toBe('Hello World!');
-  }));
+
 });
