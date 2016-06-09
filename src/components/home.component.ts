@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {Injectable} from '@angular/core';
 import {Routes, ROUTER_DIRECTIVES} from '@angular/router';
 import {MD_LIST_DIRECTIVES} from '@angular2-material/list';
 import {MD_SIDENAV_DIRECTIVES} from '@angular2-material/sidenav';
@@ -9,6 +8,7 @@ import {Dataset} from '../models/dataset';
 import {PeriodsHierarchy} from '../models/periods-hierarchy';
 import {User} from '../models/user';
 
+import {DashboardComponent} from './dashboard.component';
 import {DatasetDetailComponent} from './dataset-detail.component';
 import {PeriodsDetailComponent} from './periods-detail.component';
 import {UserDetailComponent} from './user-detail.component';
@@ -27,6 +27,7 @@ import {UserDetailComponent} from './user-detail.component';
   {path: '/dataset/:id', component: DatasetDetailComponent},
   {path: '/periods/:id', component: PeriodsDetailComponent},
   {path: '/user/:id', component: UserDetailComponent},
+  {path: '/', component: DashboardComponent}
 ])
 export class HomeComponent { 
     datasetsExpanded = false;
