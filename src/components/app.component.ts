@@ -28,8 +28,7 @@ import {UserService} from '../services/user.service';
         LoginComponent
     ],
     providers: [
-        AuthService, ApiHttp, 
-        DatasetService, PeriodsService, UserService
+        AuthService, ApiHttp
     ]
 })
 @Routes([
@@ -48,6 +47,6 @@ export class AppComponent implements OnInit {
 
     }
     ngOnInit() {
-        this.router.navigate(['/periods']);
+        this.router.navigate(['/dashboard']);
     }
 }

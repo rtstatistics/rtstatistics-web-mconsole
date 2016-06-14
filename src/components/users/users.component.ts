@@ -25,6 +25,7 @@ import {User} from '../../models/user';
         LeftSidenavContentComponent
     ],
     providers: [
+        UserService
     ]
 })
 @Routes([

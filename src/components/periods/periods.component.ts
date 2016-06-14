@@ -25,6 +25,7 @@ import {PeriodsHierarchy} from '../../models/periods-hierarchy';
         LeftSidenavContentComponent
     ],
     providers: [
+        PeriodsService
     ]
 })
 @Routes([

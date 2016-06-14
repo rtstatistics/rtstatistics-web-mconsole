@@ -25,6 +25,7 @@ import {Dataset} from '../../models/dataset';
         LeftSidenavContentComponent
     ],
     providers: [
+        DatasetService
     ]
 })
 @Routes([
