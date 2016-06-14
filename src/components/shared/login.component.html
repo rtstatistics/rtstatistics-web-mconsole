@@ -1,0 +1,36 @@
+<div *ngIf="visible" class="background-mask">
+    <md-card class="login-dialog">
+        <md-card-title>Please Log In</md-card-title>
+        <md-card-content>
+            <p>{{message}}</p>
+            <md-tab-group>
+                <md-tab>
+                    <template md-tab-label>Use API key</template>
+                    <template md-tab-content>
+                        <md-input #orgApiKey placeholder="API Key of the organization" maxLength="100" style="width: 100%"></md-input>
+                        <div align="right">
+                            <button md-raised-button (click)="onCancel()">
+                            Cancel
+                            </button>
+                            <button md-raised-button color="primary" (click)="onApiKeySet(orgApiKey.value)">
+                                OK
+                            </button>
+                        </div>
+                    </template>
+                </md-tab>
+                <md-tab>
+                    <template md-tab-label>Through providers</template>
+                    <template md-tab-content>
+                        <iframe src="https://manage.rtstatistics.com/auth/login" seamless frameborder="0" id="mainIframe">
+                        </iframe>
+                        <div align="right">
+                            <button md-raised-button (click)="onCancel()">
+                            Cancel
+                            </button>
+                        </div>
+                    </template>
+                </md-tab>
+            </md-tab-group>
+        </md-card-content>
+    </md-card>
+</div>

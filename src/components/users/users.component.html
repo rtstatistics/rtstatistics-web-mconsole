@@ -1,0 +1,50 @@
+<md-sidenav-layout class="full-view-height">
+    <md-sidenav #leftSidenav align="start" mode="side" opened="true">
+        <left-sidenav-content></left-sidenav-content>
+    </md-sidenav>
+    <md-sidenav #rightSidenav align="end" mode="side" opened="false">
+        <div class="fixed-top-right">
+            <md-icon style="color:white" (click)="rightSidenav.close();navigateBack()">close</md-icon>
+        </div>
+        <router-outlet></router-outlet>
+    </md-sidenav>
+
+    <md-toolbar color="primary" ngClass="detail-control-toolbar">
+        <span><md-icon (click)="leftSidenav.toggle()">menu</md-icon></span>
+        <span>Users</span>
+
+        <!-- This fills the remaining space of the current row -->
+        <span class="fill-remaining-space"></span>
+
+        <span>
+            <button md-icon-button [disabled]="isInProgress" (click)="refresh()">
+                <md-icon >refresh</md-icon>
+            </button>
+            <button md-icon-button (click)="rightSidenav.close();navigateBack()">
+                <md-icon>add_circle_outline</md-icon>
+            </button>
+        </span>
+    </md-toolbar>
+
+    <div class="progress-bar-placeholder">
+        <md-progress-bar *ngIf="isInProgress" mode="indeterminate"></md-progress-bar>
+    </div>
+    <div class="centered-content">
+        <table class="table table-hover table-mc-light-blue">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let asset of assets">
+                    <td data-title="Name">
+                        <a (click)="rightSidenav.open()" [routerLink]="['./', asset.id]">{{asset.name}}</a>
+                    </td>
+                    <td data-title="ID">{{asset.id}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</md-sidenav-layout>

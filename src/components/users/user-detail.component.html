@@ -1,0 +1,16 @@
+<md-toolbar color="primary">
+    <span>
+	    <button md-icon-button [disabled]="isInProgress" (click)="refresh()">
+	        <md-icon >refresh</md-icon>
+        </button>
+        <button md-icon-button [disabled]="isInProgress" (click)="delete()">
+            <md-icon >delete_forever</md-icon>
+        </button>
+    </span>
+</md-toolbar>
+
+<div class="progress-bar-placeholder">
+    <md-progress-bar *ngIf="isInProgress" mode="indeterminate"></md-progress-bar>
+</div>
+
+user detail: id={{id}}

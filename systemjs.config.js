@@ -35,6 +35,9 @@
     'button',
     'card',
     'sidenav',
+    'toolbar',
+    'grid-list',
+    'progress-bar',
     'input',
     'checkbox',
     'list',
@@ -57,6 +60,9 @@
         loader: 'text-loader'
       },
       'src/components/*.css.js':{
+        loader: 'text-loader'
+      },
+      'src/*.css.js':{
         loader: 'text-loader'
       }
     }
