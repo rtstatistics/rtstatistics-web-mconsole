@@ -11,7 +11,13 @@
         <span class="fill-remaining-space"></span>
     </md-toolbar>
 
-    <div class="centered-content">
-        Coming soon...
+    <div class="centered-content settings-content">
+        <div>
+        <md-input [(ngModel)]="settings.manageApiBaseUrl" placeholder="Management API base URL" maxLength="100"></md-input>
+        </div><div>
+        <md-input [(ngModel)]="settings.dataApiBaseUrl" placeholder="Data API base URL" maxLength="100"></md-input>
+        </div><div>
+        <md-input [(ngModel)]="settings.organizationApiKey" placeholder="Organization API key" type="password" maxLength="100"></md-input>
+        </div>
     </div>
 </md-sidenav-layout>

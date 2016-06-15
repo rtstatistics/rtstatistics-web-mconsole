@@ -17,7 +17,7 @@
     'src':                        { main: 'main.js', defaultExtension: 'js' },
     'text-loader':                { main: 'text.js', defaultExtension: 'js' },
     'rxjs':                       { defaultExtension: 'js' },
-    'angular2-in-memory-web-api': { defaultExtension: 'js' },
+    'angular2-in-memory-web-api': { defaultExtension: 'js' }
   };
   var ngPackageNames = [
     'common',

@@ -13,6 +13,7 @@ import {LoginComponent} from './shared/login.component';
 
 import {AuthService} from '../services/auth.service';
 import {ApiHttp} from '../services/api-http.service';
+import {SettingsService} from '../services/settings.service';
 import {DatasetService} from '../services/dataset.service';
 import {PeriodsService} from '../services/periods.service';
 import {UserService} from '../services/user.service';
@@ -28,7 +29,7 @@ import {UserService} from '../services/user.service';
         LoginComponent
     ],
     providers: [
-        AuthService, ApiHttp
+        AuthService, ApiHttp, SettingsService
     ]
 })
 @Routes([

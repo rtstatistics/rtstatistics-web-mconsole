@@ -5,12 +5,17 @@ import {Response} from '@angular/http';
 import {PeriodsHierarchy} from '../models/periods-hierarchy';
 import {ApiResponse} from "../models/api-response";
 import {BaseApiService} from './base-api.service';
+import {SettingsService} from "./settings.service";
 
 @Injectable()
 export class PeriodsService extends BaseApiService{
 
-    constructor(http: ApiHttp){
-        super(http);
+    constructor(http: ApiHttp, settings: SettingsService){
+        super(http, settings);
+    }
+
+    protected getBaseUrl(settings: SettingsService): string{
+        return settings.manageApiBaseUrl;
     }
 
     getAll() : Observable<ApiResponse<PeriodsHierarchy[]>> {

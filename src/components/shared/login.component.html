@@ -7,26 +7,31 @@
                 <md-tab>
                     <template md-tab-label>Use API key</template>
                     <template md-tab-content>
-                        <md-input #orgApiKey placeholder="API Key of the organization" maxLength="100" style="width: 100%"></md-input>
-                        <div align="right">
-                            <button md-raised-button (click)="onCancel()">
-                            Cancel
-                            </button>
-                            <button md-raised-button color="primary" (click)="onApiKeySet(orgApiKey.value)">
-                                OK
-                            </button>
-                        </div>
+                        <div class="centered-content tab-content">
+                            <md-input #orgApiKey placeholder="API key of the organization" maxLength="100" style="width: 100%"></md-input>
+                            <md-checkbox #saveOrgApiKey [checked]="autoSaveApiKey">Save API key in browser</md-checkbox>
+                            <div align="right">
+                                <button md-raised-button (click)="onCancel()">
+                                Cancel
+                                </button>
+                                <button md-raised-button color="primary" (click)="onApiKeySet(orgApiKey.value, saveOrgApiKey.checked)">
+                                    OK
+                                </button>
+                            </div>
+                            </div>
                     </template>
                 </md-tab>
                 <md-tab>
                     <template md-tab-label>Through providers</template>
                     <template md-tab-content>
-                        <iframe src="https://manage.rtstatistics.com/auth/login" seamless frameborder="0" id="mainIframe">
-                        </iframe>
-                        <div align="right">
-                            <button md-raised-button (click)="onCancel()">
-                            Cancel
-                            </button>
+                        <div class="centered-content tab-content">
+                            <iframe src="https://manage.rtstatistics.com/auth/login" seamless frameborder="0" id="mainIframe">
+                            </iframe>
+                            <div align="right">
+                                <button md-raised-button (click)="onCancel()">
+                                Cancel
+                                </button>
+                            </div>
                         </div>
                     </template>
                 </md-tab>

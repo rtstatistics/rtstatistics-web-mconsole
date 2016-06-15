@@ -3,15 +3,22 @@ import {Injectable} from "@angular/core";
 import {ApiHttp} from "./api-http.service";
 import {ApiResponse} from "../models/api-response";
 
-@Injectable()
-export class BaseApiService{
-    public static get BASE_URL(): string { return 'https://manage.rtstatistics.com'; }
+import {SettingsService} from "../services/settings.service";
 
-    constructor(protected http: ApiHttp){
+@Injectable()
+export abstract class BaseApiService{
+
+    constructor(protected http: ApiHttp, protected settings: SettingsService){
+    }
+
+    protected abstract getBaseUrl(settings: SettingsService): string;
+
+    get baseUrl(){
+        return this.getBaseUrl(this.settings);
     }
 
     protected get(url: string) : Observable<ApiResponse<any>>{
-        return this.http.get(BaseApiService.BASE_URL + url)
+        return this.http.get(this.baseUrl + url)
             .map(response => response.json());
     }
 
