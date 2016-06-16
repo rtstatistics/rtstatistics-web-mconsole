@@ -22,5 +22,9 @@ import '@angular2-material/tabs';
 import 'material-design-icons';
 require('../node_modules/material-design-icons/iconfont/material-icons.css')
 
+// Angular2-Toaster
+import 'angular2-toaster/angular2-toaster';
+require('../node_modules/angular2-toaster/lib/toaster.css');
+
 // Other vendors for example jQuery, Lodash or Bootstrap
 // You can import js, ts, css, sass, ...

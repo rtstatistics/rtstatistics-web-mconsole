@@ -6,6 +6,7 @@ import {MD_TOOLBAR_DIRECTIVES} from '@angular2-material/toolbar';
 import {MD_PROGRESS_BAR_DIRECTIVES} from '@angular2-material/progress-bar';
 
 import {AbstractAssetsComponent} from '../abstract-assets.component';
+import { NotificationService } from '../../services/notification.service';
 
 import {LeftSidenavContentComponent} from '../shared/left-sidenav-content.component';
 import {DatasetDetailComponent} from './dataset-detail.component';
@@ -33,8 +34,8 @@ import {Dataset} from '../../models/dataset';
 ])
 export class DatasetsComponent extends AbstractAssetsComponent<Dataset>{
 
-    constructor(router: Router, private datasetService: DatasetService){
-        super(router);
+    constructor(router: Router, notificationService: NotificationService, private datasetService: DatasetService){
+        super(router, notificationService);
     }
 
     doGetAll(){

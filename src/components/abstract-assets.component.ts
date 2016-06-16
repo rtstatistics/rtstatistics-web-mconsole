@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import { Router, RouteSegment, OnActivate, RouteTree } from '@angular/router';
 import { ApiResponse } from "../models/api-response";
+import { NotificationService } from '../services/notification.service';
 
 export abstract class AbstractAssetsComponent<T>{
     protected abstract doGetAll():Observable<ApiResponse<T[]>>;
@@ -9,7 +10,7 @@ export abstract class AbstractAssetsComponent<T>{
     assets: T[];
     isInProgress: boolean = false;
 
-    constructor(protected router: Router){
+    constructor(protected router: Router, protected notificationService: NotificationService){
     }
 
     routerOnActivate(curr: RouteSegment, prev?: RouteSegment, currTree?: RouteTree, prevTree?: RouteTree) : void {
@@ -27,7 +28,9 @@ export abstract class AbstractAssetsComponent<T>{
                         this.isInProgress = false;
                     },
                     err => {
-                        console.log(err);
+                        this.notificationService.showErrorToast(
+                            'Unabled to load or refresh: ' + err.message
+                        );
                         this.isInProgress = false;
                     }
             );

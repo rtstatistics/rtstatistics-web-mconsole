@@ -6,6 +6,7 @@ import {MD_TOOLBAR_DIRECTIVES} from '@angular2-material/toolbar';
 import {MD_PROGRESS_BAR_DIRECTIVES} from '@angular2-material/progress-bar';
 
 import {AbstractAssetsComponent} from '../abstract-assets.component';
+import { NotificationService } from '../../services/notification.service';
 
 import {LeftSidenavContentComponent} from '../shared/left-sidenav-content.component';
 import {PeriodsDetailComponent} from './periods-detail.component';
@@ -33,8 +34,8 @@ import {PeriodsHierarchy} from '../../models/periods-hierarchy';
 ])
 export class PeriodsComponent extends AbstractAssetsComponent<PeriodsHierarchy>{
 
-    constructor(router: Router, private periodsService: PeriodsService){
-        super(router);
+    constructor(router: Router, notificationService: NotificationService, private periodsService: PeriodsService){
+        super(router, notificationService);
     }
 
     doGetAll(){

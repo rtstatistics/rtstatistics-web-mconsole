@@ -41,10 +41,11 @@ export class ApiHttp {
                             if (confirmed){ // logged in again, or updated api key
                                 return func(params);
                             }else{      // canceled
-                                throw new Error('User canceled authentication');
+                                throw new Error('User cancelled authentication');
                             }
                         });
                 }else{
+                    console.log('API call failed: ' + JSON.stringify(error));
                     throw error;
                 }
             });

@@ -4,6 +4,7 @@ import {MD_TOOLBAR_DIRECTIVES} from '@angular2-material/toolbar';
 import {MD_PROGRESS_BAR_DIRECTIVES} from '@angular2-material/progress-bar';
 import {MD_LIST_DIRECTIVES} from '@angular2-material/list';
 import {MdIcon} from '@angular2-material/icon';
+import { NotificationService } from '../../services/notification.service';
 
 import {AbstractAssetDetailComponent} from '../abstract-asset-detail.component';
 
@@ -24,8 +25,8 @@ import {Dataset} from '../../models/dataset';
 })
 export class DatasetDetailComponent extends AbstractAssetDetailComponent<Dataset>{
 
-    constructor(private datasetService: DatasetService){
-        super();
+    constructor(notificationService: NotificationService, private datasetService: DatasetService){
+        super(notificationService);
     }
 
     doGetDetail(){

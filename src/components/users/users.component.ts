@@ -6,6 +6,7 @@ import {MD_TOOLBAR_DIRECTIVES} from '@angular2-material/toolbar';
 import {MD_PROGRESS_BAR_DIRECTIVES} from '@angular2-material/progress-bar';
 
 import {AbstractAssetsComponent} from '../abstract-assets.component';
+import { NotificationService } from '../../services/notification.service';
 
 import {LeftSidenavContentComponent} from '../shared/left-sidenav-content.component';
 import {UserDetailComponent} from './user-detail.component';
@@ -33,8 +34,8 @@ import {User} from '../../models/user';
 ])
 export class UsersComponent extends AbstractAssetsComponent<User>{
 
-    constructor(router: Router, private userService: UserService){
-        super(router);
+    constructor(router: Router, notificationService: NotificationService, private userService: UserService){
+        super(router, notificationService);
     }
 
     doGetAll(){

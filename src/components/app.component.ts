@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router, Routes, ROUTER_DIRECTIVES} from '@angular/router';
 import {MdIcon} from '@angular2-material/icon';
+import {ToasterContainerComponent, ToasterService, ToasterConfig} from 'angular2-toaster/angular2-toaster';
 
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {DatasetsComponent} from './datasets/datasets.component';
@@ -26,6 +27,7 @@ import {UserService} from '../services/user.service';
     styles: [], // [require('./app.component.css')],
     directives: [
         ROUTER_DIRECTIVES, MdIcon,
+        ToasterContainerComponent,
         LoginComponent
     ],
     providers: [
@@ -44,6 +46,10 @@ import {UserService} from '../services/user.service';
   {path: '/settings', component: SettingsComponent}
 ])
 export class AppComponent implements OnInit { 
+    toasterConfig: ToasterConfig = new ToasterConfig({
+        positionClass: 'toast-bottom-center'
+    });
+
     constructor(private router: Router){
 
     }

@@ -7,7 +7,9 @@ import { HTTP_PROVIDERS } from '@angular/http';
 import { ROUTER_PROVIDERS } from '@angular/router';
 import { LocationStrategy, HashLocationStrategy, PathLocationStrategy } from '@angular/common';
 import { MdIconRegistry } from '@angular2-material/icon';
+import { ToasterService } from 'angular2-toaster/angular2-toaster';
 
+import { NotificationService } from './services/notification.service';
 import { AppComponent } from './components/app.component';
 
 require('./styles.css')
@@ -20,6 +22,8 @@ if (typeof process !== 'undefined' // process will be undefined if running from 
 
 bootstrap(AppComponent, [
   MdIconRegistry,
+  ToasterService,
+  NotificationService,
   HTTP_PROVIDERS,
   ROUTER_PROVIDERS,
   provide(LocationStrategy, {useClass: HashLocationStrategy})
