@@ -39,7 +39,16 @@ export class ApiHttp {
                     return Observable.fromPromise(this.authService.login(message))
                         .mergeMap(confirmed => {
                             if (confirmed){ // logged in again, or updated api key
-                                return func(params);
+                                switch(params.length){
+                                    case 1:
+                                        return func(params[0]);
+                                    case 2:
+                                        return func(params[0], params[1]);
+                                    case 3:
+                                        return func(params[0], params[1], params[2]);
+                                    default:
+                                        throw new Error('Wrong number of parameters: ' + params);
+                                }
                             }else{      // canceled
                                 throw new Error('User cancelled authentication');
                             }
