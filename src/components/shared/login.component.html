@@ -8,7 +8,7 @@
                     <template md-tab-label>Use API key</template>
                     <template md-tab-content>
                         <div class="centered-content tab-content">
-                            <md-input #orgApiKey placeholder="API key of the organization" maxLength="100" style="width: 100%"></md-input>
+                            <md-input #orgApiKey placeholder="API key of the organization" type="password" maxLength="100" style="width: 100%"></md-input>
                             <md-checkbox #saveOrgApiKey [checked]="autoSaveApiKey">Save API key in browser</md-checkbox>
                             <div align="right">
                                 <button md-raised-button (click)="onCancel()">
