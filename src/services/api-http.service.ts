@@ -34,7 +34,7 @@ export class ApiHttp {
     private withRetry(initialResult: Observable<Response>, func: (...params: any[]) => Observable<Response>, ...params: any[]) : Observable<Response>{
         return initialResult
             .catch(error => {
-                if (error.status === 401 || error.status === 403){
+                if (error.status === 401){
                     let message = this.authService.isOrgApiKeySet ? 'Incorrect organization API key' : 'Authentication is required';
                     return Observable.fromPromise(this.authService.login(message))
                         .mergeMap(confirmed => {
@@ -53,6 +53,8 @@ export class ApiHttp {
                                 throw new Error('User cancelled authentication');
                             }
                         });
+                }else if (error.status === 403){
+                    throw new Error(error.json().error.message);
                 }else{
                     console.log('API call failed: ' + JSON.stringify(error));
                     throw error;
