@@ -10,23 +10,27 @@ export class AuthService {
 
     constructor(protected settings: SettingsService){
         settings.organizationApiKeyValues.subscribe(
-            key => this._orgApiKey = key
+            (key=>this._orgApiKey=key).bind(this)
         );
     }
 
-    set orgApiKey(key: string){
+    setOrganizationApiKey(key: string, save?: boolean){
         this._orgApiKey = key;
+        if (save){
+            this.settings.organizationApiKey = key;
+            // and the same key will be propogated back through subscripting to the observable
+        }
     }
 
     private getOrgApiKey(){
-        if (this._orgApiKey == null){
+        if (this._orgApiKey === null){
             this._orgApiKey = this.settings.organizationApiKey
         }
         return this._orgApiKey;
     }
 
     get isOrgApiKeySet(): boolean{
-        return this.getOrgApiKey() != null;
+        return this.getOrgApiKey() !== null;
     }
 
     /**
@@ -34,7 +38,7 @@ export class AuthService {
      */
     appendHeaders(headers: Headers){
         if (this.isOrgApiKeySet){
-            headers.append('Authorization', "Basic " + btoa(this.getOrgApiKey()));
+            headers.append('Authorization', 'Basic ' + btoa(this.getOrgApiKey()));
         }
     }
 }

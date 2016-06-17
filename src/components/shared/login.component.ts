@@ -32,7 +32,7 @@ export class LoginComponent {
 
     autoSaveApiKey: boolean = false;
 
-    constructor(private authService: AuthService, public settings: SettingsService) {
+    constructor(private authService: AuthService) {
         authService.login = this.activate.bind(this);
     }
 
@@ -56,11 +56,10 @@ export class LoginComponent {
     }
 
     onApiKeySet(key: string, save: boolean){
-        this.authService.orgApiKey = key;
+        this.authService.setOrganizationApiKey(key, save);
+        this.autoSaveApiKey = save;
         this.visible = false;
         this.resultResolve(true);
-        this.settings.organizationApiKey = save ? key : null;
-        this.autoSaveApiKey = save;
     }
 
 }

@@ -18,7 +18,7 @@ export class SettingsService {
     }
 
     set manageApiBaseUrl(url: string){
-        localStorage.setItem(this.MANAGE_API_BASE_URL, url);
+        this.setInLocalStorage(this.MANAGE_API_BASE_URL, url);
         this.manageApiBaseUrlValues.emit(url);
     }
 
@@ -28,7 +28,7 @@ export class SettingsService {
     }
 
     set dataApiBaseUrl(url: string){
-        localStorage.setItem(this.DATA_API_BASE_URL, url);
+        this.setInLocalStorage(this.DATA_API_BASE_URL, url);
         this.dataApiBaseUrlValues.emit(url);
     }
 
@@ -37,8 +37,19 @@ export class SettingsService {
     }
 
     set organizationApiKey(apiKey: string){
-        localStorage.setItem(this.ORG_API_KEY, apiKey);
+        this.setInLocalStorage(this.ORG_API_KEY, apiKey);
         this.organizationApiKeyValues.emit(apiKey);
     }
 
+    removeOrganizationApiKey(){
+        localStorage.removeItem(this.ORG_API_KEY);
+    }
+
+    private setInLocalStorage(key: string, value: string){
+        if (value === null){
+            localStorage.removeItem(key);
+        }else{
+            localStorage.setItem(key, value);
+        }
+    }
 }
