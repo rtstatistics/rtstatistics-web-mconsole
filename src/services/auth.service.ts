@@ -23,14 +23,14 @@ export class AuthService {
     }
 
     private getOrgApiKey(){
-        if (this._orgApiKey === null){
+        if (this._orgApiKey == null){
             this._orgApiKey = this.settings.organizationApiKey
         }
         return this._orgApiKey;
     }
 
     get isOrgApiKeySet(): boolean{
-        return this.getOrgApiKey() !== null;
+        return this.getOrgApiKey() != null;
     }
 
     /**
