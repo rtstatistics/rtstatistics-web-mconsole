@@ -6,7 +6,7 @@ import {ApiResponse} from "../models/api-response";
 import {SettingsService} from "../services/settings.service";
 
 @Injectable()
-export abstract class BaseApiService{
+export abstract class AbstractApiService{
 
     constructor(protected http: ApiHttp, protected settings: SettingsService){
     }

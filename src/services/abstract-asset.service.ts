@@ -4,11 +4,11 @@ import {ApiHttp} from './api-http.service';
 import {Response} from '@angular/http';
 import {Asset} from '../models/asset';
 import {ApiResponse} from "../models/api-response";
-import {BaseApiService} from './base-api.service';
+import {AbstractApiService} from './abstract-api.service';
 import {SettingsService} from "./settings.service";
 
 @Injectable()
-export abstract class AbstractAssetService<T extends Asset> extends BaseApiService{
+export abstract class AbstractAssetService<T extends Asset> extends AbstractApiService{
     created: EventEmitter<T> = new EventEmitter<T>();
     deleted: EventEmitter<T> = new EventEmitter<T>();
     updated: EventEmitter<T> = new EventEmitter<T>();

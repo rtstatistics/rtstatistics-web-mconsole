@@ -4,7 +4,7 @@ import {ApiHttp} from './api-http.service';
 import {Response} from '@angular/http';
 import {User} from '../models/user';
 import {ApiResponse} from "../models/api-response";
-import {BaseApiService} from './base-api.service';
+import {AbstractApiService} from './abstract-api.service';
 import {SettingsService} from "./settings.service";
 import {AbstractAssetService} from './abstract-asset.service';
 
