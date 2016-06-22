@@ -1,4 +1,4 @@
-import {IdAndName} from './id-and-name';
+import {Asset} from './asset';
 
-export class PeriodsHierarchy extends IdAndName{
+export class PeriodsHierarchy extends Asset{
 } 

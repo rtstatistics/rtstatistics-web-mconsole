@@ -6,23 +6,21 @@ import {User} from '../models/user';
 import {ApiResponse} from "../models/api-response";
 import {BaseApiService} from './base-api.service';
 import {SettingsService} from "./settings.service";
+import {AbstractAssetService} from './abstract-asset.service';
 
 @Injectable()
-export class UserService extends BaseApiService{
+export class UserService extends AbstractAssetService<User>{
 
     constructor(http: ApiHttp, settings: SettingsService){
         super(http, settings);
     }
 
     protected getBaseUrl(settings: SettingsService): string{
-        return settings.manageApiBaseUrl;
+        return settings.manageApiBaseUrl + '/users';
     }
 
-    getAll() : Observable<ApiResponse<User[]>> {
-        return super.get('/users');
+    convert(obj: any): User{
+        return Object.assign(new User(), obj);
     }
 
-    get(id: string): Observable<ApiResponse<User>>{
-        return super.get('/users/' + id);
-    }
 }

@@ -25,16 +25,9 @@ import {User} from '../../models/user';
 })
 export class UserDetailComponent extends AbstractAssetDetailComponent<User>{
 
-    constructor(notificationService: NotificationService, private userService: UserService){
-        super(notificationService);
+    constructor(router: Router, notificationService: NotificationService, userService: UserService){
+        super(router, notificationService, userService);
     }
 
-    doGetDetail(){
-        return this.userService.get(this.id);
-    }
-
-    doDelete(){
-        return null;
-    }
 
 }

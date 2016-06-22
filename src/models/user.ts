@@ -1,6 +1,6 @@
-import {IdAndName} from './id-and-name';
+import {Asset} from './asset';
 
-export class User extends IdAndName{
+export class User extends Asset{
     username: string;
     enabled: boolean;
     fullName: string;

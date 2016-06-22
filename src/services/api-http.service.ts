@@ -16,21 +16,30 @@ export class ApiHttp {
     /**
      * Append request headers for REST API calls.
      */
-    private appendCommonHeaders(options?: RequestOptionsArgs): RequestOptionsArgs{
+    private appendCommonHeaders(withJsonContentType: boolean, options?: RequestOptionsArgs): RequestOptionsArgs{
         let headers;
-        if (typeof options === 'undefined'){
+        if (options == null){
             headers = new Headers();
             options = {headers: headers};
-        }else if (typeof options.headers == 'undefined'){
+        }else if (options.headers == null){
             headers = new Headers();
             options.headers = headers;
+        }else{
+            headers = options.headers;
         }
         
         headers.append('Accept', 'application/json');
+        if (withJsonContentType){
+            headers.append('Content-Type','application/json');
+        }
         this.authService.appendHeaders(headers);
         return options;
     }
 
+    /**
+     * This function handles automatical retry when 401 error happens.
+     * It the returned Observable throws errors with user friendly messages.
+     */
     private withRetry(initialResult: Observable<Response>, func: (...params: any[]) => Observable<Response>, ...params: any[]) : Observable<Response>{
         return initialResult
             .catch(error => {
@@ -53,9 +62,14 @@ export class ApiHttp {
                                 throw new Error('User cancelled authentication');
                             }
                         });
-                }else if (error.status === 403){
-                    throw new Error(error.json().error.message);
                 }else{
+                    let errBody = error.json();
+                    if (errBody){
+                        let errorDetail = errBody.error;
+                        if (errorDetail){
+                            throw new Error(errorDetail.type + ': ' + errorDetail.message);
+                        }
+                    }
                     console.log('API call failed: ' + JSON.stringify(error));
                     throw error;
                 }
@@ -66,7 +80,7 @@ export class ApiHttp {
      * Performs a request with `get` http method.
      */
     get(url: string, options?: RequestOptionsArgs): Observable<Response>{
-        return this.withRetry(this.http.get(url, this.appendCommonHeaders(options)),
+        return this.withRetry(this.http.get(url, this.appendCommonHeaders(false, options)),
             this.get.bind(this), url, options);
     }
 
@@ -74,7 +88,7 @@ export class ApiHttp {
      * Performs a request with `post` http method.
      */
     post(url: string, body: string, options?: RequestOptionsArgs): Observable<Response>{
-        return this.withRetry(this.http.post(url, body, this.appendCommonHeaders(options)),
+        return this.withRetry(this.http.post(url, body, this.appendCommonHeaders(true, options)),
             this.post.bind(this), url, body, options);
     }
 
@@ -82,7 +96,7 @@ export class ApiHttp {
      * Performs a request with `put` http method.
      */
     put(url: string, body: string, options?: RequestOptionsArgs): Observable<Response>{
-        return this.withRetry(this.http.put(url, body, this.appendCommonHeaders(options)),
+        return this.withRetry(this.http.put(url, body, this.appendCommonHeaders(true, options)),
             this.put.bind(this), url, body, options);
     }
 
@@ -90,7 +104,7 @@ export class ApiHttp {
      * Performs a request with `delete` http method.
      */
     delete(url: string, options?: RequestOptionsArgs): Observable<Response>{
-        return this.withRetry(this.delete(url, this.appendCommonHeaders(options)),
+        return this.withRetry(this.http.delete(url, this.appendCommonHeaders(false, options)),
             this.delete.bind(this), url, options);
     }
 

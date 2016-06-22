@@ -4,6 +4,9 @@ import {MdIcon} from '@angular2-material/icon';
 import {MD_SIDENAV_DIRECTIVES} from '@angular2-material/sidenav';
 import {MD_TOOLBAR_DIRECTIVES} from '@angular2-material/toolbar';
 import {MD_PROGRESS_BAR_DIRECTIVES} from '@angular2-material/progress-bar';
+import {MD_BUTTON_DIRECTIVES} from '@angular2-material/button';
+import {MD_CARD_DIRECTIVES} from '@angular2-material/card';
+import {MD_INPUT_DIRECTIVES} from '@angular2-material/input';
 
 import {AbstractAssetsComponent} from '../abstract-assets.component';
 import { NotificationService } from '../../services/notification.service';
@@ -22,6 +25,7 @@ import {Dataset} from '../../models/dataset';
     styles: [require('./datasets.component.css')],
     directives: [
         ROUTER_DIRECTIVES, 
+        MD_CARD_DIRECTIVES, MD_BUTTON_DIRECTIVES, MD_INPUT_DIRECTIVES,
         MD_SIDENAV_DIRECTIVES, MD_TOOLBAR_DIRECTIVES, MD_PROGRESS_BAR_DIRECTIVES, MdIcon,
         LeftSidenavContentComponent
     ],
@@ -34,13 +38,27 @@ import {Dataset} from '../../models/dataset';
 ])
 export class DatasetsComponent extends AbstractAssetsComponent<Dataset>{
 
-    constructor(router: Router, notificationService: NotificationService, private datasetService: DatasetService){
-        super(router, notificationService);
+    isNewDatasetFormActive: boolean = false;
+
+    constructor(router: Router, notificationService: NotificationService, datasetService: DatasetService){
+        super(router, notificationService, datasetService);
+        this.setupDefaultAssetChangeHandler(datasetService);
     }
 
-    doGetAll(){
-        return this.datasetService.getAll();
+    create(name: string){
+        this.assetService.create(new Dataset(name)).subscribe(
+            response => {
+                this.notificationService.showSuccessToast('Dataset created with ID: ' + response.result);
+                this.isNewDatasetFormActive = false;
+                this.refresh();
+            },
+            err => {
+                this.notificationService.showErrorToast(
+                            'Unabled to create: ' + err.message
+                        );
+            }
+        );
+        
     }
-
 
 }

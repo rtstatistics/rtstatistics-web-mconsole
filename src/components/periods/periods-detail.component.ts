@@ -25,16 +25,10 @@ import {PeriodsHierarchy} from '../../models/periods-hierarchy';
 })
 export class PeriodsDetailComponent extends AbstractAssetDetailComponent<PeriodsHierarchy>{
 
-    constructor(notificationService: NotificationService, private periodsService: PeriodsService){
-        super(notificationService);
+    constructor(router: Router, notificationService: NotificationService, periodsService: PeriodsService){
+        super(router, notificationService, periodsService);
     }
 
-    doGetDetail(){
-        return this.periodsService.get(this.id);
-    }
 
-    doDelete(){
-        return null;
-    }
 
 }

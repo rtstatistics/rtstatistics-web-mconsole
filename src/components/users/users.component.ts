@@ -34,13 +34,10 @@ import {User} from '../../models/user';
 ])
 export class UsersComponent extends AbstractAssetsComponent<User>{
 
-    constructor(router: Router, notificationService: NotificationService, private userService: UserService){
-        super(router, notificationService);
+    constructor(router: Router, notificationService: NotificationService, userService: UserService){
+        super(router, notificationService, userService);
     }
 
-    doGetAll(){
-        return this.userService.getAll();
-    }
 
 
 }

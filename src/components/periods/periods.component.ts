@@ -34,12 +34,8 @@ import {PeriodsHierarchy} from '../../models/periods-hierarchy';
 ])
 export class PeriodsComponent extends AbstractAssetsComponent<PeriodsHierarchy>{
 
-    constructor(router: Router, notificationService: NotificationService, private periodsService: PeriodsService){
-        super(router, notificationService);
-    }
-
-    doGetAll(){
-        return this.periodsService.getAll();
+    constructor(router: Router, notificationService: NotificationService, periodsService: PeriodsService){
+        super(router, notificationService, periodsService);
     }
 
 

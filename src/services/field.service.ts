@@ -2,25 +2,29 @@ import { Observable } from 'rxjs/Observable';
 import {Injectable} from '@angular/core';
 import {ApiHttp} from './api-http.service';
 import {Response} from '@angular/http';
-import {PeriodsHierarchy} from '../models/periods-hierarchy';
-import {ApiResponse} from "../models/api-response";
+import {Field} from '../models/field';
+import {ApiResponse} from '../models/api-response';
 import {BaseApiService} from './base-api.service';
-import {SettingsService} from "./settings.service";
+import {SettingsService} from './settings.service';
 import {AbstractAssetService} from './abstract-asset.service';
 
 @Injectable()
-export class PeriodsService extends AbstractAssetService<PeriodsHierarchy>{
+export class FieldService extends AbstractAssetService<Field>{
 
     constructor(http: ApiHttp, settings: SettingsService){
         super(http, settings);
     }
 
     protected getBaseUrl(settings: SettingsService): string{
-        return settings.manageApiBaseUrl + '/periods';
+        return settings.manageApiBaseUrl + '/datasets';
     }
 
-    convert(obj: any): PeriodsHierarchy{
-        return Object.assign(new PeriodsHierarchy(), obj);
+    protected getPathSegment():string{
+        return '/fields';
+    }
+
+    convert(obj: any): Field{
+        return Object.assign(new Field(), obj);
     }
 
 }

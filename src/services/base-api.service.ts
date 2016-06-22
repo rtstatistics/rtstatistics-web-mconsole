@@ -22,4 +22,20 @@ export abstract class BaseApiService{
             .map(response => response.json());
     }
 
+    protected post(url: string, data: any) : Observable<ApiResponse<any>>{
+        return this.http.post(this.baseUrl + url, JSON.stringify(data))
+            .map(response => response.status === 204 ? null : response.json());
+    }
+
+    protected delete(url: string) : Observable<ApiResponse<any>>{
+        return this.http.delete(this.baseUrl + url)
+            .map(response => response.status === 204 ? null : response.json());
+    }
+    
+    protected update(url: string, data: any) : Observable<ApiResponse<any>>{
+        return this.http.put(this.baseUrl + url, JSON.stringify(data))
+            .map(response => response.status === 204 ? null : response.json());
+    }
+    
+
 }

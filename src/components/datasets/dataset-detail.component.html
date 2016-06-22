@@ -13,4 +13,47 @@
     <md-progress-bar *ngIf="isInProgress" mode="indeterminate"></md-progress-bar>
 </div>
 
-dataset detail: id={{id}}
+<md-tab-group>
+    <md-tab>
+	    <template md-tab-label>Properties</template>
+	    <template md-tab-content>
+            <div class="centered-content top-bottom-padded-content">
+                <md-input placeholder="ID" [(ngModel)]="editedDetail.id" disabled maxLength="100" style="width: 100%"></md-input>
+                <md-input #name [(ngModel)]="editedDetail.name" placeholder="Name" maxLength="200" style="width: 100%"></md-input>
+                <div align="right">
+                    <button md-raised-button (click)="resetEditedDetail()">
+                        Reset
+                    </button>
+                    <button md-raised-button color="primary" (click)="saveEditedDetail()">
+                        Save
+                    </button>
+                </div>
+            </div>
+	    </template>
+    </md-tab>
+    <md-tab>
+	    <template md-tab-label>Fields</template>
+	    <template md-tab-content>
+            <div class="centered-content top-bottom-padded-content">
+                <table class="table table-hover table-mc-light-blue">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Path or Formula</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let field of fields">
+                            <td data-title="Name">
+                                {{field.name}}
+                            </td>
+                            <td data-title="Type">{{field.type}}</td>
+                            <td data-title="Path or Formula">{{field.pathOrFormula}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+	    </template>
+    </md-tab>
+</md-tab-group>

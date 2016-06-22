@@ -8,6 +8,11 @@
   margin: auto;
 }
 
+.top-bottom-padded-content{
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+}
+
 .fill-remaining-space {
   /*  This fills the remaining space, by using flexbox.  
       Every toolbar row uses a flexbox row layout. */

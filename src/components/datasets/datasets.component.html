@@ -2,9 +2,9 @@
     <md-sidenav #leftSidenav align="start" mode="side" opened="true">
         <left-sidenav-content></left-sidenav-content>
     </md-sidenav>
-    <md-sidenav #rightSidenav align="end" mode="side" opened="false">
+    <md-sidenav align="end" mode="side" [opened]="isDetailVisible">
         <div class="fixed-top-right">
-            <md-icon style="color:white" (click)="rightSidenav.close();navigateBack()">close</md-icon>
+            <md-icon style="color:white" (click)="navigateBack()">close</md-icon>
         </div>
         <router-outlet></router-outlet>
     </md-sidenav>
@@ -20,7 +20,7 @@
             <button md-icon-button [disabled]="isInProgress" (click)="refresh()">
                 <md-icon >refresh</md-icon>
             </button>
-            <button md-icon-button (click)="rightSidenav.close();navigateBack()">
+            <button md-icon-button (click)="navigateBack(); isNewDatasetFormActive=!isNewDatasetFormActive;">
                 <md-icon>add_circle_outline</md-icon>
             </button>
         </span>
@@ -30,6 +30,22 @@
         <md-progress-bar *ngIf="isInProgress" mode="indeterminate"></md-progress-bar>
     </div>
     <div class="centered-content">
+        <!-- create -->
+        <md-card #newDatasetForm *ngIf="isNewDatasetFormActive">
+            <md-card-title>Create a new dataset</md-card-title>
+            <md-card-content>
+                <md-input #newDatasetName placeholder="Name of the new dataset" maxLength="200" style="width: 100%"></md-input>
+                <div align="right">
+                    <button md-raised-button (click)="isNewDatasetFormActive=false">
+                        Cancel
+                    </button>
+                    <button md-raised-button color="primary" (click)="create(newDatasetName.value)">
+                        OK
+                    </button>
+                </div>
+            </md-card-content>
+        </md-card>
+        <!-- list -->
         <table class="table table-hover table-mc-light-blue">
             <thead>
                 <tr>
@@ -40,7 +56,7 @@
             <tbody>
                 <tr *ngFor="let asset of assets">
                     <td data-title="Name">
-                        <a (click)="rightSidenav.open()" [routerLink]="['./', asset.id]">{{asset.name}}</a>
+                        <a (click)="isDetailVisible=true; isNewDatasetFormActive=false" [routerLink]="['./', asset.id]">{{asset.name}}</a>
                     </td>
                     <td data-title="ID">{{asset.id}}</td>
                 </tr>

@@ -1,4 +1,7 @@
-import {IdAndName} from './id-and-name';
+import {Asset} from './asset';
 
-export class Dataset extends IdAndName{
+export class Dataset extends Asset{
+    constructor(name?: string, id?: string){
+        super(id, name);
+    }
 } 

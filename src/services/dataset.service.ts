@@ -3,26 +3,24 @@ import {Injectable} from '@angular/core';
 import {ApiHttp} from './api-http.service';
 import {Response} from '@angular/http';
 import {Dataset} from '../models/dataset';
-import {ApiResponse} from "../models/api-response";
+import {ApiResponse} from '../models/api-response';
 import {BaseApiService} from './base-api.service';
-import {SettingsService} from "./settings.service";
+import {SettingsService} from './settings.service';
+import {AbstractAssetService} from './abstract-asset.service';
 
 @Injectable()
-export class DatasetService extends BaseApiService{
+export class DatasetService extends AbstractAssetService<Dataset>{
 
     constructor(http: ApiHttp, settings: SettingsService){
         super(http, settings);
     }
 
     protected getBaseUrl(settings: SettingsService): string{
-        return settings.manageApiBaseUrl;
+        return settings.manageApiBaseUrl + '/datasets';
     }
 
-    getAll() : Observable<ApiResponse<Dataset[]>> {
-        return super.get('/datasets');
+    convert(obj: any): Dataset{
+        return Object.assign(new Dataset(), obj);
     }
 
-    get(id: string): Observable<ApiResponse<Dataset>>{
-        return super.get('/datasets/' + id);
-    }
 }
