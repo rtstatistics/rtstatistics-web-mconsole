@@ -11,4 +11,12 @@ export class AbstractComponent{
     get isInProgress(){
         return this.inProgressCount > 0;
     }
+
+    protected startProgress(){
+        this.inProgressCount ++;
+    }
+
+    protected endProgress(){
+        this.inProgressCount --;
+    }
 }

@@ -53,10 +53,10 @@ export class AbstractAssetDetailComponent<T extends Asset> extends AbstractCompo
     }
 
     refresh(){
-	    this.inProgressCount ++;
+	    this.startProgress();
 	    this.doGetDetail()
 	        .finally<ApiResponse<T>>(()=>{
-                this.inProgressCount --;
+                this.endProgress();
             })
             .subscribe(
                 data => {
@@ -72,10 +72,10 @@ export class AbstractAssetDetailComponent<T extends Asset> extends AbstractCompo
     }
 
     delete(){
-        this.inProgressCount ++;
+        this.startProgress();
         this.doDelete()
             .finally<ApiResponse<any>>(()=>{
-                this.inProgressCount --;
+                this.endProgress();
             })
             .subscribe(
                 data => {
@@ -89,10 +89,10 @@ export class AbstractAssetDetailComponent<T extends Asset> extends AbstractCompo
     }
 
     saveEditedDetail(){
-	    this.inProgressCount ++;
+	    this.startProgress();
 	    this.doUpdate(this.editedDetail)
 	        .finally<ApiResponse<any>>(()=>{
-                this.inProgressCount --;
+                this.endProgress();
             })
             .subscribe(
                 data => {

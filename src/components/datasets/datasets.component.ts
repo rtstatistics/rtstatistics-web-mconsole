@@ -42,7 +42,6 @@ export class DatasetsComponent extends AbstractAssetsComponent<Dataset>{
 
     constructor(router: Router, notificationService: NotificationService, datasetService: DatasetService){
         super(router, notificationService, datasetService);
-        this.setupDefaultAssetChangeHandler(datasetService);
     }
 
     create(name: string){

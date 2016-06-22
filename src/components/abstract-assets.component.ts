@@ -12,13 +12,18 @@ export class AbstractAssetsComponent<T extends Asset> extends AbstractComponent 
 
     assets: T[];
     isDetailVisible = false;
-    isActive: boolean = false;  // switched on and off by router lifecycle hooks
+
+    protected createdSubscription:any;
+    protected updatedSubscription:any;
+    protected deletedSubscription:any;
+
 
     constructor(
         protected router: Router, 
         protected notificationService: NotificationService,
         protected assetService: AbstractAssetService<T>){
             super();
+            this.setupDefaultAssetChangeHandler();
     }
 
     protected doGetAll():Observable<ApiResponse<T[]>>{
@@ -29,27 +34,44 @@ export class AbstractAssetsComponent<T extends Asset> extends AbstractComponent 
     routerOnActivate(curr: RouteSegment, prev?: RouteSegment, currTree?: RouteTree, prevTree?: RouteTree) : void {
         this.routeSegment = curr;
         this.refresh();
-        this.isActive = true;
         this.isDetailVisible = false;
     }
 
-    routerCanDeactivate(currTree?: RouteTree, futureTree?: RouteTree): Promise<boolean>{
-        this.isActive = false;
-        return Promise.resolve(true);
+
+    protected setupDefaultAssetChangeHandler(){
+        this.createdSubscription = this.assetService.created.subscribe(asset=>{
+            this.refresh();
+        });
+        this.updatedSubscription = this.assetService.updated.subscribe(asset=>{
+            this.refresh();
+        });
+        this.deletedSubscription = this.assetService.deleted.subscribe(asset=>{
+            this.refresh();
+            this.navigateBack();
+        });
     }
 
+    protected disposeAssetChangeHandler(){
+        if (this.createdSubscription != null){
+            this.createdSubscription.dispose();
+        }
+        if (this.updatedSubscription != null){
+            this.updatedSubscription.dispose();
+        }
+        if (this.deletedSubscription != null){
+            this.deletedSubscription.dispose();
+        }
+    }
 
-    protected setupDefaultAssetChangeHandler(assetService: AbstractAssetService<any>){
-        assetService.created.subscribe(asset=>this.refresh());
-        assetService.updated.subscribe(asset=>this.refresh());
-        assetService.deleted.subscribe(asset=>{this.refresh();this.navigateBack()});
+    ngOnDestroy(){
+        this.disposeAssetChangeHandler();
     }
 
     refresh(){
-	    this.inProgressCount ++;
+	    this.startProgress();
   	    this.doGetAll()
 	        .finally<ApiResponse<T[]>>(()=>{
-          	    this.inProgressCount --;
+          	    this.endProgress();
    	        })
             .subscribe(
                 data => {
