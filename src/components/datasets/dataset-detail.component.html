@@ -35,6 +35,30 @@
 	    <template md-tab-label>Fields</template>
 	    <template md-tab-content>
             <div class="centered-content top-bottom-padded-content">
+                <div class="button-on-table">
+                    <button md-mini-fab (click)="isNewFieldFormActive=!isNewFieldFormActive">
+                        <md-icon class="md-24">add</md-icon>
+                    </button>
+                </div>
+                <!-- create -->
+                <md-card #newFieldForm *ngIf="isNewFieldFormActive">
+                    <md-card-title>Create a new field</md-card-title>
+                    <md-card-content>
+                        <md-input #newFieldName placeholder="Name" maxLength="200" style="width: 100%"></md-input>
+                        <md-input #newFieldType placeholder="Type" maxLength="200" style="width: 100%"></md-input>
+                        <md-input #newFieldPath placeholder="Path" maxLength="200" style="width: 100%"></md-input>
+                        <md-input #newFieldFormula placeholder="Formular" maxLength="200" style="width: 100%"></md-input>
+                        <div align="right">
+                            <button md-raised-button (click)="isNewFieldFormActive=false">
+                                Cancel
+                            </button>
+                            <button md-raised-button color="primary" (click)="createField(newFieldName.value, newFieldType.value, newFieldPath.value, newFieldFormula.value)">
+                                OK
+                            </button>
+                        </div>
+                    </md-card-content>
+                </md-card>
+                <!-- list -->
                 <table class="table table-hover table-mc-light-blue">
                     <thead>
                         <tr>

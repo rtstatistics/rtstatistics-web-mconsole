@@ -35,6 +35,7 @@ import { ApiResponse } from '../../models/api-response';
 export class DatasetDetailComponent extends AbstractAssetDetailComponent<Dataset>{
 
     fields: Field[];
+    isNewFieldFormActive: boolean = false;
 
     constructor(router: Router, notificationService: NotificationService, 
         datasetService: DatasetService, private fieldService: FieldService){
@@ -68,6 +69,10 @@ export class DatasetDetailComponent extends AbstractAssetDetailComponent<Dataset
                         );
                 }
             );
+    }
+
+    createField(name: string, type: string, path: string, formular: string){
+        this.isNewFieldFormActive = false;
     }
 
 }

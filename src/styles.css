@@ -13,6 +13,18 @@
 	padding-bottom: 2rem;
 }
 
+.id{
+  font-family: "Lucida Console", Monaco, monospace;
+  font-size: smaller;
+}
+
+.button-on-table{
+    margin-bottom: -20px;
+    margin-top: 0px;
+    margin-right: 20px;
+    text-align: right;
+}
+
 .fill-remaining-space {
   /*  This fills the remaining space, by using flexbox.  
       Every toolbar row uses a flexbox row layout. */

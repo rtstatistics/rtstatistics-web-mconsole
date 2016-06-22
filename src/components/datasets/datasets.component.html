@@ -34,7 +34,7 @@
         <md-card #newDatasetForm *ngIf="isNewDatasetFormActive">
             <md-card-title>Create a new dataset</md-card-title>
             <md-card-content>
-                <md-input #newDatasetName placeholder="Name of the new dataset" maxLength="200" style="width: 100%"></md-input>
+                <md-input #newDatasetName placeholder="Name" maxLength="200" style="width: 100%"></md-input>
                 <div align="right">
                     <button md-raised-button (click)="isNewDatasetFormActive=false">
                         Cancel
@@ -58,7 +58,7 @@
                     <td data-title="Name">
                         <a (click)="isDetailVisible=true; isNewDatasetFormActive=false" [routerLink]="['./', asset.id]">{{asset.name}}</a>
                     </td>
-                    <td data-title="ID">{{asset.id}}</td>
+                    <td data-title="ID"><span class="id">{{asset.id}}</span></td>
                 </tr>
             </tbody>
         </table>
