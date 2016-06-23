@@ -5,18 +5,28 @@ import { ApiResponse } from '../models/api-response';
 import { Asset } from '../models/asset';
 import { NotificationService } from '../services/notification.service';
 import { AbstractAssetService } from '../services/abstract-asset.service';
+import { ProgressTracker } from '../utils/progress-tracker';
 
 export class AbstractComponent{
-    protected inProgressCount: number = 0;
-    get isInProgress(){
-        return this.inProgressCount > 0;
+    private progressTracker: ProgressTracker = new ProgressTracker();
+
+    /**
+     * Change a child component's progress tracker to
+     * the same as this component.
+     */
+    shareProgressTracker(child: AbstractComponent){
+        child.progressTracker = this.progressTracker;
     }
 
-    protected startProgress(){
-        this.inProgressCount ++;
+    get isInProgress(): boolean{
+        return this.progressTracker.isInProgress;
     }
 
-    protected endProgress(){
-        this.inProgressCount --;
+    startProgress(){
+        this.progressTracker.startProgress();
+    }
+
+    endProgress(){
+        this.progressTracker.endProgress();
     }
 }
