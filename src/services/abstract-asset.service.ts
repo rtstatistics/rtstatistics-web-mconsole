@@ -51,7 +51,7 @@ export abstract class AbstractAssetService<T extends Asset> extends AbstractApiS
         let obs = super.post(parentId == null ? '' : ('/' + parentId + this.getPathSegment()), asset)
                     .share();
         obs.subscribe(r=>{
-           this.created.emit(Object.assign(asset, {id: r.result, parentId: parentId}));
+            this.created.emit(Object.assign(asset, {id: r == null ? null : r.result, parentId: parentId}));
         });
         return obs;
     }
