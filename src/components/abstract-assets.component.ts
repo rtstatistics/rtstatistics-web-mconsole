@@ -29,14 +29,14 @@ export class AbstractAssetsComponent<T extends Asset> extends AbstractComponent 
     assets: T[];
     isDetailVisible: boolean = false;
 
-    _isCreationFormActive: boolean = false;
+    private _isCreationFormActive: boolean = false;
     get isCreationFormActive(){
         return this._isCreationFormActive;
     }
     set isCreationFormActive(b: boolean){
         this._isCreationFormActive = b;
-        if (b){
-            this.toggleEditing(undefined);
+        if (b && this.indexInEdit != null){
+            this.indexInEdit = null;
         }
     }
 
@@ -162,14 +162,14 @@ export class AbstractAssetsComponent<T extends Asset> extends AbstractComponent 
 
     toggleEditing(i: number){
         this.indexInEdit = this.isEditing(i) ? undefined : i;
-        if (this.isEditing(i)){
+        if (this.indexInEdit != null){
             this.isCreationFormActive = false;
         }
     }
 
-    quitEditing(i: number){
-        if (this.isEditing(i)){
-            this.toggleEditing(i);
+    quitEditing(i?: number){
+        if (i == null || i === this.indexInEdit){
+            this.indexInEdit = null;
         }
     }
 
