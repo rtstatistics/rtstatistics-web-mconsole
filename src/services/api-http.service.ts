@@ -1,4 +1,5 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
+import 'rxjs/observable/throw';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/observable/fromPromise';
 import {Injectable} from "@angular/core";
@@ -56,10 +57,10 @@ export class ApiHttp {
                                     case 3:
                                         return func(params[0], params[1], params[2]);
                                     default:
-                                        throw new Error('Wrong number of parameters: ' + params);
+                                        return Observable.throw(new Error('Wrong number of parameters: ' + params));
                                 }
                             }else{      // canceled
-                                throw new Error('User cancelled authentication');
+                                return Observable.throw(new Error('User cancelled authentication'));
                             }
                         });
                 }else{
@@ -67,11 +68,11 @@ export class ApiHttp {
                     if (errBody){
                         let errorDetail = errBody.error;
                         if (errorDetail){
-                            throw new Error(errorDetail.type + ': ' + errorDetail.message);
+                            return Observable.throw(new Error(errorDetail.type + ': ' + errorDetail.message));
                         }
                     }
                     console.log('API call failed: ' + JSON.stringify(error));
-                    throw error;
+                    return Observable.throw(error);
                 }
             });
     }

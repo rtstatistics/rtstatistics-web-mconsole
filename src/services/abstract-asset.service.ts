@@ -52,6 +52,8 @@ export abstract class AbstractAssetService<T extends Asset> extends AbstractApiS
                     .share();
         obs.subscribe(r=>{
             this.created.emit(Object.assign(asset, {id: r == null ? null : r.result, parentId: parentId}));
+        },err=>{
+            // needed for error handlers of other subscriptions to be called
         });
         return obs;
     }
@@ -67,6 +69,8 @@ export abstract class AbstractAssetService<T extends Asset> extends AbstractApiS
             .share();
         obs.subscribe(r=>{
             this.deleted.emit(this.convert(new Asset(id, undefined, parentId)));
+        },err=>{
+            // needed for error handlers of other subscriptions to be called
         });
         return obs;
     }
@@ -76,6 +80,8 @@ export abstract class AbstractAssetService<T extends Asset> extends AbstractApiS
             .share();
         obs.subscribe(r=>{
             this.updated.emit(Object.assign(asset, {id: id, parentId: parentId}));
+        },err=>{
+            // needed for error handlers of other subscriptions to be called
         });
         return obs;
     }
