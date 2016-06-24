@@ -4,7 +4,7 @@
     </md-sidenav>
     <md-sidenav #rightSidenav align="end" mode="side" opened="false">
         <div class="fixed-top-right">
-            <md-icon style="color:white" (click)="rightSidenav.close();navigateBack()">close</md-icon>
+            <md-icon style="color:white" (click)="rightSidenav.close();navigateToThis()">close</md-icon>
         </div>
         <router-outlet></router-outlet>
     </md-sidenav>
@@ -20,7 +20,7 @@
             <button md-icon-button [disabled]="isInProgress" (click)="refresh()">
                 <md-icon >refresh</md-icon>
             </button>
-            <button md-icon-button (click)="rightSidenav.close();navigateBack()">
+            <button md-icon-button (click)="rightSidenav.close();navigateToThis()">
                 <md-icon>add_circle_outline</md-icon>
             </button>
         </span>

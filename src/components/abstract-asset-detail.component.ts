@@ -1,3 +1,4 @@
+import { Component, ViewChild, Input, AfterViewInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Router, RouteSegment, OnActivate, RouteTree } from '@angular/router';
 import { ApiResponse } from "../models/api-response";
@@ -5,18 +6,37 @@ import { NotificationService } from '../services/notification.service';
 import { AbstractAssetService } from '../services/abstract-asset.service';
 import { Asset } from '../models/asset';
 import { AbstractComponent } from './abstract.component';
+import { ProgressTracker } from '../utils/progress-tracker';
 
-export class AbstractAssetDetailComponent<T extends Asset> extends AbstractComponent{
+export class AbstractAssetDetailComponent<T extends Asset> extends AbstractComponent implements AfterViewInit{
     routeSegment: RouteSegment;
     parentRouteSegment: RouteSegment;
-    id: string;
-    detail: T;
-    editedDetail: T;
 
-    protected inProgressCount: number = 0;
-    get isInProgress(){
-        return this.inProgressCount > 0;
+    @Input() // this may be null if there is no parent
+    parentId: string; 
+
+    @Input() // this may be null if there is no parent
+    set progressTracker(tracker: ProgressTracker){
+        this._progressTracker = tracker;
     }
+
+    get progressTracker(): ProgressTracker{
+        return this._progressTracker;
+    }
+    
+    @Input() // this may be null if there is no parent
+    id: string;
+
+    @Input() // this may be null if there is no parent
+    detail: T;
+
+    @Input()
+    index: number;
+
+    @Input('quitEditing')
+    _quitEditing: (i: number)=>void;
+
+    editedDetail: T;
 
     constructor(
         protected router: Router, 
@@ -32,23 +52,29 @@ export class AbstractAssetDetailComponent<T extends Asset> extends AbstractCompo
         this.refresh();
     }
 
+    ngAfterViewInit() {
+        if (this.routeSegment == null){ // only refresh once
+     	    this.refresh();
+        }
+    }
+
     protected doGetDetail(): Observable<ApiResponse<T>>{
-        return this.assetService.get(this.id);
+        return this.assetService.get(this.id, this.parentId);
     }
 
     protected doDelete(): Observable<ApiResponse<any>>{
-        return this.assetService.delete(this.id);
+        return this.assetService.delete(this.id, this.parentId);
     }
 
     protected doUpdate(newDetail: T): Observable<ApiResponse<any>>{
-        return this.assetService.update(this.id, newDetail, this.detail.parentId);
+        return this.assetService.update(this.id, newDetail, this.parentId);
     }
 
     resetEditedDetail(){
         this.editedDetail = this.assetService.convert(this.detail);
     }
 
-    updateDetail(){
+    syncEditedDetail(){
         this.detail = this.assetService.convert(this.editedDetail);
     }
 
@@ -65,13 +91,14 @@ export class AbstractAssetDetailComponent<T extends Asset> extends AbstractCompo
                 },
                 err => {
                     this.notificationService.showErrorToast(
-                        'Unabled to load or refresh: ' + err.message
+                        'Unabled to load details: ' + err.message
                     );
                 }
             );
     }
 
     delete(){
+        let name = this.detail.name;
         this.startProgress();
         this.doDelete()
             .finally<ApiResponse<any>>(()=>{
@@ -79,6 +106,7 @@ export class AbstractAssetDetailComponent<T extends Asset> extends AbstractCompo
             })
             .subscribe(
                 data => {
+                    this.notificationService.showSuccessToast('Deleted: ' + name);
                 },
                 err => {
                     this.notificationService.showErrorToast(
@@ -88,7 +116,8 @@ export class AbstractAssetDetailComponent<T extends Asset> extends AbstractCompo
             );
     }
 
-    saveEditedDetail(){
+    update(){
+        let name = this.editedDetail.name;
 	    this.startProgress();
 	    this.doUpdate(this.editedDetail)
 	        .finally<ApiResponse<any>>(()=>{
@@ -96,18 +125,26 @@ export class AbstractAssetDetailComponent<T extends Asset> extends AbstractCompo
             })
             .subscribe(
                 data => {
-                    this.updateDetail();
+                    this.syncEditedDetail();
+                    this.notificationService.showSuccessToast('Updated: ' + name);
                 },
                 err => {
                     this.notificationService.showErrorToast(
-                        'Unabled to save: ' + err.message
+                        'Unabled to update: ' + err.message
                     );
                 }
             );
     }
 
-    navigateBack(){
+    navigateToParent(){
         this.router.navigate(['../'], this.routeSegment); 
     }
+
+    quitEditing(){
+        if (this._quitEditing){
+            this._quitEditing(this.index);
+        }
+    }
+
 
 }

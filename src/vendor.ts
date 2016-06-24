@@ -12,6 +12,7 @@ import 'rxjs';
 import '@angular2-material/button';
 import '@angular2-material/card';
 import '@angular2-material/checkbox';
+import '@angular2-material/radio';
 import '@angular2-material/core';
 import '@angular2-material/icon';
 import '@angular2-material/input';
@@ -25,6 +26,10 @@ require('../node_modules/material-design-icons/iconfont/material-icons.css')
 // Angular2-Toaster
 import 'angular2-toaster/angular2-toaster';
 require('../node_modules/angular2-toaster/lib/toaster.css');
+
+// ng2-material
+import 'ng2-material';
+require('ng2-material/ng2-material.css');
 
 // Other vendors for example jQuery, Lodash or Bootstrap
 // You can import js, ts, css, sass, ...

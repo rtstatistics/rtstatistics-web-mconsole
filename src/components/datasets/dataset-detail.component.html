@@ -1,6 +1,6 @@
 <md-toolbar color="primary">
     <span>
-	    <button md-icon-button [disabled]="isInProgress" (click)="refresh()">
+	    <button md-icon-button [disabled]="isInProgress" (click)="tabs.selectedIndex=0; refresh()">
 	        <md-icon >refresh</md-icon>
         </button>
         <button md-icon-button [disabled]="isInProgress" (click)="delete()">
@@ -13,7 +13,7 @@
     <md-progress-bar *ngIf="isInProgress" mode="indeterminate"></md-progress-bar>
 </div>
 
-<md-tab-group>
+<md-tab-group #tabs>
     <md-tab>
 	    <template md-tab-label>Properties</template>
 	    <template md-tab-content>
@@ -24,7 +24,7 @@
                     <button md-raised-button (click)="resetEditedDetail()">
                         Reset
                     </button>
-                    <button md-raised-button color="primary" (click)="saveEditedDetail()">
+                    <button md-raised-button color="primary" (click)="update()">
                         Save
                     </button>
                 </div>
@@ -35,48 +35,7 @@
 	    <template md-tab-label>Fields</template>
 	    <template md-tab-content>
             <div class="centered-content top-bottom-padded-content">
-                <div class="button-on-table">
-                    <button md-mini-fab (click)="isNewFieldFormActive=!isNewFieldFormActive">
-                        <md-icon class="md-24">add</md-icon>
-                    </button>
-                </div>
-                <!-- create -->
-                <md-card #newFieldForm *ngIf="isNewFieldFormActive">
-                    <md-card-title>Create a new field</md-card-title>
-                    <md-card-content>
-                        <md-input #newFieldName placeholder="Name" maxLength="200" style="width: 100%"></md-input>
-                        <md-input #newFieldType placeholder="Type" maxLength="200" style="width: 100%"></md-input>
-                        <md-input #newFieldPath placeholder="Path" maxLength="200" style="width: 100%"></md-input>
-                        <md-input #newFieldFormula placeholder="Formular" maxLength="200" style="width: 100%"></md-input>
-                        <div align="right">
-                            <button md-raised-button (click)="isNewFieldFormActive=false">
-                                Cancel
-                            </button>
-                            <button md-raised-button color="primary" (click)="createField(newFieldName.value, newFieldType.value, newFieldPath.value, newFieldFormula.value)">
-                                OK
-                            </button>
-                        </div>
-                    </md-card-content>
-                </md-card>
-                <!-- list -->
-                <table class="table table-hover table-mc-light-blue">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Type</th>
-                            <th>Path or Formula</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let field of fields">
-                            <td data-title="Name">
-                                {{field.name}}
-                            </td>
-                            <td data-title="Type">{{field.type}}</td>
-                            <td data-title="Path or Formula">{{field.pathOrFormula}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <fields [parentId]="id" [progressTracker]="progressTracker"></fields>
             </div>
 	    </template>
     </md-tab>

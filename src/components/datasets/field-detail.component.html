@@ -1,0 +1,24 @@
+<md-card>
+    <md-card-title>{{editedDetail.name}}</md-card-title>
+    <md-card-content>
+        <md-radio-group [(ngModel)]="editedDetail.type">
+            <md-radio-button *ngFor="let o of supportedTypes" [value]="o">
+                {{o}}
+            </md-radio-button>
+        </md-radio-group>
+        <md-input [(ngModel)]="editedDetail.path" *ngIf="editedDetail.isNative" placeholder="Path" maxLength="200" style="width: 100%"></md-input>
+        <md-input [(ngModel)]="editedDetail.formula" *ngIf="editedDetail.isCalculated" placeholder="Formula" maxLength="200" style="width: 100%"></md-input>
+        <div align="right">
+            <button md-raised-button color="warn" (click)="delete()">
+                Delete
+            </button>
+            <span style="width: 10em">&nbsp;</span>
+            <button md-raised-button (click)="resetEditedDetail(); quitEditing()">
+                Cancel
+            </button>
+            <button md-raised-button color="primary" (click)="update()">
+                OK
+            </button>
+        </div>
+    </md-card-content>
+</md-card>

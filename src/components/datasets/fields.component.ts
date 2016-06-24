@@ -7,6 +7,7 @@ import {MD_PROGRESS_BAR_DIRECTIVES} from '@angular2-material/progress-bar';
 import {MD_BUTTON_DIRECTIVES} from '@angular2-material/button';
 import {MD_CARD_DIRECTIVES} from '@angular2-material/card';
 import {MD_INPUT_DIRECTIVES} from '@angular2-material/input';
+import {MD_RADIO_DIRECTIVES} from '@angular2-material/radio';
 import {MdDataTable} from 'ng2-material/components/data-table/index';
 
 import {AbstractAssetsComponent} from '../abstract-assets.component';
@@ -14,39 +15,46 @@ import { NotificationService } from '../../services/notification.service';
 import { ApiResponse } from '../../models/api-response';
 
 import {LeftSidenavContentComponent} from '../shared/left-sidenav-content.component';
-import {DatasetDetailComponent} from './dataset-detail.component';
+import {FieldDetailComponent} from './field-detail.component';
 
-import {DatasetService} from '../../services/dataset.service';
+import {FieldService} from '../../services/field.service';
 
 import {Dataset} from '../../models/dataset';
+import {Field} from '../../models/field';
 
 @Component({
     moduleId: module.id,
-    selector: 'datasets',
-    template: require('./datasets.component.html'),
-    styles: [require('./datasets.component.css')],
+    selector: 'fields',
+    template: require('./fields.component.html'),
+    styles: [require('./fields.component.css')],
     directives: [
         ROUTER_DIRECTIVES, 
         MD_CARD_DIRECTIVES, MD_BUTTON_DIRECTIVES, MD_INPUT_DIRECTIVES,
         MD_SIDENAV_DIRECTIVES, MD_TOOLBAR_DIRECTIVES, MD_PROGRESS_BAR_DIRECTIVES, MdIcon,
+        MD_RADIO_DIRECTIVES, 
         MdDataTable,
-        LeftSidenavContentComponent
+        FieldDetailComponent
     ],
     providers: [
-        DatasetService
+        FieldService
     ]
 })
-@Routes([
-    {path: '/:id', component: DatasetDetailComponent}
-])
-export class DatasetsComponent extends AbstractAssetsComponent<Dataset>{
+export class FieldsComponent extends AbstractAssetsComponent<Field>{
+    supportedTypes: string[] = Field.ALL_TYPES;
+    
+    newField: Field = new Field('', Field.TYPE_NATIVE, '', null);
 
-    constructor(router: Router, notificationService: NotificationService, datasetService: DatasetService){
-        super(router, notificationService, datasetService);
+    constructor(router: Router, notificationService: NotificationService, fieldService: FieldService){
+        super(router, notificationService, fieldService);
     }
 
-    create(name: string){
-        super.doCreate(new Dataset(name));
+    create(){
+        super.doCreate(this.newField);
+    }
+
+    refresh(){
+        super.refresh();
+        this.toggleEditing(undefined);
     }
 
 }

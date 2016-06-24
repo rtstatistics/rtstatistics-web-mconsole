@@ -11,7 +11,8 @@
     '@angular':                   'node_modules/@angular',
     'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api',
     'rxjs':                       'node_modules/rxjs',
-    'angular2-toaster':           'node_modules/angular2-toaster'
+    'angular2-toaster':           'node_modules/angular2-toaster',
+    'ng2-material':               'node_modules/ng2-material'
   };
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {
@@ -19,7 +20,8 @@
     'text-loader':                { main: 'text.js', defaultExtension: 'js' },
     'angular2-in-memory-web-api': { defaultExtension: 'js' },
     'rxjs':                       { defaultExtension: 'js' },
-    'angular2-toaster':           { main: 'angular2-toaster.js', defaultExtension: 'js'}
+    'angular2-toaster':           { main: 'angular2-toaster.js', defaultExtension: 'js'},
+    'ng2-material':               { main: 'index.js', defaultExtension: 'js' }
   };
   var ngPackageNames = [
     'common',
@@ -29,7 +31,6 @@
     'platform-browser',
     'platform-browser-dynamic',
     'router',
-    'router-deprecated',
     'upgrade',
   ];
   var material2PackageNames = [
@@ -42,6 +43,7 @@
     'progress-bar',
     'input',
     'checkbox',
+    'radio',
     'list',
     'tabs',
     'icon'

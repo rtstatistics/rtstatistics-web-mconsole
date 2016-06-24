@@ -1,0 +1,63 @@
+<div class="button-on-table">
+    <button md-mini-fab (click)="isCreationFormActive=!isCreationFormActive">
+        <md-icon class="md-24">add</md-icon>
+    </button>
+</div>
+<!-- create -->
+<md-card #newFieldForm *ngIf="isCreationFormActive" style="z-index: 1">
+    <md-card-title>Create a new field</md-card-title>
+    <md-card-content>
+        <md-input [(ngModel)]="newField.name" placeholder="Name" maxLength="200" style="width: 100%"></md-input>
+        <md-radio-group [(ngModel)]="newField.type">
+            <md-radio-button *ngFor="let o of supportedTypes; let i = index" [value]="o" [checked]="i == 0">
+                {{o}}
+            </md-radio-button>
+        </md-radio-group>
+        <md-input [(ngModel)]="newField.path" *ngIf="newField.isNative" placeholder="Path" maxLength="200" style="width: 100%"></md-input>
+        <md-input [(ngModel)]="newField.formula" *ngIf="newField.isCalculated" placeholder="Formula" maxLength="200" style="width: 100%"></md-input>
+        <div align="right">
+            <button md-raised-button (click)="isCreationFormActive=false">
+                Cancel
+            </button>
+            <button md-raised-button color="primary" (click)="create()">
+                OK
+            </button>
+        </div>
+    </md-card-content>
+</md-card>
+<!-- list -->
+<md-data-table>
+    <thead>
+        <tr>
+            <th class="md-text-cell">Name</th>
+            <th class="md-text-cell">Type</th>
+            <th class="md-text-cell">Path or Formula</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let field of assets; let i = index">
+            <td class="md-text-cell">
+                <div *ngIf="isEditing(i)" style="position: absolute; z-index:1; width:500px">
+                    <field-detail *ngIf="isEditing(i)" 
+                        [progressTracker]="progressTracker"
+                        [index]="i" [quitEditing]="quitEditingCallback"
+                        [parentId]="parentId" [id]="field.name" [detail]="field">
+                    </field-detail>
+                </div>
+                {{field.name}}
+            </td>
+            <td class="md-text-cell">
+                {{field.type}}
+            </td>
+            <td class="md-text-cell">
+                {{field.pathOrFormula}}
+            </td>
+            <td>
+                <button md-icon-button (click)="toggleEditing(i)">
+                    <md-icon>mode_edit</md-icon>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</md-data-table>

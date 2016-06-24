@@ -8,25 +8,24 @@ import { AbstractAssetService } from '../services/abstract-asset.service';
 import { ProgressTracker } from '../utils/progress-tracker';
 
 export class AbstractComponent{
-    private progressTracker: ProgressTracker = new ProgressTracker();
+    // Angular cannot find the @Input in grand parent class.
+    // And, Typescript compiler requires getter and setter methods n the same class
+    protected _progressTracker: ProgressTracker = new ProgressTracker();
 
-    /**
-     * Change a child component's progress tracker to
-     * the same as this component.
-     */
-    shareProgressTracker(child: AbstractComponent){
-        child.progressTracker = this.progressTracker;
-    }
 
     get isInProgress(): boolean{
-        return this.progressTracker.isInProgress;
+        return this._progressTracker.isInProgress;
     }
 
     startProgress(){
-        this.progressTracker.startProgress();
+        setTimeout(()=>{    // to ensure change detection
+            this._progressTracker.startProgress();
+        }, 0);
     }
 
     endProgress(){
-        this.progressTracker.endProgress();
+        setTimeout(()=>{    // to ensure change detection
+            this._progressTracker.endProgress();
+        }, 0);
     }
 }

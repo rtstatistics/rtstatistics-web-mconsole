@@ -8,6 +8,10 @@
   margin: auto;
 }
 
+.align-left{
+  text-align: left;
+}
+
 .top-bottom-padded-content{
 	padding-top: 2rem;
 	padding-bottom: 2rem;
@@ -31,25 +35,12 @@
   flex: 1 1 auto;
 }
 
-md-toolbar-row > span > md-icon{
-  cursor: pointer;
-  margin-right: 10px;
-}
-
-.progress-bar-placeholder{
-  height: 10px;
-  min-width: 100px;
-}
-
 div.fixed-top-right{
   width: 100%; 
   text-align: right; 
   position: fixed;
 }
 
-div.fixed-top-right > md-icon{
-  cursor: pointer;
-}
 
 /* the mask to cover the full view */
 .background-mask{
@@ -64,6 +55,25 @@ div.fixed-top-right > md-icon{
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
+/*  override material design {   */
+md-toolbar-row > span > md-icon{
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.progress-bar-placeholder{
+  height: 10px;
+  min-width: 100px;
+}
+
+div.fixed-top-right > md-icon{
+  cursor: pointer;
+}
+
+.md-radio-label-content{
+  margin-right: 1rem;
+}
+/*  } override material design    */
 
 
 /*      spin {      */
