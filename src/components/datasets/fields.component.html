@@ -38,7 +38,7 @@
     <tbody>
         <tr *ngFor="let field of assets; let i = index">
             <td class="md-text-cell">
-                <div *ngIf="isEditing(i)" style="position: absolute; z-index:1; width:500px">
+                <div *ngIf="isEditing(i)" class="layout-detail-edit-dialog">
                     <field-detail *ngIf="isEditing(i)" 
                         [progressTracker]="progressTracker"
                         [index]="i" [quitEditing]="quitEditingCallback"

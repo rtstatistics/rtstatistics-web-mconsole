@@ -35,6 +35,11 @@
   flex: 1 1 auto;
 }
 
+.space-separate-buttons{
+  width: 5rem;
+  display: inline-block;
+}
+
 div.fixed-top-right{
   width: 100%; 
   text-align: right; 
@@ -75,6 +80,45 @@ div.fixed-top-right > md-icon{
 }
 /*  } override material design    */
 
+/*   layout {    */
+.layout-detail{
+  text-align: left;
+}
+
+.layout-detail-edit-dialog{
+  position: absolute; 
+  z-index: 1; 
+  min-width: 440px;
+}
+
+@media screen and (max-width: 599px){
+  .layout-detail{
+    width: 100vw;
+  }
+  .layout-detail-edit-dialog{
+    width: 80vw;
+  }
+}
+@media screen and (min-width:600px) and (max-width: 999px){
+  .layout-detail{
+    width: 600px;
+  }
+  .layout-detail-edit-dialog{
+    width: 480px;
+  }
+}
+@media screen and (min-width:1000px){
+  .layout-detail{
+    width: 60vw;
+  }
+  .layout-detail-edit-dialog{
+    width: 48vw;
+  }
+
+}
+
+
+/*   }layout     */
 
 /*      spin {      */
 .fa-spin {
