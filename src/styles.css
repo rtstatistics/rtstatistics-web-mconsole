@@ -60,6 +60,11 @@ div.fixed-top-right{
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
+md-data-table * md-icon{
+  opacity: 0.54;
+  filter: alpha(opacity=54); /* msie */
+}
+
 /*  override material design {   */
 md-toolbar-row > span > md-icon{
   cursor: pointer;
@@ -89,6 +94,7 @@ div.fixed-top-right > md-icon{
   position: absolute; 
   z-index: 1; 
   min-width: 440px;
+  top: -8px;
 }
 
 @media screen and (max-width: 599px){
