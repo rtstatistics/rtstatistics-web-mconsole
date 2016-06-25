@@ -1,37 +1,26 @@
-<md-list>
-    <h3 md-subheader>
-        <a [routerLink]="['/dashboard']">
-                    Dashboard
-                </a>
-    </h3>
+<md-nav-list>
+    <div>
+        {{userName}}<br>
+        {{organizationName}}
+    </div>
     <md-divider></md-divider>
-    <h3 md-subheader>
-        <a [routerLink]="['/datasets']">
-                    Datasets
-                </a>
-    </h3>
-    <md-divider></md-divider>
-    <h3 md-subheader>
-        <a [routerLink]="['/periods']">
-                    Periods
-                </a>
-    </h3>
-    <md-divider></md-divider>
-    <h3 md-subheader>
-        <a [routerLink]="['/users']">
-                    Users
-                </a>
-    </h3>
-    <md-divider></md-divider>
-    <h3 md-subheader>
-        <a [routerLink]="['/organization']">
-                    Organization
-                </a>
-    </h3>
-    <md-divider></md-divider>
-    <h3 md-subheader>
-        <a [routerLink]="['/settings']">
-                    Settings
-                </a>
-    </h3>
-</md-list>
+
+    <a md-list-item [routerLink]="['/dashboard']">
+        <span md-line>Dashboard</span>
+    </a>
+    <a md-list-item [routerLink]="['/datasets']">
+        <span md-line>Datasets</span>
+    </a>
+    <a md-list-item [routerLink]="['/periods']">
+        <span md-line>Periods</span>
+    </a>
+    <a md-list-item [routerLink]="['/users']">
+        <span md-line>Users</span>
+    </a>
+    <a md-list-item [routerLink]="['/organization']">
+        <span md-line>Organization</span>
+    </a>
+    <a md-list-item [routerLink]="['/settings']">
+        <span md-line>Settings</span>
+    </a>
+</md-nav-list>

@@ -83,6 +83,12 @@ div.fixed-top-right > md-icon{
 .md-radio-label-content{
   margin-right: 1rem;
 }
+
+md-sidenav md-nav-list a.router-link-active div.md-list-item{
+  color: rgb(0, 150, 136);
+}
+
+
 /*  } override material design    */
 
 /*   layout {    */

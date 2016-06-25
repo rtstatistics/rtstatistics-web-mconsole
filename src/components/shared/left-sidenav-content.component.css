@@ -1,13 +1,4 @@
-[md-subheader] {
-    font-size: 20px;
+p{
+    
 }
 
-[md-subheader] > a{
-    text-decoration: inherit;
-    color: inherit;
-}
-
-[md-subheader] > a.router-link-active{
-  color:black;
-  font-weight: bold;
-}
