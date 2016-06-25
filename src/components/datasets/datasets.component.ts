@@ -20,10 +20,17 @@ import {DatasetService} from '../../services/dataset.service';
 
 import {Dataset} from '../../models/dataset';
 
+import {TemplateCompiler} from '../../utils/template-compiler';
+
 @Component({
     moduleId: module.id,
     selector: 'datasets',
-    template: require('./datasets.component.html'),
+    template: TemplateCompiler.compile(
+        require('../shared/sidenav.template.html'),{
+        toolbarTitle:   'Datasets',
+        toolbarContent: require('../shared/refresh-and-create-button.fragment.html'),
+        content:        require('./datasets.component.html')
+    }),
     styles: [require('./datasets.component.css')],
     directives: [
         ROUTER_DIRECTIVES, 

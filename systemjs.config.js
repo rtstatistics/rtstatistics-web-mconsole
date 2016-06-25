@@ -12,7 +12,8 @@
     'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api',
     'rxjs':                       'node_modules/rxjs',
     'angular2-toaster':           'node_modules/angular2-toaster',
-    'ng2-material':               'node_modules/ng2-material'
+    'ng2-material':               'node_modules/ng2-material',
+    'mustache':                   'node_modules/mustache'
   };
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {
@@ -21,7 +22,8 @@
     'angular2-in-memory-web-api': { defaultExtension: 'js' },
     'rxjs':                       { defaultExtension: 'js' },
     'angular2-toaster':           { main: 'angular2-toaster.js', defaultExtension: 'js'},
-    'ng2-material':               { main: 'index.js', defaultExtension: 'js' }
+    'ng2-material':               { main: 'index.js', defaultExtension: 'js' },
+    'mustache':                   { main: 'mustache.js', defaultExtension: 'js'}
   };
   var ngPackageNames = [
     'common',

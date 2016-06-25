@@ -1,70 +1,34 @@
-<md-sidenav-layout class="full-view-height">
-    <md-sidenav #leftSidenav align="start" mode="side" opened="true">
-        <left-sidenav-content></left-sidenav-content>
-    </md-sidenav>
-    <md-sidenav align="end" mode="side" [opened]="isDetailVisible">
-        <div class="fixed-top-right">
-            <md-icon style="color:white" (click)="navigateToThis()">close</md-icon>
-        </div>
-        <div class="layout-detail">
-            <router-outlet></router-outlet>
-        </div>
-    </md-sidenav>
-
-    <md-toolbar color="primary" ngClass="detail-control-toolbar">
-        <span><md-icon (click)="leftSidenav.toggle()">menu</md-icon></span>
-        <span>Datasets</span>
-
-        <!-- This fills the remaining space of the current row -->
-        <span class="fill-remaining-space"></span>
-
-        <span>
-            <button md-icon-button [disabled]="isInProgress" (click)="refresh()">
-                <md-icon >refresh</md-icon>
+<!-- create -->
+<md-card #newDatasetForm *ngIf="isCreationFormActive">
+    <md-card-title>Create a new dataset</md-card-title>
+    <md-card-content>
+        <md-input #newDatasetName placeholder="Name" maxLength="200" style="width: 100%"></md-input>
+        <div align="right">
+            <button md-raised-button (click)="isCreationFormActive=false">
+                Cancel
             </button>
-            <button md-icon-button (click)="navigateToThis(); isCreationFormActive=!isCreationFormActive;">
-                <md-icon>add_circle_outline</md-icon>
+            <button md-raised-button color="primary" (click)="create(newDatasetName.value)">
+                OK
             </button>
-        </span>
-    </md-toolbar>
-
-    <div class="progress-bar-placeholder">
-        <md-progress-bar *ngIf="isInProgress" mode="indeterminate"></md-progress-bar>
-    </div>
-    <div class="centered-content">
-        <!-- create -->
-        <md-card #newDatasetForm *ngIf="isCreationFormActive">
-            <md-card-title>Create a new dataset</md-card-title>
-            <md-card-content>
-                <md-input #newDatasetName placeholder="Name" maxLength="200" style="width: 100%"></md-input>
-                <div align="right">
-                    <button md-raised-button (click)="isCreationFormActive=false">
-                        Cancel
-                    </button>
-                    <button md-raised-button color="primary" (click)="create(newDatasetName.value)">
-                        OK
-                    </button>
-                </div>
-            </md-card-content>
-        </md-card>
-        <!-- list -->
-        <md-data-table>
-            <thead>
-                <tr>
-                    <th class="md-text-cell">Name</th>
-                    <th class="md-text-cell">ID</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let dataset of assets">
-                    <td class="md-text-cell">
-                        <a (click)="isDetailVisible=true; isCreationFormActive=false" [routerLink]="['./', dataset.id]">{{dataset.name}}</a>
-                    </td>
-                    <td class="md-text-cell">
-                        <span class="id">{{dataset.id}}</span>
-                    </td>
-                </tr>
-            </tbody>
-        </md-data-table>
-    </div>
-</md-sidenav-layout>
+        </div>
+    </md-card-content>
+</md-card>
+<!-- list -->
+<md-data-table>
+    <thead>
+        <tr>
+            <th class="md-text-cell">Name</th>
+            <th class="md-text-cell">ID</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let dataset of assets">
+            <td class="md-text-cell">
+                <a (click)="isDetailVisible=true; isCreationFormActive=false" [routerLink]="['./', dataset.id]">{{dataset.name}}</a>
+            </td>
+            <td class="md-text-cell">
+                <span class="id">{{dataset.id}}</span>
+            </td>
+        </tr>
+    </tbody>
+</md-data-table>

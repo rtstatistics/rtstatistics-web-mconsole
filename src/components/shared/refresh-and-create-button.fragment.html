@@ -1,0 +1,8 @@
+<span>
+    <button md-icon-button [disabled]="isInProgress" (click)="refresh()">
+        <md-icon >refresh</md-icon>
+    </button>
+    <button md-icon-button (click)="navigateToThis(); isCreationFormActive=!isCreationFormActive;">
+        <md-icon>add_circle_outline</md-icon>
+    </button>
+</span>
