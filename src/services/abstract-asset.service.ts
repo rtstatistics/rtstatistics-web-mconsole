@@ -6,6 +6,7 @@ import {Asset} from '../models/asset';
 import {ApiResponse} from "../models/api-response";
 import {AbstractApiService} from './abstract-api.service';
 import {SettingsService} from "./settings.service";
+import {AuthService} from "./auth.service";
 
 @Injectable()
 export abstract class AbstractAssetService<T extends Asset> extends AbstractApiService{
@@ -13,8 +14,8 @@ export abstract class AbstractAssetService<T extends Asset> extends AbstractApiS
     deleted: EventEmitter<T> = new EventEmitter<T>();
     updated: EventEmitter<T> = new EventEmitter<T>();
 
-    constructor(http: ApiHttp, settings: SettingsService){
-        super(http, settings);
+    constructor(http: ApiHttp, settings: SettingsService, authService: AuthService){
+        super(http, settings, authService);
     }
 
     /**

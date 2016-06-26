@@ -7,12 +7,13 @@ import {ApiResponse} from '../models/api-response';
 import {AbstractApiService} from './abstract-api.service';
 import {SettingsService} from './settings.service';
 import {AbstractAssetService} from './abstract-asset.service';
+import {AuthService} from "./auth.service";
 
 @Injectable()
 export class FieldService extends AbstractAssetService<Field>{
 
-    constructor(http: ApiHttp, settings: SettingsService){
-        super(http, settings);
+    constructor(http: ApiHttp, settings: SettingsService, authService: AuthService){
+        super(http, settings, authService);
     }
 
     protected getBaseUrl(settings: SettingsService): string{

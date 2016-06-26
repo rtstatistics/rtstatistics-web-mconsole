@@ -1,17 +1,84 @@
-import {Injectable} from "@angular/core";
-import {Headers} from '@angular/http';
+import {Injectable, EventEmitter} from "@angular/core";
+import {Headers, Http, RequestOptionsArgs} from '@angular/http';
 
 import {SettingsService} from "../services/settings.service";
+
+import {User} from '../models/user';
+import {Organization} from '../models/organization';
 
 @Injectable()
 export class AuthService {
     private _orgApiKey: string;
     login: (message?: string) => Promise<boolean>;
 
-    constructor(protected settings: SettingsService){
+    private _currentUser: User;
+    get currentUser(){
+        return this._currentUser;
+    }
+    private _currentOrganization: Organization;
+    get currentOrganization(){
+        return this._currentOrganization;
+    }
+
+    private _shouldRefreshUserAndOrganization: boolean = false;
+
+
+    constructor(protected http: Http, protected settings: SettingsService){
+        this.unauthenticated();
         settings.organizationApiKeyValues.subscribe(
             (key=>this._orgApiKey=key).bind(this)
         );
+    }
+
+    get isAuthenticated(){
+        return this._currentUser != null && this._currentUser.id != 'Unknown';
+    }
+
+    authenticationMayChange(){
+        this._shouldRefreshUserAndOrganization = true;
+    }
+
+    unauthenticated(){
+        this._currentUser = new User('Unknown', 'Unknown', 'Unknown');
+        this._currentOrganization = new Organization('Unknown', 'Unknown');
+    }
+
+    authenticated(){
+        if (!this.isAuthenticated || this._shouldRefreshUserAndOrganization){
+            // reload user and organization
+            let baseUrl:string = this.settings.manageApiBaseUrl;
+            let headers = new Headers();
+            headers.append('Accept', 'application/json');
+            this.appendHeaders(headers);
+            let options = {
+                headers: headers
+            };
+            this.http.get(baseUrl + '/users/me', options).subscribe(
+                data => {
+                    let user = data.json().result;
+                    this._currentUser = Object.assign(new User(), user);
+                    if (user.organization){
+                        this._currentOrganization = Object.assign(new Organization(), user.organization);
+                    }
+                    this._shouldRefreshUserAndOrganization = false;
+                },
+                err => {
+                    if (err.status === 404){    // if authenticated by api key
+                        this._currentUser = new User(null, null, '*API Client*');
+                        this.http.get(baseUrl + '/organizations/mine', options).subscribe(
+                            data => {
+                                let org = data.json().result;
+                                this._currentOrganization = Object.assign(new Organization(), org);
+                                this._shouldRefreshUserAndOrganization = false;
+                            },
+                            err => {
+                                // do nothing
+                            }
+                        );
+                    }
+                }
+            );
+        }
     }
 
     setOrganizationApiKey(key: string, save?: boolean){
@@ -20,6 +87,7 @@ export class AuthService {
             this.settings.organizationApiKey = key;
             // and the same key will be propogated back through subscripting to the observable
         }
+        this.authenticationMayChange();
     }
 
     private getOrgApiKey(){
@@ -41,4 +109,6 @@ export class AuthService {
             headers.append('Authorization', 'Basic ' + btoa(this.getOrgApiKey()));
         }
     }
+
+
 }

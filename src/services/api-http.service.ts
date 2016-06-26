@@ -45,10 +45,12 @@ export class ApiHttp {
         return initialResult
             .catch(error => {
                 if (error.status === 401){
+                    this.authService.unauthenticated();     // 401 means authentication required
                     let message = this.authService.isOrgApiKeySet ? 'Incorrect organization API key' : 'Authentication is required';
                     return Observable.fromPromise(this.authService.login(message))
                         .mergeMap(confirmed => {
                             if (confirmed){ // logged in again, or updated api key
+                                this.authService.authenticationMayChange();
                                 switch(params.length){
                                     case 1:
                                         return func(params[0]);
@@ -66,6 +68,7 @@ export class ApiHttp {
                 }else{
                     let errBody = error.json();
                     if (errBody){
+                        this.authService.authenticated();  // a valid API response received
                         let errorDetail = errBody.error;
                         if (errorDetail){
                             return Observable.throw(new Error(errorDetail.type + ': ' + errorDetail.message));

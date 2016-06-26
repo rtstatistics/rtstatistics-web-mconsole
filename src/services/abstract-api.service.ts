@@ -5,11 +5,12 @@ import {ApiHttp} from "./api-http.service";
 import {ApiResponse} from "../models/api-response";
 
 import {SettingsService} from "../services/settings.service";
+import {AuthService} from "./auth.service";
 
 @Injectable()
 export abstract class AbstractApiService{
 
-    constructor(protected http: ApiHttp, protected settings: SettingsService){
+    constructor(protected http: ApiHttp, protected settings: SettingsService, protected authService: AuthService){
     }
 
     protected abstract getBaseUrl(settings: SettingsService): string;
@@ -19,6 +20,7 @@ export abstract class AbstractApiService{
     }
 
     private getBody(response: Response){
+        this.authService.authenticated(); // a successful API response received
         if (response.status === 204){
             return null;
         }else{

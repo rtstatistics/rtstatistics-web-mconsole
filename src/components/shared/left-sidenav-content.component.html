@@ -1,25 +1,29 @@
 <md-nav-list>
     <div class="nav-head">
-        {{userName}}<br>
-        {{organizationName}}
+        <div class='nav-head-content'>
+            {{currentUser?.name}}
+            <br>{{currentOrganizationNameIfDifferentThanUserName}}
+        </div>
     </div>
-    <md-divider></md-divider>
-
+<!--
     <a md-list-item [routerLink]="['/dashboard']">
         <span md-line>Dashboard</span>
     </a>
+-->
     <a md-list-item [routerLink]="['/datasets']">
         <span md-line>Datasets</span>
     </a>
     <a md-list-item [routerLink]="['/periods']">
         <span md-line>Periods</span>
     </a>
+<!--
     <a md-list-item [routerLink]="['/users']">
         <span md-line>Users</span>
     </a>
     <a md-list-item [routerLink]="['/organization']">
         <span md-line>Organization</span>
     </a>
+-->
     <a md-list-item [routerLink]="['/settings']">
         <span md-line>Settings</span>
     </a>

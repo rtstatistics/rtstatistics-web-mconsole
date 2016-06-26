@@ -47,8 +47,19 @@ div.fixed-top-right{
 }
 
 div.nav-head{
-    background-image: url("./images/nav-head-bg.jpg");
-    min-height: 100px;
+  background-image: url("./images/nav-head-bg.jpg");
+  min-height: 100px;
+  max-height: 160px;
+  position: relative;
+}
+
+div.nav-head-content{
+  position: absolute;
+  bottom: 10px;
+  left: 5px;
+  color: white;
+  word-wrap: break-word;
+  width: 100%
 }
 
 /* the mask to cover the full view */

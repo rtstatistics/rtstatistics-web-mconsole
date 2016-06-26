@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import {Router, Routes, ROUTER_DIRECTIVES} from '@angular/router';
 import {MdIcon} from '@angular2-material/icon';
 import {ToasterContainerComponent, ToasterService, ToasterConfig} from 'angular2-toaster/angular2-toaster';
@@ -45,7 +45,7 @@ import {UserService} from '../services/user.service';
   {path: '/organization', component: OrganizationComponent},
   {path: '/settings', component: SettingsComponent}
 ])
-export class AppComponent implements OnInit { 
+export class AppComponent implements OnInit, AfterViewInit { 
     toasterConfig: ToasterConfig = new ToasterConfig({
         positionClass: 'toast-bottom-center'
     });
@@ -53,7 +53,12 @@ export class AppComponent implements OnInit {
     constructor(private router: Router){
 
     }
-    ngOnInit() {
-        this.router.navigate(['/dashboard']);
+    
+    ngOnInit(){
+
+    }
+
+    ngAfterViewInit() {
+        this.router.navigate(['/datasets']);
     }
 }
