@@ -4,8 +4,8 @@ import { MdIcon } from '@angular2-material/icon';
 import {MD_LIST_DIRECTIVES} from '@angular2-material/list';
 
 import {AuthService} from '../../services/auth.service';
-import {User} from '../models/user';
-import {Organization} from '../models/organization';
+import {User} from '../../models/user';
+import {Organization} from '../../models/organization';
 
 
 @Component({
