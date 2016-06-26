@@ -15,10 +15,11 @@ import { AppComponent } from './components/app.component';
 
 require('./styles.css');
 
+// lite-server doesn't need images to be required; webpack knows to load images from configuration file.
+
 if (typeof process !== 'undefined' // process will be undefined if running from lite server
     && process.env.ENV === 'production') {
   enableProdMode();
-  //require('./images/index');  // for webpack to load images
 }
 
 bootstrap(AppComponent, [
