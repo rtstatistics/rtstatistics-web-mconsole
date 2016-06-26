@@ -5,17 +5,36 @@ import { ApiResponse } from "../models/api-response";
 import { NotificationService } from '../services/notification.service';
 import { AbstractAssetService } from '../services/abstract-asset.service';
 import { Asset } from '../models/asset';
-import { AbstractComponent } from './abstract.component';
+import { AbstractProgressiveComponent } from './abstract-progressive.component';
 import { ProgressTracker } from '../utils/progress-tracker';
 
-export class AbstractAssetDetailComponent<T extends Asset> extends AbstractComponent implements AfterViewInit{
+/**
+ * Component that manages the detail of an asset.
+ * 
+ * @export
+ * @class AbstractAssetDetailComponent
+ * @extends {AbstractProgressiveComponent}
+ * @implements {AfterViewInit}
+ * @template T  type of the asset
+ */
+export class AbstractAssetDetailComponent<T extends Asset> extends AbstractProgressiveComponent implements AfterViewInit{
     routeSegment: RouteSegment;
     parentRouteSegment: RouteSegment;
 
-    @Input() // this may be null if there is no parent
+    /**
+     * ID of the parent asset.
+     * It is not injected/set if there is no parent asset.
+     * 
+     * @type {string}
+     */
+    @Input()
     parentId: string; 
 
-    @Input() // this may be null if there is no parent
+    /**
+     * Set the progress tracker that this component should use.
+     * It is not injected/set if the component should use its own progress tracker.
+     */
+    @Input()
     set progressTracker(tracker: ProgressTracker){
         this._progressTracker = tracker;
     }
@@ -24,18 +43,45 @@ export class AbstractAssetDetailComponent<T extends Asset> extends AbstractCompo
         return this._progressTracker;
     }
     
-    @Input() // this may be null if there is no parent
+    /**
+     * ID of the asset.
+     * 
+     * @type {string}
+     */
+    @Input()
     id: string;
 
-    @Input() // this may be null if there is no parent
+    /**
+     * The asset
+     * 
+     * @type {T}    type of the asset
+     */
+    @Input()
     detail: T;
 
+    /**
+     * Index of the asset in the list of assets managed by parent component.
+     * It is not injected/set if the parent component does not want to track this.
+     * 
+     * @type {number}
+     */
     @Input()
     index: number;
 
+    /**
+     * Callback function injected from the parent component for quiting asset editing mode.
+     * It is not injected/set if the parent component does not want to provide this kind of callback.
+     * 
+     * @type {(i: number)=>void}
+     */
     @Input('quitEditing')
     _quitEditing: (i: number)=>void;
 
+    /**
+     * Copy of the asset that can be modified.
+     * 
+     * @type {T}    type of the asset
+     */
     editedDetail: T;
 
     constructor(

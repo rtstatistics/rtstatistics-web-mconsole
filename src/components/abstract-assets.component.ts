@@ -5,15 +5,35 @@ import { ApiResponse } from '../models/api-response';
 import { Asset } from '../models/asset';
 import { NotificationService } from '../services/notification.service';
 import { AbstractAssetService } from '../services/abstract-asset.service';
-import { AbstractComponent } from './abstract.component';
+import { AbstractProgressiveComponent } from './abstract-progressive.component';
 import { ProgressTracker } from '../utils/progress-tracker';
 
-export class AbstractAssetsComponent<T extends Asset> extends AbstractComponent implements OnActivate, AfterViewInit{
+/**
+ * Component that manages a list of assets.
+ * 
+ * @export
+ * @class AbstractAssetsComponent
+ * @extends {AbstractProgressiveComponent}
+ * @implements {OnActivate}
+ * @implements {AfterViewInit}
+ * @template T  type of the asset
+ */
+export class AbstractAssetsComponent<T extends Asset> extends AbstractProgressiveComponent implements OnActivate, AfterViewInit{
     routeSegment: RouteSegment;
 
+    /**
+     * ID of the parent asset.
+     * It is not injected/set if there is no parent asset.
+     * 
+     * @type {string}
+     */
     @Input()
-    parentId: string;  // this may be null if there is no parent
+    parentId: string; 
 
+    /**
+     * Set the progress tracker that this component should use.
+     * It is not injected/set if the component should use its own progress tracker.
+     */
     @Input()
     set progressTracker(tracker: ProgressTracker){
         this._progressTracker = tracker;
@@ -23,10 +43,22 @@ export class AbstractAssetsComponent<T extends Asset> extends AbstractComponent 
         return this._progressTracker;
     }
 
+    /**
+     * Index of the asset in the list that is current in edit
+     * 
+     * @private
+     * @type {number}
+     */
     private indexInEdit: number;
     quitEditingCallback: (i: number)=>void = this.quitEditing.bind(this);
 
     assets: T[];
+
+    /**
+     * Is the detail component visible or not
+     * 
+     * @type {boolean}
+     */
     isDetailVisible: boolean = false;
 
     private _isCreationFormActive: boolean = false;
@@ -70,6 +102,14 @@ export class AbstractAssetsComponent<T extends Asset> extends AbstractComponent 
         }
     }
 
+    /**
+     * Setup the subscriptions to asset change events.
+     * The default implementation just calls refresh() for each event,
+     * and calls navigateToThis() for deleted event.
+     * Sub-classes can override this function to setup their own subscriptions.
+     * 
+     * @protected
+     */
     protected setupAssetChangeHandler(){
         this.createdSubscription = this.assetService.created.subscribe(asset=>{
             if (this.parentId == null || asset == null || asset.parentId == null || asset.parentId == this.parentId){

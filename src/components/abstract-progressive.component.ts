@@ -7,7 +7,13 @@ import { NotificationService } from '../services/notification.service';
 import { AbstractAssetService } from '../services/abstract-asset.service';
 import { ProgressTracker } from '../utils/progress-tracker';
 
-export class AbstractComponent{
+/**
+ * Parent of components that have a progress tracker.
+ * 
+ * @export
+ * @class AbstractProgressiveComponent
+ */
+export class AbstractProgressiveComponent{
     // Angular cannot find the @Input in grand parent class.
     // And, Typescript compiler requires getter and setter methods n the same class
     protected _progressTracker: ProgressTracker = new ProgressTracker();
