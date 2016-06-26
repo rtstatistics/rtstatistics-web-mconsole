@@ -9,7 +9,7 @@ import {
 import {LoginComponent} from './login.component';
 import {AuthService} from '../../services/auth.service';
 import {SettingsService} from '../../services/settings.service';
-import {Headers, Http} from '@angular/http';
+import {Headers, Http, HTTP_PROVIDERS} from '@angular/http';
 
 const EVENT_WAIT_MILLIS = 100;
 const SAMPLE_API_KEY = 'abcde XYZ 123';
@@ -20,7 +20,7 @@ const SAMPLE_AUTHORIZATION3 = 'Basic ' + btoa(SAMPLE_API_KEY3);
 
 describe('LoginComponent', () => {
   beforeEachProviders(() => [
-    LoginComponent, AuthService, SettingsService, Http
+    LoginComponent, AuthService, SettingsService, HTTP_PROVIDERS
   ]);
   it ('should DI work', 
     inject([LoginComponent, AuthService, SettingsService, Http], 
