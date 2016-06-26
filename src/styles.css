@@ -46,6 +46,10 @@ div.fixed-top-right{
   position: fixed;
 }
 
+div.nav-head{
+    background-image: url("./images/nav-head-bg.jpg");
+    min-height: 100px;
+}
 
 /* the mask to cover the full view */
 .background-mask{

@@ -6,7 +6,8 @@
   // map tells the System loader where to look for things
   var map = {
     'src':                        'src', // 'dist',
-    'text-loader':                'node_modules/systemjs-plugin-text/',
+    'text-loader':                'node_modules/systemjs-plugin-text',
+    'raw-loader':                 'node_modules/raw-loader',
     '@angular2-material':         'node_modules/@angular2-material',
     '@angular':                   'node_modules/@angular',
     'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api',
@@ -19,6 +20,7 @@
   var packages = {
     'src':                        { main: 'main.js', defaultExtension: 'js' },
     'text-loader':                { main: 'text.js', defaultExtension: 'js' },
+    'raw-loader':                 { main: 'index.js', defaultExtension: 'js' },
     'angular2-in-memory-web-api': { defaultExtension: 'js' },
     'rxjs':                       { defaultExtension: 'js' },
     'angular2-toaster':           { main: 'angular2-toaster.js', defaultExtension: 'js'},
@@ -70,6 +72,15 @@
       },
       'src/*.css.js':{
         loader: 'text-loader'
+      },
+      'src/*.jpg.js':{
+        loader: 'raw-loader'
+      },
+      'src/*.gif.js':{
+        loader: 'raw-loader'
+      },
+      'src/*.png.js':{
+        loader: 'raw-loader'
       }
     }
   }
