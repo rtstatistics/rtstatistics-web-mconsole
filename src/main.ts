@@ -18,7 +18,7 @@ require('./styles.css');
 if (typeof process !== 'undefined' // process will be undefined if running from lite server
     && process.env.ENV === 'production') {
   enableProdMode();
-  require('./images/index');  // for webpack to load images
+  //require('./images/index');  // for webpack to load images
 }
 
 bootstrap(AppComponent, [
