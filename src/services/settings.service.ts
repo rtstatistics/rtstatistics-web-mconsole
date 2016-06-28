@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class SettingsService {
+    private static DEMO_ACCOUNT_API_KEY = 'DemoKey';
     private static PREFIX: string = 'rts-mconsole-';
     private MANAGE_API_BASE_URL = SettingsService.PREFIX + 'manage-api-base-url';
     private DATA_API_BASE_URL = SettingsService.PREFIX + 'data-api-base-url';
@@ -33,7 +34,12 @@ export class SettingsService {
     }
 
     get organizationApiKey(): string{
-        return localStorage.getItem(this.ORG_API_KEY);
+        let key = localStorage.getItem(this.ORG_API_KEY);
+        if (key == null){ // first time, nothing set
+            key = SettingsService.DEMO_ACCOUNT_API_KEY;
+            this.setInLocalStorage(this.ORG_API_KEY, key);
+        }
+        return key;
     }
 
     set organizationApiKey(apiKey: string){
