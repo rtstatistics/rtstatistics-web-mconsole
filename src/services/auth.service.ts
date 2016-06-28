@@ -26,7 +26,10 @@ export class AuthService {
     constructor(protected http: Http, protected settings: SettingsService){
         this.unauthenticated();
         settings.organizationApiKeyValues.subscribe(
-            (key=>this._orgApiKey=key).bind(this)
+            key=>{
+                this._orgApiKey=key;
+                this.authenticationMayChange();
+            }
         );
     }
 
