@@ -93,7 +93,6 @@ export class AbstractAssetsComponent<T extends Asset> extends AbstractProgressiv
 
     routerOnActivate(curr: RouteSegment, prev?: RouteSegment, currTree?: RouteTree, prevTree?: RouteTree) : void {
         this.routeSegment = curr;
-        this.isDetailVisible = false;
         this.refresh();
     }
 
