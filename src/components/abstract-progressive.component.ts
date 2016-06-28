@@ -14,24 +14,29 @@ import { ProgressTracker } from '../utils/progress-tracker';
  * @class AbstractProgressiveComponent
  */
 export class AbstractProgressiveComponent{
-    // Angular cannot find the @Input in grand parent class.
-    // And, Typescript compiler requires getter and setter methods n the same class
-    protected _progressTracker: ProgressTracker = new ProgressTracker();
+    /**
+     * The progress tracker that this component should use.
+     * If it is not injected/overriden externally, a default one associated
+     * with the instance will be used.
+     * 
+     * @type {ProgressTracker}
+     */
+    progressTracker: ProgressTracker = new ProgressTracker();
 
 
     get isInProgress(): boolean{
-        return this._progressTracker.isInProgress;
+        return this.progressTracker.isInProgress;
     }
 
     startProgress(){
         setTimeout(()=>{    // to ensure change detection
-            this._progressTracker.startProgress();
+            this.progressTracker.startProgress();
         }, 0);
     }
 
     endProgress(){
         setTimeout(()=>{    // to ensure change detection
-            this._progressTracker.endProgress();
+            this.progressTracker.endProgress();
         }, 0);
     }
 }

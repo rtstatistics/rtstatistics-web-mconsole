@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Router, RouteSegment, OnActivate, RouteTree } from '@angular/router';
 import { ApiResponse } from '../models/api-response';
 import { Asset } from '../models/asset';
+import { CoreServices } from '../services/core-services.service';
 import { NotificationService } from '../services/notification.service';
 import { AbstractAssetService } from '../services/abstract-asset.service';
 import { AbstractProgressiveComponent } from './abstract-progressive.component';
@@ -19,7 +20,7 @@ import { ProgressTracker } from '../utils/progress-tracker';
  * @template T  type of the asset
  */
 export class AbstractAssetsComponent<T extends Asset> extends AbstractProgressiveComponent implements OnActivate, AfterViewInit{
-    routeSegment: RouteSegment;
+    protected routeSegment: RouteSegment;
 
     /**
      * ID of the parent asset.
@@ -27,21 +28,7 @@ export class AbstractAssetsComponent<T extends Asset> extends AbstractProgressiv
      * 
      * @type {string}
      */
-    @Input()
     parentId: string; 
-
-    /**
-     * Set the progress tracker that this component should use.
-     * It is not injected/set if the component should use its own progress tracker.
-     */
-    @Input()
-    set progressTracker(tracker: ProgressTracker){
-        this._progressTracker = tracker;
-    }
-
-    get progressTracker(): ProgressTracker{
-        return this._progressTracker;
-    }
 
     /**
      * Index of the asset in the list that is current in edit
@@ -50,16 +37,30 @@ export class AbstractAssetsComponent<T extends Asset> extends AbstractProgressiv
      * @type {number}
      */
     private indexInEdit: number;
-    quitEditingCallback: (i: number)=>void = this.quitEditing.bind(this);
+    quitEditingFunction: (i: number)=>void = this.quitEditing.bind(this);
+    hideDetailFunction: (i?: number)=>void = ()=>this.isDetailActive = false;
 
     assets: T[];
 
     /**
-     * Is the detail component visible or not
+     * True will be returned if current component is the leaf in the
+     * route tree. False will be returned if current component has at least one
+     * child in the route tree.
+     * Subclass can override this function
+     * if desired.
      * 
      * @type {boolean}
      */
-    isDetailVisible: boolean = false;
+    get isDetailActive(): boolean{
+        return this.router.routeTree.children(this.routeSegment).length > 0;
+    }
+    /**
+     * This function is supposed to set the flag but the implementation
+     * in this class actually does nothing. Subclass can override this function
+     * if desired.
+     */
+    set isDetailActive(active: boolean){
+    }
 
     private _isCreationFormActive: boolean = false;
     get isCreationFormActive(){
@@ -79,7 +80,7 @@ export class AbstractAssetsComponent<T extends Asset> extends AbstractProgressiv
 
     constructor(
         protected router: Router, 
-        protected notificationService: NotificationService,
+        protected coreServices: CoreServices,
         protected assetService: AbstractAssetService<T>){
             super();
             this.setupAssetChangeHandler();
@@ -159,7 +160,7 @@ export class AbstractAssetsComponent<T extends Asset> extends AbstractProgressiv
                     this.assets = data.result.sort((a, b)=>a.name.localeCompare(b.name));
                 },
                 err => {
-                    this.notificationService.showErrorToast(
+                    this.coreServices.notification.showErrorToast(
                         'Unabled to load summaries: ' + err.message
                     );
                 }
@@ -176,11 +177,11 @@ export class AbstractAssetsComponent<T extends Asset> extends AbstractProgressiv
             .subscribe(
                 response => {
                     this.isCreationFormActive = false;
-                    this.notificationService.showSuccessToast('Created: ' + name);
+                    this.coreServices.notification.showSuccessToast('Created: ' + name);
                     // this.refresh(); // createdSubscription will do it
                 },
                 err => {
-                    this.notificationService.showErrorToast(
+                    this.coreServices.notification.showErrorToast(
                                 'Unabled to create: ' + err.message
                             );
                 }
@@ -193,7 +194,6 @@ export class AbstractAssetsComponent<T extends Asset> extends AbstractProgressiv
         if (this.router && this.routeSegment){
             this.router.navigate(['./'], this.routeSegment);
         }
-        this.isDetailVisible = false;
     }
 
     isEditing(i: number): boolean{

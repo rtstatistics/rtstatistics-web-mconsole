@@ -7,7 +7,7 @@ import {MD_PROGRESS_BAR_DIRECTIVES} from '@angular2-material/progress-bar';
 import {MdDataTable} from 'ng2-material/components/data-table/index';
 
 import {AbstractAssetsComponent} from '../abstract-assets.component';
-import { NotificationService } from '../../services/notification.service';
+import { CoreServices } from '../../services/core-services.service';
 
 import {LeftSidenavContentComponent} from '../shared/left-sidenav-content.component';
 import {UserDetailComponent} from './user-detail.component';
@@ -43,8 +43,8 @@ import {TemplateCompiler} from '../../utils/template-compiler';
 ])
 export class UsersComponent extends AbstractAssetsComponent<User>{
 
-    constructor(router: Router, notificationService: NotificationService, userService: UserService){
-        super(router, notificationService, userService);
+    constructor(router: Router, coreServices: CoreServices, userService: UserService){
+        super(router, coreServices, userService);
     }
 
 

@@ -11,7 +11,7 @@ import {MD_RADIO_DIRECTIVES} from '@angular2-material/radio';
 import {MdDataTable} from 'ng2-material/components/data-table/index';
 
 import {AbstractAssetsComponent} from '../abstract-assets.component';
-import { NotificationService } from '../../services/notification.service';
+import { CoreServices } from '../../services/core-services.service';
 import { ApiResponse } from '../../models/api-response';
 
 import {LeftSidenavContentComponent} from '../shared/left-sidenav-content.component';
@@ -27,6 +27,7 @@ import {Field} from '../../models/field';
     selector: 'fields',
     template: require('./fields.component.html'),
     styles: [require('./fields.component.css')],
+    inputs: ['progressTracker', 'parentId'],
     directives: [
         ROUTER_DIRECTIVES, 
         MD_CARD_DIRECTIVES, MD_BUTTON_DIRECTIVES, MD_INPUT_DIRECTIVES,
@@ -44,8 +45,8 @@ export class FieldsComponent extends AbstractAssetsComponent<Field>{
     
     newField: Field = new Field('', Field.TYPE_NATIVE, '', null);
 
-    constructor(router: Router, notificationService: NotificationService, fieldService: FieldService){
-        super(router, notificationService, fieldService);
+    constructor(router: Router, coreServices: CoreServices, fieldService: FieldService){
+        super(router, coreServices, fieldService);
     }
 
     create(){

@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import {ROUTER_DIRECTIVES, Router, Routes} from '@angular/router';
+import {RouterOutlet} from '@angular/router/src/directives/router_outlet';
 import {MdIcon} from '@angular2-material/icon';
 import {MD_SIDENAV_DIRECTIVES} from '@angular2-material/sidenav';
 import {MD_TOOLBAR_DIRECTIVES} from '@angular2-material/toolbar';
@@ -10,7 +11,7 @@ import {MD_INPUT_DIRECTIVES} from '@angular2-material/input';
 import {MdDataTable} from 'ng2-material/components/data-table/index';
 
 import {AbstractAssetsComponent} from '../abstract-assets.component';
-import { NotificationService } from '../../services/notification.service';
+import { CoreServices } from '../../services/core-services.service';
 import { ApiResponse } from '../../models/api-response';
 
 import {LeftSidenavContentComponent} from '../shared/left-sidenav-content.component';
@@ -47,9 +48,8 @@ import {TemplateCompiler} from '../../utils/template-compiler';
     {path: '/:id', component: DatasetDetailComponent}
 ])
 export class DatasetsComponent extends AbstractAssetsComponent<Dataset>{
-
-    constructor(router: Router, notificationService: NotificationService, datasetService: DatasetService){
-        super(router, notificationService, datasetService);
+    constructor(router: Router, coreServices: CoreServices, datasetService: DatasetService){
+        super(router, coreServices, datasetService);
     }
 
     create(name: string){

@@ -41,7 +41,7 @@
                 <div *ngIf="isEditing(i)" class="layout-detail-edit-dialog">
                     <field-detail *ngIf="isEditing(i)" 
                         [progressTracker]="progressTracker"
-                        [index]="i" [quitEditing]="quitEditingCallback"
+                        [index]="i" [quitFunction]="quitEditingFunction"
                         [parentId]="parentId" [id]="field.name" [detail]="field">
                     </field-detail>
                 </div>
@@ -61,3 +61,5 @@
         </tr>
     </tbody>
 </md-data-table>
+<!-- space for the popup editing -->
+<div style="height: 200px"></div>

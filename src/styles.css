@@ -125,6 +125,9 @@ md-sidenav md-nav-list a.router-link-active div.md-list-item{
   .layout-detail-edit-dialog{
     width: 80vw;
   }
+  md-icon.close-over-back{
+    display: none;
+  }
 }
 @media screen and (min-width:600px) and (max-width: 999px){
   .layout-detail{
@@ -132,6 +135,9 @@ md-sidenav md-nav-list a.router-link-active div.md-list-item{
   }
   .layout-detail-edit-dialog{
     width: 480px;
+  }
+  md-icon.back-over-close{
+    display:none;
   }
 }
 @media screen and (min-width:1000px){
@@ -141,7 +147,9 @@ md-sidenav md-nav-list a.router-link-active div.md-list-item{
   .layout-detail-edit-dialog{
     width: 48vw;
   }
-
+  md-icon.back-over-close{
+    display:none;
+  }
 }
 
 

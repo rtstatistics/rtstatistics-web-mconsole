@@ -9,7 +9,7 @@ import {MD_CARD_DIRECTIVES} from '@angular2-material/card';
 import {MD_TABS_DIRECTIVES} from '@angular2-material/tabs';
 import {MD_INPUT_DIRECTIVES} from '@angular2-material/input';
 import {MdIcon} from '@angular2-material/icon';
-import { NotificationService } from '../../services/notification.service';
+import { CoreServices } from '../../services/core-services.service';
 
 import {AbstractAssetDetailComponent} from '../abstract-asset-detail.component';
 
@@ -23,6 +23,7 @@ import { ApiResponse } from '../../models/api-response';
     selector: 'field-detail',
     template: require('./field-detail.component.html'),
     styles: [require('./field-detail.component.css')],
+    inputs: ['progressTracker', 'parentId', 'id', 'detail', 'index', 'quitFunction'],
     directives: [
         MD_TABS_DIRECTIVES, MD_BUTTON_DIRECTIVES, MD_INPUT_DIRECTIVES, MD_CARD_DIRECTIVES,
         MD_LIST_DIRECTIVES, MD_TOOLBAR_DIRECTIVES, MD_PROGRESS_BAR_DIRECTIVES, MdIcon,
@@ -34,9 +35,9 @@ import { ApiResponse } from '../../models/api-response';
 export class FieldDetailComponent extends AbstractAssetDetailComponent<Field>{
     supportedTypes: string[] = Field.ALL_TYPES;
 
-    constructor(router: Router, notificationService: NotificationService, 
+    constructor(router: Router, coreServices: CoreServices, 
         fieldService: FieldService){
-        super(router, notificationService, fieldService);
+        super(router, coreServices, fieldService);
         this.editedDetail = new Field(null, null, null, null, null);
     }
 

@@ -2,7 +2,7 @@ import { Component, ViewChild, Input, AfterViewInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Router, RouteSegment, OnActivate, RouteTree } from '@angular/router';
 import { ApiResponse } from "../models/api-response";
-import { NotificationService } from '../services/notification.service';
+import { CoreServices } from '../services/core-services.service';
 import { AbstractAssetService } from '../services/abstract-asset.service';
 import { Asset } from '../models/asset';
 import { AbstractProgressiveComponent } from './abstract-progressive.component';
@@ -18,8 +18,8 @@ import { ProgressTracker } from '../utils/progress-tracker';
  * @template T  type of the asset
  */
 export class AbstractAssetDetailComponent<T extends Asset> extends AbstractProgressiveComponent implements AfterViewInit{
-    routeSegment: RouteSegment;
-    parentRouteSegment: RouteSegment;
+    protected routeSegment: RouteSegment;
+    protected parentRouteSegment: RouteSegment;
 
     /**
      * ID of the parent asset.
@@ -27,28 +27,13 @@ export class AbstractAssetDetailComponent<T extends Asset> extends AbstractProgr
      * 
      * @type {string}
      */
-    @Input()
     parentId: string; 
 
-    /**
-     * Set the progress tracker that this component should use.
-     * It is not injected/set if the component should use its own progress tracker.
-     */
-    @Input()
-    set progressTracker(tracker: ProgressTracker){
-        this._progressTracker = tracker;
-    }
-
-    get progressTracker(): ProgressTracker{
-        return this._progressTracker;
-    }
-    
     /**
      * ID of the asset.
      * 
      * @type {string}
      */
-    @Input()
     id: string;
 
     /**
@@ -56,7 +41,6 @@ export class AbstractAssetDetailComponent<T extends Asset> extends AbstractProgr
      * 
      * @type {T}    type of the asset
      */
-    @Input()
     detail: T;
 
     /**
@@ -65,17 +49,15 @@ export class AbstractAssetDetailComponent<T extends Asset> extends AbstractProgr
      * 
      * @type {number}
      */
-    @Input()
     index: number;
 
     /**
-     * Callback function injected from the parent component for quiting asset editing mode.
+     * Callback function injected from the parent component for quiting asset detail/editing.
      * It is not injected/set if the parent component does not want to provide this kind of callback.
      * 
-     * @type {(i: number)=>void}
+     * @type {(i?: number)=>void}
      */
-    @Input('quitEditing')
-    _quitEditing: (i: number)=>void;
+    quitFunction: (i?: number)=>void;
 
     /**
      * Copy of the asset that can be modified.
@@ -86,7 +68,7 @@ export class AbstractAssetDetailComponent<T extends Asset> extends AbstractProgr
 
     constructor(
         protected router: Router, 
-        protected notificationService: NotificationService,
+        protected coreServices: CoreServices,
         protected assetService: AbstractAssetService<T>){
             super();
     }
@@ -136,7 +118,7 @@ export class AbstractAssetDetailComponent<T extends Asset> extends AbstractProgr
                     this.resetEditedDetail();
                 },
                 err => {
-                    this.notificationService.showErrorToast(
+                    this.coreServices.notification.showErrorToast(
                         'Unabled to load details: ' + err.message
                     );
                 }
@@ -152,10 +134,10 @@ export class AbstractAssetDetailComponent<T extends Asset> extends AbstractProgr
             })
             .subscribe(
                 data => {
-                    this.notificationService.showSuccessToast('Deleted: ' + name);
+                    this.coreServices.notification.showSuccessToast('Deleted: ' + name);
                 },
                 err => {
-                    this.notificationService.showErrorToast(
+                    this.coreServices.notification.showErrorToast(
                         'Unabled to delete: ' + err.message
                     );
                 }
@@ -172,10 +154,10 @@ export class AbstractAssetDetailComponent<T extends Asset> extends AbstractProgr
             .subscribe(
                 data => {
                     this.syncEditedDetail();
-                    this.notificationService.showSuccessToast('Updated: ' + name);
+                    this.coreServices.notification.showSuccessToast('Updated: ' + name);
                 },
                 err => {
-                    this.notificationService.showErrorToast(
+                    this.coreServices.notification.showErrorToast(
                         'Unabled to update: ' + err.message
                     );
                 }
@@ -186,9 +168,11 @@ export class AbstractAssetDetailComponent<T extends Asset> extends AbstractProgr
         this.router.navigate(['../'], this.routeSegment); 
     }
 
-    quitEditing(){
-        if (this._quitEditing){
-            this._quitEditing(this.index);
+    quitThis(){
+        if (this.quitFunction){
+            this.quitFunction(this.index);
+        }else if (this.routeSegment != null && this.parentRouteSegment != null){
+            this.navigateToParent();
         }
     }
 

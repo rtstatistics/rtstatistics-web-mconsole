@@ -8,10 +8,7 @@ Variables:
     <md-sidenav #leftSidenav align="start" mode="side" opened="true">
         <left-sidenav-content></left-sidenav-content>
     </md-sidenav>
-    <md-sidenav align="end" mode="side" [opened]="isDetailVisible">
-        <div class="fixed-top-right">
-            <md-icon style="color:white" (click)="navigateToThis()">close</md-icon>
-        </div>
+    <md-sidenav align="end" mode="side" [opened]="isDetailActive">
         <div class="layout-detail">
             <router-outlet></router-outlet>
         </div>

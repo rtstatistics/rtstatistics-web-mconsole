@@ -1,0 +1,27 @@
+<<!
+Variables:
+    toolbarTitle:       title displayed on the left hand side of the toolbar
+    content:            the main content below the toolbar
+>>
+<md-toolbar color="primary">
+    <span>
+        <md-icon (click)="quitThis()" class="back-over-close">arrow_back</md-icon>
+        <md-icon (click)="quitThis()" class="close-over-back">close</md-icon>
+    </span>
+    <span><<toolbarTitle>></span>
+    <span class="fill-remaining-space"></span>
+    <span>
+	    <button md-icon-button [disabled]="isInProgress" (click)="refresh(); childComponent?.refresh()">
+	        <md-icon >refresh</md-icon>
+        </button>
+        <button md-icon-button [disabled]="isInProgress" (click)="delete()">
+            <md-icon >delete_forever</md-icon>
+        </button>
+    </span>
+</md-toolbar>
+
+<div class="progress-bar-placeholder">
+    <md-progress-bar *ngIf="isInProgress" mode="indeterminate"></md-progress-bar>
+</div>
+
+<<&content>>

@@ -4,7 +4,7 @@ import {MD_TOOLBAR_DIRECTIVES} from '@angular2-material/toolbar';
 import {MD_PROGRESS_BAR_DIRECTIVES} from '@angular2-material/progress-bar';
 import {MD_LIST_DIRECTIVES} from '@angular2-material/list';
 import {MdIcon} from '@angular2-material/icon';
-import { NotificationService } from '../../services/notification.service';
+import { CoreServices } from '../../services/core-services.service';
 
 import {AbstractAssetDetailComponent} from '../abstract-asset-detail.component';
 
@@ -25,8 +25,8 @@ import {User} from '../../models/user';
 })
 export class UserDetailComponent extends AbstractAssetDetailComponent<User>{
 
-    constructor(router: Router, notificationService: NotificationService, userService: UserService){
-        super(router, notificationService, userService);
+    constructor(router: Router, coreServices: CoreServices, userService: UserService){
+        super(router, coreServices, userService);
     }
 
 

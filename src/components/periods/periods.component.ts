@@ -7,7 +7,7 @@ import {MD_PROGRESS_BAR_DIRECTIVES} from '@angular2-material/progress-bar';
 import {MdDataTable} from 'ng2-material/components/data-table/index';
 
 import {AbstractAssetsComponent} from '../abstract-assets.component';
-import { NotificationService } from '../../services/notification.service';
+import { CoreServices } from '../../services/core-services.service';
 
 import {LeftSidenavContentComponent} from '../shared/left-sidenav-content.component';
 import {PeriodsDetailComponent} from './periods-detail.component';
@@ -43,8 +43,8 @@ import {TemplateCompiler} from '../../utils/template-compiler';
 ])
 export class PeriodsComponent extends AbstractAssetsComponent<PeriodsHierarchy>{
 
-    constructor(router: Router, notificationService: NotificationService, periodsService: PeriodsService){
-        super(router, notificationService, periodsService);
+    constructor(router: Router, coreServices: CoreServices, periodsService: PeriodsService){
+        super(router, coreServices, periodsService);
     }
 
     create(name: string){

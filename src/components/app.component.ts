@@ -12,6 +12,7 @@ import {SettingsComponent} from './settings/settings.component';
 
 import {LoginComponent} from './shared/login.component';
 
+import {CoreServices} from '../services/core-services.service';
 import {AuthService} from '../services/auth.service';
 import {ApiHttp} from '../services/api-http.service';
 import {SettingsService} from '../services/settings.service';
@@ -31,7 +32,8 @@ import {UserService} from '../services/user.service';
         LoginComponent
     ],
     providers: [
-        AuthService, ApiHttp, SettingsService
+        AuthService, ApiHttp, SettingsService, 
+        CoreServices
     ]
 })
 @Routes([
@@ -59,6 +61,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.router.navigate(['/datasets']);
+        let url = this.router.routeTree.root.stringifiedUrlSegments;
+        if(url == ''){
+            this.router.navigate(['/datasets']);
+        }
     }
 }
