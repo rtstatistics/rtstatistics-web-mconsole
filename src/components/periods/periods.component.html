@@ -3,11 +3,12 @@
     <md-card-title>Create a new statistics periods hierarchy</md-card-title>
     <md-card-content>
         <md-input #newPeriodsName placeholder="Name" maxLength="200" style="width: 100%"></md-input>
+        <period #rootPeriod [isRoot]="true"></period>
         <div align="right">
             <button md-raised-button (click)="isCreationFormActive=false">
                 Cancel
             </button>
-            <button md-raised-button color="primary" (click)="create(newPeriodsName.value)">
+            <button md-raised-button color="primary" (click)="create(newPeriodsName.value, rootPeriod.period.upperLevelPeriods)">
                 OK
             </button>
         </div>
@@ -24,7 +25,7 @@
     <tbody>
         <tr *ngFor="let periods of assets">
             <td class="md-text-cell">
-                <a (click)="isDetailVisible=true; isCreationFormActive=false" [routerLink]="['./', periods.id]">{{periods.name}}</a>
+                <a (click)="isCreationFormActive=false" [routerLink]="['./', periods.id]">{{periods.name}}</a>
             </td>
             <td class="md-text-cell">
                 <span class="id">{{periods.id}}</span>

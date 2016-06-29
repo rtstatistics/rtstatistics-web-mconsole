@@ -30,7 +30,7 @@ import {TemplateCompiler} from '../../utils/template-compiler';
         content:        require('./dataset-detail.component.html')
     }),
     styles: [require('./dataset-detail.component.css')],
-    inputs: ['progressTracker', 'parentId', 'id', 'quitFunction'],
+    //inputs: ['progressTracker', 'parentId', 'id', 'quitFunction'],
     directives: [
         MD_TABS_DIRECTIVES, MD_BUTTON_DIRECTIVES, MD_INPUT_DIRECTIVES, MD_CARD_DIRECTIVES,
         MD_LIST_DIRECTIVES, MD_TOOLBAR_DIRECTIVES, MD_PROGRESS_BAR_DIRECTIVES, MdIcon,
@@ -43,8 +43,6 @@ export class DatasetDetailComponent extends AbstractAssetDetailComponent<Dataset
     constructor(router: Router, coreServices: CoreServices, 
         datasetService: DatasetService){
         super(router, coreServices, datasetService);
-        this.editedDetail = new Dataset(null, null);
-
     }
 
     ngAfterViewInit() {

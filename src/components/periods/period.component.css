@@ -1,0 +1,7 @@
+period{
+    margin-left: 2rem;
+}
+
+md-list-item > *{
+    height: auto;
+}

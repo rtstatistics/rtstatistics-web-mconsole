@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {RouteSegment, Router, OnActivate, RouteTree} from '@angular/router';
 import {MD_TOOLBAR_DIRECTIVES} from '@angular2-material/toolbar';
+import {MD_INPUT_DIRECTIVES} from '@angular2-material/input';
+import {MD_BUTTON_DIRECTIVES} from '@angular2-material/button';
 import {MD_PROGRESS_BAR_DIRECTIVES} from '@angular2-material/progress-bar';
 import {MD_LIST_DIRECTIVES} from '@angular2-material/list';
 import {MdIcon} from '@angular2-material/icon';
@@ -11,7 +13,7 @@ import {AbstractAssetDetailComponent} from '../abstract-asset-detail.component';
 import {PeriodsService} from '../../services/periods.service';
 import {PeriodsHierarchy} from '../../models/periods-hierarchy';
 import {TemplateCompiler} from '../../utils/template-compiler';
-
+import {PeriodComponent} from './period.component';
 
 @Component({
     moduleId: module.id,
@@ -22,9 +24,10 @@ import {TemplateCompiler} from '../../utils/template-compiler';
         content:        require('./periods-detail.component.html')
     }),
     styles: [require('./periods-detail.component.css')],
-    inputs: ['progressTracker', 'parentId', 'id', 'quitFunction'],
+    //inputs: ['progressTracker', 'parentId', 'id', 'quitFunction'],
     directives: [
-        MD_LIST_DIRECTIVES, MD_TOOLBAR_DIRECTIVES, MD_PROGRESS_BAR_DIRECTIVES, MdIcon
+        MD_INPUT_DIRECTIVES, MD_BUTTON_DIRECTIVES, MD_LIST_DIRECTIVES, MD_TOOLBAR_DIRECTIVES, MD_PROGRESS_BAR_DIRECTIVES, MdIcon,
+        PeriodComponent
     ],
     providers: [
     ]
@@ -34,7 +37,6 @@ export class PeriodsDetailComponent extends AbstractAssetDetailComponent<Periods
     constructor(router: Router, coreServices: CoreServices, periodsService: PeriodsService){
         super(router, coreServices, periodsService);
     }
-
 
 
 }

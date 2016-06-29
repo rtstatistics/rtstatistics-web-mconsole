@@ -1,0 +1,19 @@
+<div>
+    <md-input *ngIf="!isRoot" placeholder="Amount" [(ngModel)]="period.amount" maxLength="5" style="width: 3em;"></md-input>
+    <md-input *ngIf="!isRoot" placeholder="Unit" [(ngModel)]="period.unit" maxLength="10" style="width: 5em;"></md-input>
+    <md-input *ngIf="!isRoot" placeholder="Time zone" [(ngModel)]="period.timeZone" maxLength="20" style="width: 10em;"></md-input>
+    <md-input *ngIf="!isRoot" placeholder="Keep within (minutes)" [(ngModel)]="period.configuration.keepWithinMinutes" maxLength="12" style="width: 8em;"></md-input>
+</div>
+<div>
+    <button md-icon-button (click)="addEmptyUpperLevel()">
+        <md-icon>add</md-icon>
+    </button>  
+</div>
+<md-list>
+    <md-list-item class="height-auto align-baseline" *ngFor="let p of period.upperLevelPeriods; let i = index">
+        <button md-icon-button (click)="deleteUpperLevel(i)">
+            <md-icon>delete</md-icon>
+        </button>  
+        <period [(period)]="period.upperLevelPeriods[i]"></period>
+    </md-list-item>
+</md-list>

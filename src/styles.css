@@ -62,6 +62,13 @@ div.nav-head-content{
   width: 100%
 }
 
+md-list-item.height-auto > div.md-list-item{
+  height: auto;
+}
+md-list-item.align-baseline > div.md-list-item{
+  align-items: baseline;
+}
+
 /* the mask to cover the full view */
 .background-mask{
     position: fixed;

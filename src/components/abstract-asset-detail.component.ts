@@ -71,6 +71,7 @@ export class AbstractAssetDetailComponent<T extends Asset> extends AbstractProgr
         protected coreServices: CoreServices,
         protected assetService: AbstractAssetService<T>){
             super();
+            this.editedDetail = assetService.convert({});
     }
 
     routerOnActivate(curr: RouteSegment, prev?: RouteSegment, currTree?: RouteTree, prevTree?: RouteTree) : void {

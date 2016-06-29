@@ -21,7 +21,7 @@ export class PeriodsService extends AbstractAssetService<PeriodsHierarchy>{
     }
 
     convert(obj: any): PeriodsHierarchy{
-        return Object.assign(new PeriodsHierarchy(), obj);
+        return Object.assign(new PeriodsHierarchy(), obj).copy();
     }
 
 }

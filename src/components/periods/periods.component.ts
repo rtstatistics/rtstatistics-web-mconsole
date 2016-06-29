@@ -3,6 +3,7 @@ import {ROUTER_DIRECTIVES, Router, Routes} from '@angular/router';
 import {MdIcon} from '@angular2-material/icon';
 import {MD_SIDENAV_DIRECTIVES} from '@angular2-material/sidenav';
 import {MD_TOOLBAR_DIRECTIVES} from '@angular2-material/toolbar';
+import {MD_INPUT_DIRECTIVES} from '@angular2-material/input';
 import {MD_PROGRESS_BAR_DIRECTIVES} from '@angular2-material/progress-bar';
 import {MdDataTable} from 'ng2-material/components/data-table/index';
 
@@ -11,10 +12,11 @@ import { CoreServices } from '../../services/core-services.service';
 
 import {LeftSidenavContentComponent} from '../shared/left-sidenav-content.component';
 import {PeriodsDetailComponent} from './periods-detail.component';
+import {PeriodComponent} from './period.component';
 
 import {PeriodsService} from '../../services/periods.service';
 
-import {PeriodsHierarchy} from '../../models/periods-hierarchy';
+import {PeriodsHierarchy, Period} from '../../models/periods-hierarchy';
 
 import {TemplateCompiler} from '../../utils/template-compiler';
 
@@ -30,9 +32,10 @@ import {TemplateCompiler} from '../../utils/template-compiler';
     styles: [require('./periods.component.css')],
     directives: [
         ROUTER_DIRECTIVES, 
-        MD_SIDENAV_DIRECTIVES, MD_TOOLBAR_DIRECTIVES, MD_PROGRESS_BAR_DIRECTIVES, MdIcon,
+        MD_INPUT_DIRECTIVES, MD_SIDENAV_DIRECTIVES, MD_TOOLBAR_DIRECTIVES, MD_PROGRESS_BAR_DIRECTIVES, MdIcon,
         MdDataTable,
-        LeftSidenavContentComponent
+        LeftSidenavContentComponent,
+        PeriodComponent
     ],
     providers: [
         PeriodsService
@@ -47,8 +50,9 @@ export class PeriodsComponent extends AbstractAssetsComponent<PeriodsHierarchy>{
         super(router, coreServices, periodsService);
     }
 
-    create(name: string){
-        
+    create(name: string, periods: Period[]){
+        let ph = new PeriodsHierarchy(null, name, periods);
+        super.doCreate(ph);
     }
 
 }

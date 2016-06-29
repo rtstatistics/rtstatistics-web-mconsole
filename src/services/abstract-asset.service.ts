@@ -61,7 +61,12 @@ export abstract class AbstractAssetService<T extends Asset> extends AbstractApiS
 
     get(id: string, parentId?: string): Observable<ApiResponse<T>>{
         return super.get('/' + (parentId == null ? id : (parentId + this.getPathSegment() + '/' + id)))
-            .map(r=>Object.assign(this.convert(r), {id: r.result, parentId: parentId}))
+            .map(r=>{
+                if (r != null && r.result != null){
+                    r.result = Object.assign(this.convert(r.result), {id: id, parentId: parentId})
+                }
+                return r;
+            })
             .share();
     }
 
