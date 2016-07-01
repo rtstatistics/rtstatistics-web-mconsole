@@ -1,0 +1,47 @@
+<!-- create -->
+<md-card #newPeriodsForm *ngIf="isCreationFormActive">
+    <md-card-title>Create a new statistics</md-card-title>
+    <md-card-content>
+        <md-input [(ngModel)]="newAsset.name" placeholder="Name" maxLength="200" style="width: 100%"></md-input>
+        <md2-select [(ngModel)]="newAsset.datasetId" placeholder="Dataset">
+            <md2-option *ngFor="let dataset of refDatasets" [value]="dataset.id">{{dataset.name}} <span class="id">({{dataset.id}})</span></md2-option>
+        </md2-select>
+        <md2-select [(ngModel)]="newAsset.periodsId" placeholder="Statistics periods hierarchy">
+            <md2-option *ngFor="let periods of refPeriods" [value]="periods.id">{{periods.name}} <span class="id">({{periods.id}})</span></md2-option>
+        </md2-select>
+        <md-input [(ngModel)]="newAsset.valueField" placeholder="Value field" maxLength="100" style="width: 100%"></md-input>
+        <md-slide-toggle [(ngModel)]="newAsset.includeCountDistinct">
+            Include distinct count of values appeared
+        </md-slide-toggle>
+        <md-input [(ngModel)]="newAsset.timestampFieldName" placeholder="Timestamp field" maxLength="100" style="width: 100%"></md-input>
+        <md-input [(ngModel)]="newAsset.timestampFieldFormat" placeholder="Timestamp format" maxLength="50" style="width: 100%"></md-input>
+        <md-input [(ngModel)]="newAsset.timestampFieldZone" placeholder="Timestamp time zone" maxLength="50" style="width: 100%"></md-input>
+        <div align="right">
+            <button md-raised-button (click)="isCreationFormActive=false">
+                Cancel
+            </button>
+            <button md-raised-button color="primary" (click)="create()">
+                OK
+            </button>
+        </div>
+    </md-card-content>
+</md-card>
+<!-- list -->
+<md-data-table>
+    <thead>
+        <tr>
+            <th class="md-text-cell">Name</th>
+            <th class="md-text-cell">ID</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let statistics of assets">
+            <td class="md-text-cell">
+                <a (click)="isCreationFormActive=false" [routerLink]="['./', statistics.id]">{{statistics.name}}</a>
+            </td>
+            <td class="md-text-cell">
+                <span class="id">{{statistics.id}}</span>
+            </td>
+        </tr>
+    </tbody>
+</md-data-table>

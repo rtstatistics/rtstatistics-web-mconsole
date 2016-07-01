@@ -2,13 +2,13 @@
 <md-card #newPeriodsForm *ngIf="isCreationFormActive">
     <md-card-title>Create a new statistics periods hierarchy</md-card-title>
     <md-card-content>
-        <md-input #newPeriodsName placeholder="Name" maxLength="200" style="width: 100%"></md-input>
+        <md-input [(ngModel)]="newAsset.name" placeholder="Name" maxLength="200" style="width: 100%"></md-input>
         <period #rootPeriod [isRoot]="true"></period>
         <div align="right">
             <button md-raised-button (click)="isCreationFormActive=false">
                 Cancel
             </button>
-            <button md-raised-button color="primary" (click)="create(newPeriodsName.value, rootPeriod.period.upperLevelPeriods)">
+            <button md-raised-button color="primary" (click)="create(rootPeriod.period.upperLevelPeriods)">
                 OK
             </button>
         </div>

@@ -18,10 +18,14 @@ import '@angular2-material/icon';
 import '@angular2-material/input';
 import '@angular2-material/sidenav';
 import '@angular2-material/tabs';
+import '@angular2-material/slide-toggle';
 
 // Material Design Icons
 import 'material-design-icons';
 require('material-design-icons/iconfont/material-icons.css')
+
+// MD2
+import 'md2/select';
 
 // Angular2-Toaster
 import 'angular2-toaster/angular2-toaster';

@@ -7,14 +7,14 @@
 <md-card #newFieldForm *ngIf="isCreationFormActive" style="z-index: 1">
     <md-card-title>Create a new field</md-card-title>
     <md-card-content>
-        <md-input [(ngModel)]="newField.name" placeholder="Name" maxLength="200" style="width: 100%"></md-input>
-        <md-radio-group [(ngModel)]="newField.type">
+        <md-input [(ngModel)]="newAsset.name" placeholder="Name" maxLength="200" style="width: 100%"></md-input>
+        <md-radio-group [(ngModel)]="newAsset.type">
             <md-radio-button *ngFor="let o of supportedTypes; let i = index" [value]="o" [checked]="i == 0">
                 {{o}}
             </md-radio-button>
         </md-radio-group>
-        <md-input [(ngModel)]="newField.path" *ngIf="newField.isNative" placeholder="Path" maxLength="200" style="width: 100%"></md-input>
-        <md-input [(ngModel)]="newField.formula" *ngIf="newField.isCalculated" placeholder="Formula" maxLength="200" style="width: 100%"></md-input>
+        <md-input [(ngModel)]="newAsset.path" *ngIf="newAsset.isNative" placeholder="Path" maxLength="200" style="width: 100%"></md-input>
+        <md-input [(ngModel)]="newAsset.formula" *ngIf="newAsset.isCalculated" placeholder="Formula" maxLength="200" style="width: 100%"></md-input>
         <div align="right">
             <button md-raised-button (click)="isCreationFormActive=false">
                 Cancel

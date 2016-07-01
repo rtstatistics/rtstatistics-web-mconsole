@@ -2,12 +2,12 @@
 <md-card #newDatasetForm *ngIf="isCreationFormActive">
     <md-card-title>Create a new dataset</md-card-title>
     <md-card-content>
-        <md-input #newDatasetName placeholder="Name" maxLength="200" style="width: 100%"></md-input>
+        <md-input [(ngModel)]="newAsset.name" placeholder="Name" maxLength="200" style="width: 100%"></md-input>
         <div align="right">
             <button md-raised-button (click)="isCreationFormActive=false">
                 Cancel
             </button>
-            <button md-raised-button color="primary" (click)="create(newDatasetName.value)">
+            <button md-raised-button color="primary" (click)="create()">
                 OK
             </button>
         </div>

@@ -14,6 +14,7 @@
     'rxjs':                       'node_modules/rxjs',
     'angular2-toaster':           'node_modules/angular2-toaster',
     'ng2-material':               'node_modules/ng2-material',
+    'md2/select':                        'node_modules/md2',
     'mustache':                   'node_modules/mustache'
   };
   // packages tells the System loader how to load when no filename and/or no extension
@@ -25,6 +26,7 @@
     'rxjs':                       { defaultExtension: 'js' },
     'angular2-toaster':           { main: 'angular2-toaster.js', defaultExtension: 'js'},
     'ng2-material':               { main: 'index.js', defaultExtension: 'js' },
+    'md2/select':                 { main: 'select.js', format: 'cjs', defaultExtension: 'js'},
     'mustache':                   { main: 'mustache.js', defaultExtension: 'js'}
   };
   var ngPackageNames = [
@@ -50,6 +52,7 @@
     'radio',
     'list',
     'tabs',
+    'slide-toggle',
     'icon'
   ];
   // Add package entries for angular packages

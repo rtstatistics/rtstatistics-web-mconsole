@@ -50,9 +50,14 @@ export class PeriodsComponent extends AbstractAssetsComponent<PeriodsHierarchy>{
         super(router, coreServices, periodsService);
     }
 
-    create(name: string, periods: Period[]){
-        let ph = new PeriodsHierarchy(null, name, periods);
-        super.doCreate(ph);
+    protected resetNewAsset(){
+        super.resetNewAsset();
+    }
+
+
+    create(periods: Period[]){
+        this.newAsset.periods = periods;
+        super.doCreate();
     }
 
 }

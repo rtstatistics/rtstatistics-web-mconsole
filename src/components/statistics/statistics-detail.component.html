@@ -1,0 +1,25 @@
+<div class="centered-content top-bottom-padded-content">
+    <md-input placeholder="ID" [(ngModel)]="editedDetail.id" disabled maxLength="100" style="width: 100%"></md-input>
+    <md-input [(ngModel)]="editedDetail.name" placeholder="Name" maxLength="200" style="width: 100%"></md-input>
+        <md2-select [(ngModel)]="editedDetail.datasetId" placeholder="Dataset">
+            <md2-option *ngFor="let dataset of refDatasets" [value]="dataset.id">{{dataset.name}} <span class="id">({{dataset.id}})</span></md2-option>
+        </md2-select>
+        <md2-select [(ngModel)]="editedDetail.periodsId" placeholder="Statistics periods hierarchy">
+            <md2-option *ngFor="let periods of refPeriods" [value]="periods.id">{{periods.name}} <span class="id">({{periods.id}})</span></md2-option>
+        </md2-select>
+    <md-input [(ngModel)]="editedDetail.valueField" placeholder="Value field" maxLength="100" style="width: 100%"></md-input>
+    <md-slide-toggle [(ngModel)]="editedDetail.includeCountDistinct">
+        Include distinct count of values appeared
+    </md-slide-toggle>
+    <md-input [(ngModel)]="editedDetail.timestampFieldName" placeholder="Timestamp field" maxLength="100" style="width: 100%"></md-input>
+    <md-input [(ngModel)]="editedDetail.timestampFieldFormat" placeholder="Timestamp format" maxLength="50" style="width: 100%"></md-input>
+    <md-input [(ngModel)]="editedDetail.timestampFieldZone" placeholder="Timestamp time zone" maxLength="50" style="width: 100%"></md-input>
+</div>
+<div align="right">
+    <button md-raised-button (click)="resetEditedDetail()">
+        Reset
+    </button>
+    <button md-raised-button color="primary" (click)="update()">
+        Save
+    </button>
+</div>

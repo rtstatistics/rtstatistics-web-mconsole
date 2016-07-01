@@ -43,6 +43,13 @@ export class AbstractAssetsComponent<T extends Asset> extends AbstractProgressiv
     assets: T[];
 
     /**
+     *  to be created asset shown on the creation form
+     * 
+     * @type {T}
+     */
+    newAsset: T;
+
+    /**
      * True will be returned if current component is the leaf in the
      * route tree. False will be returned if current component has at least one
      * child in the route tree.
@@ -83,7 +90,12 @@ export class AbstractAssetsComponent<T extends Asset> extends AbstractProgressiv
         protected coreServices: CoreServices,
         protected assetService: AbstractAssetService<T>){
             super();
+            this.resetNewAsset()
             this.setupAssetChangeHandler();
+    }
+
+    protected resetNewAsset(){
+        this.newAsset = this.assetService.convert({});
     }
 
     protected doGetAll():Observable<ApiResponse<T[]>>{
@@ -166,18 +178,22 @@ export class AbstractAssetsComponent<T extends Asset> extends AbstractProgressiv
             );
     }
 
-    protected doCreate(asset: T){
-        let name = asset.name;
+    create(...args: any[]){
+        this.doCreate();
+    }
+
+    protected doCreate(){
         this.startProgress();
-        this.assetService.create(asset, this.parentId)
+        this.assetService.create(this.newAsset, this.parentId)
             .finally<ApiResponse<any>>(()=>{
                 this.endProgress();
             })
             .subscribe(
                 response => {
                     this.isCreationFormActive = false;
-                    this.coreServices.notification.showSuccessToast('Created: ' + name);
+                    this.coreServices.notification.showSuccessToast('Created: ' + this.newAsset.name);
                     // this.refresh(); // createdSubscription will do it
+                    this.resetNewAsset();
                 },
                 err => {
                     this.coreServices.notification.showErrorToast(

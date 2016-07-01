@@ -6,6 +6,7 @@ import {ToasterContainerComponent, ToasterService, ToasterConfig} from 'angular2
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {DatasetsComponent} from './datasets/datasets.component';
 import {PeriodsComponent} from './periods/periods.component';
+import {StatisticsComponent} from './statistics/statistics.component';
 import {UsersComponent} from './users/users.component';
 import {OrganizationComponent} from './organization/organization.component';
 import {SettingsComponent} from './settings/settings.component';
@@ -42,6 +43,8 @@ import {UserService} from '../services/user.service';
   {path: '/datasets/...', component: DatasetsComponent},
   {path: '/periods', component: PeriodsComponent},
   {path: '/periods/...', component: PeriodsComponent},
+  {path: '/statistics', component: StatisticsComponent},
+  {path: '/statistics/...', component: StatisticsComponent},
   {path: '/users', component: UsersComponent},
   {path: '/users/...', component: UsersComponent},
   {path: '/organization', component: OrganizationComponent},

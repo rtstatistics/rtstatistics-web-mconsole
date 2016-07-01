@@ -51,9 +51,4 @@ export class DatasetsComponent extends AbstractAssetsComponent<Dataset>{
     constructor(router: Router, coreServices: CoreServices, datasetService: DatasetService){
         super(router, coreServices, datasetService);
     }
-
-    create(name: string){
-        super.doCreate(new Dataset(name));
-    }
-
 }

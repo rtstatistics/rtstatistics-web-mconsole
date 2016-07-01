@@ -2,31 +2,31 @@ import { Observable } from 'rxjs/Observable';
 import {Injectable} from '@angular/core';
 import {ApiHttp} from './api-http.service';
 import {Response} from '@angular/http';
-import {PeriodsHierarchy} from '../models/periods-hierarchy';
-import {ApiResponse} from "../models/api-response";
+import {Statistics} from '../models/statistics';
+import {ApiResponse} from '../models/api-response';
 import {AbstractApiService} from './abstract-api.service';
-import {SettingsService} from "./settings.service";
+import {SettingsService} from './settings.service';
 import {AbstractAssetService} from './abstract-asset.service';
 import {AuthService} from "./auth.service";
 
 @Injectable()
-export class PeriodsService extends AbstractAssetService<PeriodsHierarchy>{
+export class StatisticsService extends AbstractAssetService<Statistics>{
 
     constructor(http: ApiHttp, settings: SettingsService, authService: AuthService){
         super(http, settings, authService);
     }
 
     protected getBaseUrl(settings: SettingsService): string{
-        return settings.manageApiBaseUrl + '/periods';
+        return settings.manageApiBaseUrl + '/statistics';
     }
 
-    convert(obj: any): PeriodsHierarchy{
+    convert(obj: any): Statistics{
         if (obj == null){
             return obj;
-        }else if(typeof obj === 'PeriodsHierarchy'){
-            return (<PeriodsHierarchy>obj).copy();
+        }else if(typeof obj === 'Statistics'){
+            return (<Statistics>obj).copy();
         }else{
-            return Object.assign(new PeriodsHierarchy(), obj).copy();
+            return Object.assign(new Statistics(), obj).copy();
         }
     }
 

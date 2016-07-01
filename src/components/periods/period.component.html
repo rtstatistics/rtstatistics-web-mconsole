@@ -4,12 +4,7 @@
     <md-input *ngIf="!isRoot" placeholder="Time zone" [(ngModel)]="period.timeZone" maxLength="20" style="width: 10em;"></md-input>
     <md-input *ngIf="!isRoot" placeholder="Keep within (minutes)" [(ngModel)]="period.configuration.keepWithinMinutes" maxLength="12" style="width: 8em;"></md-input>
 </div>
-<div>
-    <button md-icon-button (click)="addEmptyUpperLevel()">
-        <md-icon>add</md-icon>
-    </button>  
-</div>
-<md-list>
+<md-list *ngIf="period.upperLevelPeriods != null && period.upperLevelPeriods.length > 0">
     <md-list-item class="height-auto align-baseline" *ngFor="let p of period.upperLevelPeriods; let i = index">
         <button md-icon-button (click)="deleteUpperLevel(i)">
             <md-icon>delete</md-icon>
@@ -17,3 +12,8 @@
         <period [(period)]="period.upperLevelPeriods[i]"></period>
     </md-list-item>
 </md-list>
+<div class="align-with-list-item">
+    <button md-icon-button (click)="addEmptyUpperLevel()">
+        <md-icon>add_circle</md-icon>
+    </button>  
+</div>

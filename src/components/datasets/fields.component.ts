@@ -43,14 +43,13 @@ import {Field} from '../../models/field';
 export class FieldsComponent extends AbstractAssetsComponent<Field>{
     supportedTypes: string[] = Field.ALL_TYPES;
     
-    newField: Field = new Field('', Field.TYPE_NATIVE, '', null);
-
     constructor(router: Router, coreServices: CoreServices, fieldService: FieldService){
         super(router, coreServices, fieldService);
     }
 
-    create(){
-        super.doCreate(this.newField);
+    protected resetNewAsset(){
+        super.resetNewAsset();
+        this.newAsset.type = Field.TYPE_NATIVE;
     }
 
     refresh(){
