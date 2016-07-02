@@ -17,6 +17,13 @@ module.exports = {
   module: {
     loaders: [
       {
+        test: /md2\/.*\.js$/,
+        loader: 'babel-loader',
+        query: {
+          presets: ['es2015']
+        }
+      },
+      {
         test: /\.ts$/,
         loader: 'ts'
       },
