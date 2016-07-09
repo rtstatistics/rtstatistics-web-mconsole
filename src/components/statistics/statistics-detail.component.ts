@@ -13,6 +13,7 @@ import { SELECT_DIRECTIVES, Md2SelectDispatcher } from 'md2/select';
 import { CoreServices } from '../../services/core-services.service';
 
 import {AbstractAssetDetailComponent} from '../abstract-asset-detail.component';
+import {KeyFieldsComponent} from './key-fields.component';
 
 import {StatisticsService} from '../../services/statistics.service';
 import {DatasetService} from '../../services/dataset.service';
@@ -38,7 +39,8 @@ import {TemplateCompiler} from '../../utils/template-compiler';
         MD_INPUT_DIRECTIVES, MD_BUTTON_DIRECTIVES, MD_LIST_DIRECTIVES, 
         MD_TOOLBAR_DIRECTIVES, MD_PROGRESS_BAR_DIRECTIVES, MdIcon,
         MD_SLIDE_TOGGLE_DIRECTIVES,
-        SELECT_DIRECTIVES
+        SELECT_DIRECTIVES,
+        KeyFieldsComponent
     ],
     providers: [
         DatasetService, FieldService, PeriodsService, StatisticsService, ReferenceService,
@@ -63,6 +65,13 @@ export class StatisticsDetailComponent extends AbstractAssetDetailComponent<Stat
         super.refresh();
         this.referenceService.refreshDatasets();
         this.referenceService.refreshPeriods();
+    }
+
+    resetEditedDetail(){
+        super.resetEditedDetail();
+        if (this.editedDetail.keyFields == null){
+            this.editedDetail.keyFields = [];
+        }
     }
 
 }

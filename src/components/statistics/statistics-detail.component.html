@@ -11,6 +11,8 @@
     <md-slide-toggle [(ngModel)]="editedDetail.includeCountDistinct">
         Include distinct count of values appeared
     </md-slide-toggle>
+    Key fields: <br/>
+    <key-fields [(fields)]="editedDetail.keyFields"></key-fields>
     <md-input [(ngModel)]="editedDetail.timestampFieldName" placeholder="Timestamp field" maxLength="100" style="width: 100%"></md-input>
     <md-input [(ngModel)]="editedDetail.timestampFieldFormat" placeholder="Timestamp format" maxLength="50" style="width: 100%"></md-input>
     <md-input [(ngModel)]="editedDetail.timestampFieldZone" placeholder="Timestamp time zone" maxLength="50" style="width: 100%"></md-input>

@@ -1,0 +1,9 @@
+<div *ngFor="let oneOrMore of fields; let i=index" style="display: flex;">
+    <button md-icon-button (click)="delete(i)">
+        <md-icon>delete</md-icon>
+    </button>
+    <interchangeable-fields class="fill-remaining-space" [fields]="fields[i]" (change)="update(i, $event)"></interchangeable-fields>
+</div>
+<button md-icon-button (click)="addEmpty()">
+    <md-icon>add_circle</md-icon>
+</button>  

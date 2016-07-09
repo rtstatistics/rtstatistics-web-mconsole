@@ -13,6 +13,8 @@
         <md-slide-toggle [(ngModel)]="newAsset.includeCountDistinct">
             Include distinct count of values appeared
         </md-slide-toggle>
+        Key fields: <br/>
+        <key-fields [(fields)]="newAsset.keyFields"></key-fields>
         <md-input [(ngModel)]="newAsset.timestampFieldName" placeholder="Timestamp field" maxLength="100" style="width: 100%"></md-input>
         <md-input [(ngModel)]="newAsset.timestampFieldFormat" placeholder="Timestamp format" maxLength="50" style="width: 100%"></md-input>
         <md-input [(ngModel)]="newAsset.timestampFieldZone" placeholder="Timestamp time zone" maxLength="50" style="width: 100%"></md-input>

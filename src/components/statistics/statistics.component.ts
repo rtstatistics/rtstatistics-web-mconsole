@@ -15,6 +15,7 @@ import { CoreServices } from '../../services/core-services.service';
 
 import {LeftSidenavContentComponent} from '../shared/left-sidenav-content.component';
 import {StatisticsDetailComponent} from './statistics-detail.component';
+import {KeyFieldsComponent} from './key-fields.component';
 
 import {StatisticsService} from '../../services/statistics.service';
 import {DatasetService} from '../../services/dataset.service';
@@ -43,7 +44,8 @@ import {TemplateCompiler} from '../../utils/template-compiler';
         MD_INPUT_DIRECTIVES, MD_SIDENAV_DIRECTIVES, MD_TOOLBAR_DIRECTIVES, MD_PROGRESS_BAR_DIRECTIVES, MdIcon,
         MdDataTable, MD_SLIDE_TOGGLE_DIRECTIVES,
         SELECT_DIRECTIVES,
-        LeftSidenavContentComponent
+        LeftSidenavContentComponent,
+        KeyFieldsComponent
     ],
     providers: [
         DatasetService, FieldService, PeriodsService, StatisticsService, ReferenceService,
@@ -72,4 +74,12 @@ export class StatisticsComponent extends AbstractAssetsComponent<Statistics>{
         this.referenceService.refreshDatasets();
         this.referenceService.refreshPeriods();
     }
+
+    protected resetNewAsset(){
+        super.resetNewAsset();
+        if (this.newAsset.keyFields == null){
+            this.newAsset.keyFields = [];
+        }
+    }
+
 }
