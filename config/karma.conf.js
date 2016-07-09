@@ -4,6 +4,13 @@ module.exports = function (config) {
   var _config = {
     basePath: '',
 
+    plugins:[
+      'karma-jasmine',
+      'karma-phantomjs-launcher',
+      'karma-webpack',
+      'karma-sourcemap-loader'
+    ],
+
     frameworks: ['jasmine'],
 
     files: [
