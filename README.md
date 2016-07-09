@@ -8,6 +8,7 @@ The packaged application is embedded in web-manage and served from the Tomcat se
 
 ## Develop
 
+* npm 3 is needed
 * To clean up node modules: `npm run clean`
 * To re-generate typings information: `npm run typings install`. 
   You have to do this at least once befre you can compile the scripts.
