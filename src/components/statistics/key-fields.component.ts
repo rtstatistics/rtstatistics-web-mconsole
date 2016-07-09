@@ -6,7 +6,7 @@ import {InterchangeableFieldsComponent} from './interchangeable-fields.component
 @Component({
     moduleId: module.id,
     selector: 'key-fields',
-    templateUrl: './key-fields.component.html',
+    template: require('./key-fields.component.html'),
     directives: [
         MD_INPUT_DIRECTIVES, MdIcon,
         InterchangeableFieldsComponent

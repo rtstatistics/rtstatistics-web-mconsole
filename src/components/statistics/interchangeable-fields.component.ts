@@ -4,7 +4,7 @@ import {MD_INPUT_DIRECTIVES} from '@angular2-material/input';
 @Component({
     moduleId: module.id,
     selector: 'interchangeable-fields',
-    templateUrl: './interchangeable-fields.component.html',
+    template: require('./interchangeable-fields.component.html'),
     directives: [
         MD_INPUT_DIRECTIVES
     ]
