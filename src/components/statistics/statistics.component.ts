@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import {ROUTER_DIRECTIVES, Router, Routes} from '@angular/router';
+import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from '@angular/router';
 import {MdIcon} from '@angular2-material/icon';
 import {MD_SIDENAV_DIRECTIVES} from '@angular2-material/sidenav';
 import {MD_TOOLBAR_DIRECTIVES} from '@angular2-material/toolbar';
@@ -52,13 +52,10 @@ import {TemplateCompiler} from '../../utils/template-compiler';
         Md2SelectDispatcher
     ]
 })
-@Routes([
-    {path: '/:id', component: StatisticsDetailComponent}
-])
 export class StatisticsComponent extends AbstractAssetsComponent<Statistics>{
-    constructor(router: Router, coreServices: CoreServices, 
+    constructor(router: Router, activatedRoute: ActivatedRoute, coreServices: CoreServices, 
             statisticsService: StatisticsService, private referenceService: ReferenceService){
-        super(router, coreServices, statisticsService);
+        super(router, activatedRoute, coreServices, statisticsService);
     }
 
     get refDatasets(): Dataset[]{

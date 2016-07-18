@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {RouteSegment, Router, OnActivate, RouteTree} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MD_TOOLBAR_DIRECTIVES} from '@angular2-material/toolbar';
 import {MD_INPUT_DIRECTIVES} from '@angular2-material/input';
 import {MD_BUTTON_DIRECTIVES} from '@angular2-material/button';
@@ -34,8 +34,8 @@ import {PeriodComponent} from './period.component';
 })
 export class PeriodsDetailComponent extends AbstractAssetDetailComponent<PeriodsHierarchy>{
 
-    constructor(router: Router, coreServices: CoreServices, periodsService: PeriodsService){
-        super(router, coreServices, periodsService);
+    constructor(router: Router, activatedRoute: ActivatedRoute, coreServices: CoreServices, periodsService: PeriodsService){
+        super(router, activatedRoute, coreServices, periodsService);
     }
 
 

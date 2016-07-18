@@ -1,12 +1,11 @@
 import {
-  MockApplicationRef,
   it,
   inject,
   describe,
   beforeEachProviders,
   expect
 } from '@angular/core/testing';
-import {MockLocationStrategy, SpyLocation} from '@angular/common/testing';
+import {SpyLocation} from '@angular/common/testing';
 import {Component, provide} from '@angular/core';
 import {Headers, Http, HTTP_PROVIDERS} from '@angular/http';
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import {Router, Routes, ROUTER_DIRECTIVES} from '@angular/router';
+import {Router, ROUTER_DIRECTIVES} from '@angular/router';
 import {MdIcon} from '@angular2-material/icon';
 import {ToasterContainerComponent, ToasterService, ToasterConfig} from 'angular2-toaster/angular2-toaster';
 
@@ -35,22 +35,10 @@ import {UserService} from '../services/user.service';
     providers: [
         AuthService, ApiHttp, SettingsService, 
         CoreServices
-    ]
+    ],
+    precompile: [SettingsComponent]
 })
-@Routes([
-  {path: '/dashboard', component: DashboardComponent},
-  {path: '/datasets', component: DatasetsComponent},
-  {path: '/datasets/...', component: DatasetsComponent},
-  {path: '/periods', component: PeriodsComponent},
-  {path: '/periods/...', component: PeriodsComponent},
-  {path: '/statistics', component: StatisticsComponent},
-  {path: '/statistics/...', component: StatisticsComponent},
-  {path: '/users', component: UsersComponent},
-  {path: '/users/...', component: UsersComponent},
-  {path: '/organization', component: OrganizationComponent},
-  {path: '/settings', component: SettingsComponent}
-])
-export class AppComponent implements OnInit, AfterViewInit { 
+export class AppComponent implements OnInit { 
     toasterConfig: ToasterConfig = new ToasterConfig({
         positionClass: 'toast-bottom-center'
     });
@@ -63,10 +51,4 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     }
 
-    ngAfterViewInit() {
-        let url = this.router.routeTree.root.stringifiedUrlSegments;
-        if(url == ''){
-            this.router.navigate(['/datasets']);
-        }
-    }
 }

@@ -1,5 +1,5 @@
 import { Component, ViewChild, ViewChildren, ContentChildren, AfterViewInit, Query, ViewQuery, QueryList } from '@angular/core';
-import {RouteSegment, Router, OnActivate, RouteTree} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MD_TOOLBAR_DIRECTIVES} from '@angular2-material/toolbar';
 import {MD_PROGRESS_BAR_DIRECTIVES} from '@angular2-material/progress-bar';
 import {MD_LIST_DIRECTIVES} from '@angular2-material/list';
@@ -40,9 +40,9 @@ import {TemplateCompiler} from '../../utils/template-compiler';
     ]
 })
 export class DatasetDetailComponent extends AbstractAssetDetailComponent<Dataset> implements AfterViewInit{
-    constructor(router: Router, coreServices: CoreServices, 
+    constructor(router: Router, activatedRoute: ActivatedRoute, coreServices: CoreServices, 
         datasetService: DatasetService){
-        super(router, coreServices, datasetService);
+        super(router, activatedRoute, coreServices, datasetService);
     }
 
     ngAfterViewInit() {
