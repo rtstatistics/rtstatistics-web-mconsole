@@ -15,6 +15,7 @@
     "postinstall": "typings install",
     "server": "tsc && webpack-dev-server --inline --progress --port 3000",
     "build": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail",
+    "build-for-maven": "rimraf target/classes/META-INF/resources && webpack --config config/webpack.prod.maven.js --progress --profile --bail",
     "test": "karma start"
   },
   "license": "Apache-2.0",
