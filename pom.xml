@@ -3,7 +3,7 @@
 
 	<groupId>net.sf.jabb</groupId>
 	<artifactId>rtstatistics-web-mconsole</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>rtstatistics-web-mconsole</name>
@@ -78,8 +78,21 @@
 						</configuration>
 					</execution>
 					<execution>
+						<id>npm test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>npm</executable>
+							<arguments>
+								<argument>test</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					<execution>
 						<id>npm build</id>
-						<phase>compile</phase>
+						<phase>prepare-package</phase>
 						<goals>
 							<goal>exec</goal>
 						</goals>
