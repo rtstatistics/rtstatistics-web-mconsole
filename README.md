@@ -8,6 +8,7 @@ The packaged application is embedded in web-manage and served from the Tomcat se
 
 ## Develop
 
+* NPM 3 is required.
 * To clean up node modules: `npm run clean`
 * To re-generate typings information: `npm run typings install`. 
   You have to do this at least once befre you can compile the scripts.
@@ -16,8 +17,13 @@ The packaged application is embedded in web-manage and served from the Tomcat se
 * To run locally using deliverables generated on the fly: `npm run server`.
 * To build the deliverables for production usage: `npm run build`
   * Deliverables will be generated in `dist/` directory.
-* To create webjar for distribution: `mvn clean package` after `npm run build`
+* To create webjar for distribution: `mvn package`
   * The webjar file will be generated in `target/` directory.
+* To release the webjar: 
+  1. `mvn jgitflow:release-start` 
+  1. ``npm --no-git-tag-version version `git rev-parse --abbrev-ref HEAD | sed -e "s#release/##"` ``
+  1. `git commit -m 'update version number according to gitflow'`
+  1. `mvn jgitflow:release-finish`
 
 When running locally, the listening port number is 3000.
 
