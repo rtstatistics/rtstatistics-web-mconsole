@@ -25,7 +25,8 @@
                     <template md-tab-label>Through providers</template>
                     <template md-tab-content>
                         <div class="centered-content top-bottom-padded-content">
-                            <iframe src="https://manage.rtstatistics.com/auth/login" seamless frameborder="0" id="mainIframe">
+                            <iframe src="http://localhost:8080/web-manage/auth/login?embedded" 
+                                seamless frameborder="0" id="mainIframe" style="width:500px; height:300px">
                             </iframe>
                             <div align="right">
                                 <button md-raised-button (click)="onCancel()">
