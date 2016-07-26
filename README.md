@@ -16,8 +16,9 @@ The packaged application is embedded in web-manage and served from the Tomcat se
 * To run locally using deliverables generated on the fly: `npm run server`.
 * To build the deliverables for production usage: `npm run build`
   * Deliverables will be generated in `dist/` directory.
-* To create webjar for distribution: `mvn clean package` after `npm run build`
+* To create webjar for distribution: `mvn package`
   * The webjar file will be generated in `target/` directory.
+* To release the webjar: `mvn jgitflow:release-start` followed by `mvn jgitflow:release-finish`
 
 When running locally, the listening port number is 3000.
 
