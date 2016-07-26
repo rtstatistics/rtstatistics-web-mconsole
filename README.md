@@ -22,6 +22,7 @@ The packaged application is embedded in web-manage and served from the Tomcat se
 * To release the webjar: 
   1. `mvn jgitflow:release-start` 
   1. ``npm --no-git-tag-version version `git rev-parse --abbrev-ref HEAD | sed -e "s#release/##"` ``
+  1. `git commit -m 'update version number according to gitflow'`
   1. `mvn jgitflow:release-finish`
 
 When running locally, the listening port number is 3000.
