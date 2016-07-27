@@ -11,6 +11,7 @@ import {MdIcon} from '@angular2-material/icon';
 import { CoreServices } from '../../services/core-services.service';
 
 import {AbstractAssetDetailComponent} from '../abstract-asset-detail.component';
+import {DatasetKeysComponent} from './dataset-keys.component';
 import {FieldsComponent} from './fields.component';
 
 import {DatasetService} from '../../services/dataset.service';
@@ -34,7 +35,7 @@ import {TemplateCompiler} from '../../utils/template-compiler';
     directives: [
         MD_TABS_DIRECTIVES, MD_BUTTON_DIRECTIVES, MD_INPUT_DIRECTIVES, MD_CARD_DIRECTIVES,
         MD_LIST_DIRECTIVES, MD_TOOLBAR_DIRECTIVES, MD_PROGRESS_BAR_DIRECTIVES, MdIcon,
-        FieldsComponent
+        DatasetKeysComponent, FieldsComponent
     ],
     providers: [
     ]
