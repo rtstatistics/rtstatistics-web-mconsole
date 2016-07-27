@@ -8,6 +8,7 @@ import {MD_CHECKBOX_DIRECTIVES} from '@angular2-material/checkbox';
 
 import {AuthService} from '../../services/auth.service';
 import {SettingsService} from '../../services/settings.service';
+import {CoreServices} from '../../services/core-services.service';
 
 @Component({
     moduleId: module.id,
@@ -34,8 +35,12 @@ export class LoginComponent implements OnDestroy{
 
     embeddedLoginEventListener: any = event => this.onEmbeddedLoginEvent(event);
 
-    constructor(private authService: AuthService) {
+    constructor(private authService: AuthService, private coreServices: CoreServices) {
         authService.login = this.activate.bind(this);
+    }
+
+    get embeddedLoginUrl(){
+        return this.coreServices.settings.manageApiBaseUrl + '/auth/login?embedded';
     }
 
     private registerEventListener(): void{
