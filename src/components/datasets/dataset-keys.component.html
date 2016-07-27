@@ -1,0 +1,33 @@
+<p>
+    Send Keys:<br>
+    
+    &nbsp;
+    <button md-icon-button [disabled]="isInProgress || sendKey1.value == ''" (click)="regenerate(sendKey1.value)">
+        <md-icon >swap_horiz</md-icon>
+    </button>
+    <md-input #sendKey1 placeholder="" [ngModel]="keys?.sendKeys && keys.sendKeys[0]" disabled></md-input>
+    
+    <br>
+
+    &nbsp;
+    <button md-icon-button [disabled]="isInProgress || sendKey2.value == ''" (click)="regenerate(sendKey2.value)">
+        <md-icon >swap_horiz</md-icon>
+    </button>
+    <md-input #sendKey2 placeholder="" [ngModel]="keys?.sendKeys && keys.sendKeys[1]" disabled></md-input>
+</p>
+
+<p>
+    Query Keys:<br>
+    
+    <button md-icon-button [disabled]="isInProgress || queryKey1.value == ''" (click)="regenerate(queryKey1.value)">
+        <md-icon >swap_horiz</md-icon>
+    </button>
+    <md-input #queryKey1 placeholder="" [ngModel]="keys?.queryKeys && keys.queryKeys[0]" disabled></md-input>
+    
+    <br>
+    
+    <button md-icon-button [disabled]="isInProgress || queryKey2.value == ''" (click)="regenerate(queryKey2.value)">
+        <md-icon >swap_horiz</md-icon>
+    </button>
+    <md-input #queryKey2 placeholder="" [ngModel]="keys?.queryKeys && keys.queryKeys[1]" disabled></md-input>
+</p>
