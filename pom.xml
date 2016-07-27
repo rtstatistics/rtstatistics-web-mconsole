@@ -3,10 +3,11 @@
 
 	<groupId>net.sf.jabb</groupId>
 	<artifactId>rtstatistics-web-mconsole</artifactId>
-	<version>1.0.2</version>
+	<version>1.0.3</version>
 	<packaging>jar</packaging>
 
 	<name>rtstatistics-web-mconsole</name>
+	<description>Single page management console application for rtstatistics.com</description>
 	<url>https://github.com/james-hu/rtstatistics-web-mconsole</url>
 
 	<scm>
@@ -36,12 +37,6 @@
 	<dependencies>
 	</dependencies>
 	<build>
-        <resources>
-            <resource>
-                <directory>dist</directory>
-                <targetPath>META-INF/resources/webjars/rtstatistics-web-mconsole</targetPath>
-            </resource>
-        </resources>
 		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -100,18 +95,18 @@
 							<executable>npm</executable>
 							<arguments>
 								<argument>run</argument>
-								<argument>build</argument>
+								<argument>build-for-maven</argument>
 							</arguments>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
             <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.0.0</version>
-                    <configuration>
-                    </configuration>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+				</configuration>
             </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -143,7 +138,14 @@
 	            <artifactId>jgitflow-maven-plugin</artifactId>
 	            <version>1.0-m5.1</version>
 	            <configuration>
-	                <!-- see goals wiki page for configuration options -->
+					<flowInitContext>
+						<masterBranchName>master</masterBranchName>
+						<developBranchName>develop</developBranchName>
+						<featureBranchPrefix>feature/</featureBranchPrefix>
+						<releaseBranchPrefix>release/</releaseBranchPrefix>
+						<hotfixBranchPrefix>hotfix/</hotfixBranchPrefix>
+						<versionTagPrefix>v</versionTagPrefix>
+					</flowInitContext>
 	            </configuration>
 	        </plugin>
 		</plugins>
@@ -158,5 +160,4 @@
 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>
-	<description>Single page management console application for rtstatistics.com</description>
 </project>
