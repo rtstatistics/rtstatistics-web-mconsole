@@ -48,7 +48,7 @@
     "es6-promise": "^3.2.1",
     "es6-shim": "^0.35.1",
     "material-design-icons": "^2.2.3",
-    "md2": "^1.0.8",
+    "md2": "^1.0.13",
     "mustache": "^2.2.1",
     "ng2-material": "^0.5.0",
     "reflect-metadata": "^0.1.3",
