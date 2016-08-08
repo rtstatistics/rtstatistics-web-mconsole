@@ -39,7 +39,8 @@ import {TemplateCompiler} from '../../utils/template-compiler';
     ],
     providers: [
         PeriodsService
-    ]
+    ],
+    precompile: [PeriodsDetailComponent]
 })
 export class PeriodsComponent extends AbstractAssetsComponent<PeriodsHierarchy>{
 

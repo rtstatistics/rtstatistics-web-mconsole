@@ -13,18 +13,21 @@ import {SettingsComponent} from './settings/settings.component';
 export const routes: RouterConfig = [
   {path: 'dashboard', component: DashboardComponent},
   {path: 'datasets', component: DatasetsComponent, children: [
-    {path: ':id', component: DatasetDetailComponent}
+    {path: ':id', component: DatasetDetailComponent},
+    {path: ''}
   ]},
   {path: 'periods', component: PeriodsComponent, children: [
-    {path: ':id', component: PeriodsDetailComponent}
+    {path: ':id', component: PeriodsDetailComponent},
+    {path: ''}
   ]},
   {path: 'statistics', component: StatisticsComponent, children: [
-    {path: ':id', component: StatisticsDetailComponent}
+    {path: ':id', component: StatisticsDetailComponent},
+    {path: ''}
   ]},
   {path: 'users', component: UsersComponent},
   {path: 'organization', component: OrganizationComponent},
   {path: 'settings', component: SettingsComponent},
-  {path: '', redirectTo: '/settings', pathMatch: 'full'}
+  {path: '', redirectTo: '/datasets', pathMatch: 'full'}
 ];
 
 export const APP_ROUTER_PROVIDERS = [

@@ -4,6 +4,7 @@ import { bootstrap } from '@angular/platform-browser-dynamic';
 import { enableProdMode } from '@angular/core';
 import { provide } from '@angular/core';
 import { HTTP_PROVIDERS } from '@angular/http';
+import { provideForms, disableDeprecatedForms } from '@angular/forms';
 import { LocationStrategy, HashLocationStrategy, PathLocationStrategy } from '@angular/common';
 import { MdIconRegistry } from '@angular2-material/icon';
 import { MdUniqueSelectionDispatcher } from '@angular2-material/core';
@@ -28,6 +29,8 @@ bootstrap(AppComponent, [
   ToasterService,
   NotificationService,
   HTTP_PROVIDERS,
+  disableDeprecatedForms(),
+  provideForms(),
   APP_ROUTER_PROVIDERS,
   provide(LocationStrategy, {useClass: HashLocationStrategy})
 ])

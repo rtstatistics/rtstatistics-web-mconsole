@@ -50,7 +50,8 @@ import {TemplateCompiler} from '../../utils/template-compiler';
     providers: [
         DatasetService, FieldService, PeriodsService, StatisticsService, ReferenceService,
         Md2SelectDispatcher
-    ]
+    ],
+    precompile: [StatisticsDetailComponent]
 })
 export class StatisticsComponent extends AbstractAssetsComponent<Statistics>{
     constructor(router: Router, activatedRoute: ActivatedRoute, coreServices: CoreServices, 

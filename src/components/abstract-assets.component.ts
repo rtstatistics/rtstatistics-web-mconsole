@@ -1,4 +1,4 @@
-import { Component, ViewChild, Input, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, Input, AfterViewInit, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute} from '@angular/router';
 import { ApiResponse } from '../models/api-response';
@@ -20,7 +20,7 @@ import { ProgressTracker } from '../utils/progress-tracker';
  * @template T  type of the asset
  */
 export class AbstractAssetsComponent<T extends Asset> 
-    extends AbstractProgressiveComponent{
+    extends AbstractProgressiveComponent implements OnInit{
 
     /**
      * ID of the parent asset.
@@ -59,7 +59,8 @@ export class AbstractAssetsComponent<T extends Asset>
      * @type {boolean}
      */
     get isDetailActive(): boolean{
-        return this.router.routerState.children(this.activatedRoute).length > 0;
+        let children: ActivatedRoute[] = this.router.routerState.children(this.activatedRoute);
+        return children.length > 0 && children[0].component != null;
     }
     /**
      * This function is supposed to set the flag but the implementation
@@ -93,7 +94,10 @@ export class AbstractAssetsComponent<T extends Asset>
             super();
             this.resetNewAsset()
             this.setupAssetChangeHandler();
-            this.refresh();
+    }
+
+    ngOnInit(){
+        this.refresh();
     }
 
     protected resetNewAsset(){

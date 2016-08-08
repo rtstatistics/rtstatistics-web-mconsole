@@ -42,7 +42,8 @@ import {TemplateCompiler} from '../../utils/template-compiler';
     ],
     providers: [
         DatasetService
-    ]
+    ],
+    precompile: [DatasetDetailComponent]
 })
 export class DatasetsComponent extends AbstractAssetsComponent<Dataset>{
     constructor(router: Router, activatedRoute: ActivatedRoute, coreServices: CoreServices, datasetService: DatasetService){

@@ -20,6 +20,7 @@ import {SettingsService} from '../services/settings.service';
 import {DatasetService} from '../services/dataset.service';
 import {PeriodsService} from '../services/periods.service';
 import {UserService} from '../services/user.service';
+import {ReferenceService} from '../services/reference.service';
 
 
 @Component({
@@ -34,9 +35,9 @@ import {UserService} from '../services/user.service';
     ],
     providers: [
         AuthService, ApiHttp, SettingsService, 
-        CoreServices
+        CoreServices, ReferenceService
     ],
-    precompile: [SettingsComponent]
+    precompile: [SettingsComponent, DatasetsComponent, PeriodsComponent, StatisticsComponent, UsersComponent]
 })
 export class AppComponent implements OnInit { 
     toasterConfig: ToasterConfig = new ToasterConfig({

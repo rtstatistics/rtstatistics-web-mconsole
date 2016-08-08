@@ -1,4 +1,4 @@
-import { Component, ViewChild, Input, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, Input, AfterViewInit, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { ApiResponse } from "../models/api-response";
@@ -18,7 +18,7 @@ import { ProgressTracker } from '../utils/progress-tracker';
  * @template T  type of the asset
  */
 export class AbstractAssetDetailComponent<T extends Asset> 
-    extends AbstractProgressiveComponent{
+    extends AbstractProgressiveComponent implements OnInit{
 
     /**
      * ID of the parent asset.
@@ -71,9 +71,16 @@ export class AbstractAssetDetailComponent<T extends Asset>
         protected coreServices: CoreServices,
         protected assetService: AbstractAssetService<T>){
             super();
-            this.id = activatedRoute.params['id'];
             this.editedDetail = assetService.convert({});
-            this.refresh();
+    }
+
+    ngOnInit() {
+        this.activatedRoute.params
+            .map(params => params['id'])
+            .subscribe(id => {
+                this.id = id
+                this.refresh();
+            });
     }
 
     protected doGetDetail(): Observable<ApiResponse<T>>{
