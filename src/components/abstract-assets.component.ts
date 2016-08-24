@@ -201,8 +201,8 @@ export class AbstractAssetsComponent<T extends Asset>
 
 
     navigateToThis(){
-        if (this.router && this.activatedRoute){
-            this.router.navigate(['./'], this.activatedRoute);
+        if (this.router && this.activatedRoute && this.isDetailActive){
+            this.router.navigate(['./'], {relativeTo: this.activatedRoute});
         }
     }
 
