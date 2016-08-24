@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import {RouteSegment, Router, OnActivate, RouteTree} from '@angular/router';
+import {Router} from '@angular/router';
 import {MD_TOOLBAR_DIRECTIVES} from '@angular2-material/toolbar';
 import {MD_PROGRESS_BAR_DIRECTIVES} from '@angular2-material/progress-bar';
 import {MD_LIST_DIRECTIVES} from '@angular2-material/list';
@@ -37,7 +37,7 @@ export class FieldDetailComponent extends AbstractAssetDetailComponent<Field>{
 
     constructor(router: Router, coreServices: CoreServices, 
         fieldService: FieldService){
-        super(router, coreServices, fieldService);
+        super(router, null, coreServices, fieldService);
         this.editedDetail = new Field(null, null, null, null, null);
     }
 

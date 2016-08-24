@@ -24,7 +24,7 @@
     <tbody>
         <tr *ngFor="let dataset of assets">
             <td class="md-text-cell">
-                <a (click)="isCreationFormActive=false" [routerLink]="['./', dataset.id]">{{dataset.name}}</a>
+                <a (click)="isCreationFormActive=false" [routerLink]="['./', dataset.id]" [routerLinkActive]="['router-link-active']">{{dataset.name}}</a>
             </td>
             <td class="md-text-cell">
                 <span class="id">{{dataset.id}}</span>

@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import {ROUTER_DIRECTIVES, Router, Routes} from '@angular/router';
+import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from '@angular/router';
 import {RouterOutlet} from '@angular/router/src/directives/router_outlet';
 import {MdIcon} from '@angular2-material/icon';
 import {MD_SIDENAV_DIRECTIVES} from '@angular2-material/sidenav';
@@ -42,13 +42,11 @@ import {TemplateCompiler} from '../../utils/template-compiler';
     ],
     providers: [
         DatasetService
-    ]
+    ],
+    precompile: [DatasetDetailComponent]
 })
-@Routes([
-    {path: '/:id', component: DatasetDetailComponent}
-])
 export class DatasetsComponent extends AbstractAssetsComponent<Dataset>{
-    constructor(router: Router, coreServices: CoreServices, datasetService: DatasetService){
-        super(router, coreServices, datasetService);
+    constructor(router: Router, activatedRoute: ActivatedRoute, coreServices: CoreServices, datasetService: DatasetService){
+        super(router, activatedRoute, coreServices, datasetService);
     }
 }

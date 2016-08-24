@@ -27,6 +27,19 @@
     'angular2-toaster':           { main: 'angular2-toaster.js', defaultExtension: 'js'},
     'ng2-material':               { main: 'index.js', defaultExtension: 'js' },
     'md2/select':                 { main: 'select.js', format: 'cjs', defaultExtension: 'js'},
+    '@angular2-material/core':    { main: 'core.js', defaultExtension: 'js'},
+    '@angular2-material/icon':    { main: 'icon.js', defaultExtension: 'js'},
+    '@angular2-material/button':  { main: 'button.js', defaultExtension: 'js'},
+    '@angular2-material/card':    { main: 'card.js', defaultExtension: 'js'},
+    '@angular2-material/input':   { main: 'input.js', defaultExtension: 'js'},
+    '@angular2-material/tabs':    { main: 'tabs.js', defaultExtension: 'js'},
+    '@angular2-material/checkbox':    { main: 'checkbox.js', defaultExtension: 'js'},
+    '@angular2-material/sidenav':     { main: 'sidenav.js', defaultExtension: 'js'},
+    '@angular2-material/list':    { main: 'list.js', defaultExtension: 'js'},
+    '@angular2-material/toolbar':     { main: 'toolbar.js', defaultExtension: 'js'},
+    '@angular2-material/progress-bar':    { main: 'progress-bar.js', defaultExtension: 'js'},
+    '@angular2-material/slide-toggle':     { main: 'slide-toggle.js', defaultExtension: 'js'},
+    '@angular2-material/radio':   { main: 'radio.js', defaultExtension: 'js'},
     'mustache':                   { main: 'mustache.js', defaultExtension: 'js'}
   };
   var ngPackageNames = [
@@ -34,10 +47,10 @@
     'compiler',
     'core',
     'http',
+    'forms',
     'platform-browser',
     'platform-browser-dynamic',
-    'router',
-    'upgrade',
+    'router'
   ];
   var material2PackageNames = [
     'core',
@@ -55,14 +68,20 @@
     'slide-toggle',
     'icon'
   ];
+
+  // Individual files (~300 requests):
+  function packIndex(pkgName) {
+    packages['@angular/'+pkgName] = { main: 'index.js', defaultExtension: 'js' };
+  }
+  // Bundled (~40 requests):
+  function packUmd(pkgName) {
+    packages['@angular/'+pkgName] = { main: '/bundles/' + pkgName + '.umd.js', defaultExtension: 'js' };
+  }
+  // Most environments should use UMD; some (Karma) need the individual index files
+  var setPackageConfig = System.packageWithIndex ? packIndex : packUmd;
   // Add package entries for angular packages
-  ngPackageNames.forEach(function(pkgName) {
-    packages['@angular/'+pkgName] = { main: pkgName + '.umd.js', defaultExtension: 'js' };
-  });
-  // Add package entries for angular material 2 packages
-  material2PackageNames.forEach(function(pkgName) {
-    packages['@angular2-material/'+pkgName] = { main: pkgName + '.js', defaultExtension: 'js' };
-  });
+  ngPackageNames.forEach(setPackageConfig);
+
   var config = {
     map: map,
     packages: packages,

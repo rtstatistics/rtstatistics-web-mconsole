@@ -1,6 +1,6 @@
-import { Component, ViewChild, Input, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, Input, AfterViewInit, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Router, RouteSegment, OnActivate, RouteTree } from '@angular/router';
+import { Router, ActivatedRoute, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { ApiResponse } from "../models/api-response";
 import { CoreServices } from '../services/core-services.service';
 import { AbstractAssetService } from '../services/abstract-asset.service';
@@ -17,9 +17,8 @@ import { ProgressTracker } from '../utils/progress-tracker';
  * @implements {AfterViewInit}
  * @template T  type of the asset
  */
-export class AbstractAssetDetailComponent<T extends Asset> extends AbstractProgressiveComponent implements AfterViewInit{
-    protected routeSegment: RouteSegment;
-    protected parentRouteSegment: RouteSegment;
+export class AbstractAssetDetailComponent<T extends Asset> 
+    extends AbstractProgressiveComponent implements OnInit{
 
     /**
      * ID of the parent asset.
@@ -68,23 +67,20 @@ export class AbstractAssetDetailComponent<T extends Asset> extends AbstractProgr
 
     constructor(
         protected router: Router, 
+        protected activatedRoute: ActivatedRoute,
         protected coreServices: CoreServices,
         protected assetService: AbstractAssetService<T>){
             super();
             this.editedDetail = assetService.convert({});
     }
 
-    routerOnActivate(curr: RouteSegment, prev?: RouteSegment, currTree?: RouteTree, prevTree?: RouteTree) : void {
-        this.routeSegment = curr;
-        this.parentRouteSegment = currTree.parent(curr);
-        this.id = curr.getParam('id');
-        this.refresh();
-    }
-
-    ngAfterViewInit() {
-        if (this.routeSegment == null){ // only refresh once
-     	    this.refresh();
-        }
+    ngOnInit() {
+        this.activatedRoute.params
+            .map(params => params['id'])
+            .subscribe(id => {
+                this.id = id
+                this.refresh();
+            });
     }
 
     protected doGetDetail(): Observable<ApiResponse<T>>{
@@ -166,13 +162,13 @@ export class AbstractAssetDetailComponent<T extends Asset> extends AbstractProgr
     }
 
     navigateToParent(){
-        this.router.navigate(['../'], this.routeSegment); 
+        this.router.navigate(['../'], {relativeTo: this.activatedRoute}); 
     }
 
     quitThis(){
         if (this.quitFunction){
             this.quitFunction(this.index);
-        }else if (this.routeSegment != null && this.parentRouteSegment != null){
+        }else if (this.router && this.activatedRoute){
             this.navigateToParent();
         }
     }

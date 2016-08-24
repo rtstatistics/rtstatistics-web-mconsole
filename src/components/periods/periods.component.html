@@ -25,7 +25,7 @@
     <tbody>
         <tr *ngFor="let periods of assets">
             <td class="md-text-cell">
-                <a (click)="isCreationFormActive=false" [routerLink]="['./', periods.id]">{{periods.name}}</a>
+                <a (click)="isCreationFormActive=false" [routerLink]="['./', periods.id]" [routerLinkActive]="['router-link-active']">{{periods.name}}</a>
             </td>
             <td class="md-text-cell">
                 <span class="id">{{periods.id}}</span>
