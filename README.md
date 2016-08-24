@@ -5,6 +5,7 @@
 The app is built with Angular 2 and Angular Material 2.
 
 The packaged application is embedded in web-manage and served from the Tomcat server.
+It can also be run as a standalone single page application either from local file system or from a web server.
 
 ## Develop
 
