@@ -5,6 +5,7 @@
 The app is built with Angular 2 and Angular Material 2.
 
 The packaged application is embedded in web-manage and served from the Tomcat server.
+It can also be run as a standalone single page application either from local file system or from a web server.
 
 ## Develop
 
@@ -28,18 +29,24 @@ The packaged application is embedded in web-manage and served from the Tomcat se
 
 When running locally, the listening port number is 3000.
 
-## About authentication and authorization
+## About authentication
 
-1. The user must have been authenticated by web-manage before having access 
+### When running inside web-manage
+
+1. The user should have already been authenticated by web-manage before having access 
    to the console app.
 1. Console app calls web-manage REST APIs without specifying api_key of the 
    organization in the requests.
-1. When calling web-api REST APIs, console app automatically specifies send 
-   or query api_key of the dataset in the requests.
-1. Console app may ping web-manage server in background periodically to avoid
-   user session time out. In such case, console app may stop pinging web-manage 
-   server if the user has not been activ in console app for a long time.
+1. If the user's session with web-manage timed out, authentication may fail when calling 
+   web-manage REST API. In that case, the console app
+   will prompt the user to authenticate again by either specifying an API key or by
+   logging in in an embedded log in page.
 1. When 403 error message is received from web-manager server, console app
    pops up a dialog showing the login page of web-manage. A special flag is
    passed to the login url indicating that the login page is embedded in the
    console app, so that after successfully login, the dialog can be closed silently.
+
+### When running outside of web-manage
+
+1. The console app will prompt the user to authenticate by 
+   specifying an API key.

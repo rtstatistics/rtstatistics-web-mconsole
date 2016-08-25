@@ -1,5 +1,5 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
-import {ROUTER_DIRECTIVES, Router, Routes} from '@angular/router';
+import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 import {MdIcon} from '@angular2-material/icon';
 import {MD_SIDENAV_DIRECTIVES} from '@angular2-material/sidenav';
 import {MD_TOOLBAR_DIRECTIVES} from '@angular2-material/toolbar';

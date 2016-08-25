@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {RouteSegment, Router, OnActivate, RouteTree} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MD_TOOLBAR_DIRECTIVES} from '@angular2-material/toolbar';
 import {MD_INPUT_DIRECTIVES} from '@angular2-material/input';
 import {MD_BUTTON_DIRECTIVES} from '@angular2-material/button';
@@ -48,9 +48,9 @@ import {TemplateCompiler} from '../../utils/template-compiler';
     ]
 })
 export class StatisticsDetailComponent extends AbstractAssetDetailComponent<Statistics>{
-    constructor(router: Router, coreServices: CoreServices, 
+    constructor(router: Router, activatedRoute: ActivatedRoute, coreServices: CoreServices, 
             statisticsService: StatisticsService, private referenceService: ReferenceService){
-        super(router, coreServices, statisticsService);
+        super(router, activatedRoute, coreServices, statisticsService);
     }
 
     get refDatasets(): Dataset[]{

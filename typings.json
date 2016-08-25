@@ -1,10 +1,10 @@
 {
   "globalDependencies": {
-    "core-js": "registry:dt/core-js#0.0.0+20160317120654",
+    "core-js": "registry:dt/core-js#0.0.0+20160602141332",
     "hammerjs": "registry:dt/hammerjs#2.0.4+20160417130828",
     "handlebars": "registry:dt/handlebars#3.0.3+20160317120654",
-    "jasmine": "registry:dt/jasmine#2.2.0+20160505161446",
+    "jasmine": "registry:dt/jasmine#2.2.0+20160621224255",
     "mustache": "registry:dt/mustache#0.8.2+20160316155526",
-    "node": "registry:dt/node#4.0.0+20160509154515"
+    "node": "registry:dt/node#6.0.0+20160621231320"
   }
 }

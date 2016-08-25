@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {RouteSegment} from '@angular/router';
 import {MdIcon} from '@angular2-material/icon';
 import {MD_SIDENAV_DIRECTIVES} from '@angular2-material/sidenav';
 import {MD_LIST_DIRECTIVES} from '@angular2-material/list';

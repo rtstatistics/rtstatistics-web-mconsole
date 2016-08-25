@@ -1,6 +1,6 @@
-import { Component, ViewChild, Input, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, Input, AfterViewInit, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Router, RouteSegment, OnActivate, RouteTree } from '@angular/router';
+import { Router, ActivatedRoute} from '@angular/router';
 import { ApiResponse } from '../models/api-response';
 import { Asset } from '../models/asset';
 import { CoreServices } from '../services/core-services.service';
@@ -19,8 +19,8 @@ import { ProgressTracker } from '../utils/progress-tracker';
  * @implements {AfterViewInit}
  * @template T  type of the asset
  */
-export class AbstractAssetsComponent<T extends Asset> extends AbstractProgressiveComponent implements OnActivate, AfterViewInit{
-    protected routeSegment: RouteSegment;
+export class AbstractAssetsComponent<T extends Asset> 
+    extends AbstractProgressiveComponent implements OnInit{
 
     /**
      * ID of the parent asset.
@@ -59,7 +59,8 @@ export class AbstractAssetsComponent<T extends Asset> extends AbstractProgressiv
      * @type {boolean}
      */
     get isDetailActive(): boolean{
-        return this.router.routeTree.children(this.routeSegment).length > 0;
+        let children: ActivatedRoute[] = this.router.routerState.children(this.activatedRoute);
+        return children.length > 0 && children[0].component != null;
     }
     /**
      * This function is supposed to set the flag but the implementation
@@ -87,11 +88,16 @@ export class AbstractAssetsComponent<T extends Asset> extends AbstractProgressiv
 
     constructor(
         protected router: Router, 
+        protected activatedRoute: ActivatedRoute,
         protected coreServices: CoreServices,
         protected assetService: AbstractAssetService<T>){
             super();
             this.resetNewAsset()
             this.setupAssetChangeHandler();
+    }
+
+    ngOnInit(){
+        this.refresh();
     }
 
     protected resetNewAsset(){
@@ -102,17 +108,6 @@ export class AbstractAssetsComponent<T extends Asset> extends AbstractProgressiv
         return this.assetService.getAll(this.parentId);
     }
 
-
-    routerOnActivate(curr: RouteSegment, prev?: RouteSegment, currTree?: RouteTree, prevTree?: RouteTree) : void {
-        this.routeSegment = curr;
-        this.refresh();
-    }
-
-    ngAfterViewInit() {
-        if (this.routeSegment == null){ // only refresh once
-            this.refresh();
-        }
-    }
 
     /**
      * Setup the subscriptions to asset change events.
@@ -206,8 +201,8 @@ export class AbstractAssetsComponent<T extends Asset> extends AbstractProgressiv
 
 
     navigateToThis(){
-        if (this.router && this.routeSegment){
-            this.router.navigate(['./'], this.routeSegment);
+        if (this.router && this.activatedRoute && this.isDetailActive){
+            this.router.navigate(['./'], {relativeTo: this.activatedRoute});
         }
     }
 

@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import {ROUTER_DIRECTIVES, Router, Routes} from '@angular/router';
+import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from '@angular/router';
 import {MdIcon} from '@angular2-material/icon';
 import {MD_SIDENAV_DIRECTIVES} from '@angular2-material/sidenav';
 import {MD_TOOLBAR_DIRECTIVES} from '@angular2-material/toolbar';
@@ -38,13 +38,10 @@ import {TemplateCompiler} from '../../utils/template-compiler';
         UserService
     ]
 })
-@Routes([
-    {path: '/:id', component: UserDetailComponent}
-])
 export class UsersComponent extends AbstractAssetsComponent<User>{
 
-    constructor(router: Router, coreServices: CoreServices, userService: UserService){
-        super(router, coreServices, userService);
+    constructor(router: Router, activatedRoute: ActivatedRoute, coreServices: CoreServices, userService: UserService){
+        super(router, activatedRoute, coreServices, userService);
     }
 
 

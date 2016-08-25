@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import {ROUTER_DIRECTIVES, Router, Routes} from '@angular/router';
+import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from '@angular/router';
 import {MdIcon} from '@angular2-material/icon';
 import {MD_SIDENAV_DIRECTIVES} from '@angular2-material/sidenav';
 import {MD_TOOLBAR_DIRECTIVES} from '@angular2-material/toolbar';
@@ -39,15 +39,13 @@ import {TemplateCompiler} from '../../utils/template-compiler';
     ],
     providers: [
         PeriodsService
-    ]
+    ],
+    precompile: [PeriodsDetailComponent]
 })
-@Routes([
-    {path: '/:id', component: PeriodsDetailComponent}
-])
 export class PeriodsComponent extends AbstractAssetsComponent<PeriodsHierarchy>{
 
-    constructor(router: Router, coreServices: CoreServices, periodsService: PeriodsService){
-        super(router, coreServices, periodsService);
+    constructor(router: Router, activatedRoute: ActivatedRoute, coreServices: CoreServices, periodsService: PeriodsService){
+        super(router, activatedRoute, coreServices, periodsService);
     }
 
     protected resetNewAsset(){

@@ -1,5 +1,4 @@
 import {
-  MockApplicationRef,
   it,
   inject,
   describe,
