@@ -3,7 +3,7 @@
 
 	<groupId>net.sf.jabb</groupId>
 	<artifactId>rtstatistics-web-mconsole</artifactId>
-	<version>1.0.5-SNAPSHOT</version>
+	<version>1.0.5</version>
 	<packaging>jar</packaging>
 
 	<name>rtstatistics-web-mconsole</name>
