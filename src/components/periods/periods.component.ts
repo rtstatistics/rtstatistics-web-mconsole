@@ -38,7 +38,6 @@ import {TemplateCompiler} from '../../utils/template-compiler';
         PeriodComponent
     ],
     providers: [
-        PeriodsService
     ],
     precompile: [PeriodsDetailComponent]
 })

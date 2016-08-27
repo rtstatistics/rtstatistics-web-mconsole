@@ -35,7 +35,6 @@ import {TemplateCompiler} from '../../utils/template-compiler';
         LeftSidenavContentComponent
     ],
     providers: [
-        UserService
     ]
 })
 export class UsersComponent extends AbstractAssetsComponent<User>{
