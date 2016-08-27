@@ -43,8 +43,6 @@ import {TemplateCompiler} from '../../utils/template-compiler';
         KeyFieldsComponent
     ],
     providers: [
-        DatasetService, FieldService, PeriodsService, StatisticsService, ReferenceService,
-        Md2SelectDispatcher
     ]
 })
 export class StatisticsDetailComponent extends AbstractAssetDetailComponent<Statistics>{

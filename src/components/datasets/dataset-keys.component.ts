@@ -37,7 +37,6 @@ import {DatasetKeys} from '../../models/dataset-keys';
         FieldDetailComponent
     ],
     providers: [
-        DatasetService
     ]
 })
 export class DatasetKeysComponent extends AbstractProgressiveComponent implements AfterViewInit{
