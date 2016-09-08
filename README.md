@@ -1,11 +1,16 @@
 # Single page management console application for rtstatistics.com
 
-[ ![Codeship Status for james-hu/rtstatistics-web-mconsole](https://codeship.com/projects/dcfe6b60-0c41-0134-7457-368b7d3cc702/status?branch=master)](https://codeship.com/projects/156034)
+[ ![Codeship Status for rtstatistics/rtstatistics-web-mconsole](https://codeship.com/projects/dcfe6b60-0c41-0134-7457-368b7d3cc702/status?branch=master)](https://codeship.com/projects/156034)
 
 The app is built with Angular 2 and Angular Material 2.
 
 The packaged application is embedded in web-manage and served from the Tomcat server.
 It can also be run as a standalone single page application either from local file system or from a web server.
+
+The latest release is deployed at [rtstatistics-web-mconsole.herokuapp.com](http://rtstatistics-web-mconsole.herokuapp.com).
+It can also be accessed through domain name [console.rtstatistics.com](http://console.rtstatistics.com).
+
+To see it in production, visit [https://manage.rtstatistics.com/webjars/rtstatistics-web-mconsole/](https://manage.rtstatistics.com/webjars/rtstatistics-web-mconsole/).
 
 ## Develop
 

@@ -1,19 +1,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>net.sf.jabb</groupId>
-	<artifactId>rtstatistics-web-mconsole</artifactId>
-	<version>1.0.8</version>
+	<groupId>com.rtstatistics</groupId>
+	<artifactId>web-mconsole</artifactId>
+	<version>1.0.9</version>
 	<packaging>jar</packaging>
 
 	<name>rtstatistics-web-mconsole</name>
 	<description>Single page management console application for rtstatistics.com</description>
-	<url>https://github.com/james-hu/rtstatistics-web-mconsole</url>
+	<url>https://github.com/rtstatistics/rtstatistics-web-mconsole</url>
 
 	<scm>
-		<url>https://github.com/james-hu/rtstatistics-web-mconsole</url>
-		<connection>scm:git:https://github.com/james-hu/rtstatistics-web-mconsole.git</connection>
-		<developerConnection>scm:git:https://github.com/james-hu/rtstatistics-web-mconsole.git</developerConnection>
+		<url>https://github.com/rtstatistics/rtstatistics-web-mconsole</url>
+		<connection>scm:git:https://github.com/rtstatistics/rtstatistics-web-mconsole.git</connection>
+		<developerConnection>scm:git:https://github.com/rtstatistics/rtstatistics-web-mconsole.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
 	<licenses>
