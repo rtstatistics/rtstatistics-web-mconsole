@@ -1,14 +1,20 @@
 # Single page management console application for rtstatistics.com
 
-[ ![Codeship Status for james-hu/rtstatistics-web-mconsole](https://codeship.com/projects/dcfe6b60-0c41-0134-7457-368b7d3cc702/status?branch=master)](https://codeship.com/projects/156034)
+[ ![Codeship Status for rtstatistics/rtstatistics-web-mconsole](https://codeship.com/projects/dcfe6b60-0c41-0134-7457-368b7d3cc702/status?branch=master)](https://codeship.com/projects/156034)
 
 The app is built with Angular 2 and Angular Material 2.
 
 The packaged application is embedded in web-manage and served from the Tomcat server.
+It can also be run as a standalone single page application either from local file system or from a web server.
+
+The latest release is deployed at [rtstatistics-web-mconsole.herokuapp.com](http://rtstatistics-web-mconsole.herokuapp.com).
+It can also be accessed through domain name [console.rtstatistics.com](http://console.rtstatistics.com).
+
+To see it in production, visit [https://manage.rtstatistics.com/webjars/rtstatistics-web-mconsole/](https://manage.rtstatistics.com/webjars/rtstatistics-web-mconsole/).
 
 ## Develop
 
-* npm 3 is needed
+* NPM 3 is required.
 * To clean up node modules: `npm run clean`
 * To re-generate typings information: `npm run typings install`. 
   You have to do this at least once befre you can compile the scripts.
@@ -17,23 +23,35 @@ The packaged application is embedded in web-manage and served from the Tomcat se
 * To run locally using deliverables generated on the fly: `npm run server`.
 * To build the deliverables for production usage: `npm run build`
   * Deliverables will be generated in `dist/` directory.
-* To create webjar for distribution: `mvn clean package` after `npm run build`
+* To create webjar for distribution: `mvn package`
   * The webjar file will be generated in `target/` directory.
+* To release the webjar: 
+  1. `mvn -B jgitflow:release-start` 
+  1. ``npm --no-git-tag-version version `git rev-parse --abbrev-ref HEAD | sed -e "s#release/##"` ``
+  1. `git add package.json`
+  1. `git commit -m 'update version number according to gitflow'`
+  1. `mvn jgitflow:release-finish`
 
 When running locally, the listening port number is 3000.
 
-## About authentication and authorization
+## About authentication
 
-1. The user must have been authenticated by web-manage before having access 
+### When running inside web-manage
+
+1. The user should have already been authenticated by web-manage before having access 
    to the console app.
 1. Console app calls web-manage REST APIs without specifying api_key of the 
    organization in the requests.
-1. When calling web-api REST APIs, console app automatically specifies send 
-   or query api_key of the dataset in the requests.
-1. Console app may ping web-manage server in background periodically to avoid
-   user session time out. In such case, console app may stop pinging web-manage 
-   server if the user has not been activ in console app for a long time.
+1. If the user's session with web-manage timed out, authentication may fail when calling 
+   web-manage REST API. In that case, the console app
+   will prompt the user to authenticate again by either specifying an API key or by
+   logging in in an embedded log in page.
 1. When 403 error message is received from web-manager server, console app
    pops up a dialog showing the login page of web-manage. A special flag is
    passed to the login url indicating that the login page is embedded in the
    console app, so that after successfully login, the dialog can be closed silently.
+
+### When running outside of web-manage
+
+1. The console app will prompt the user to authenticate by 
+   specifying an API key.

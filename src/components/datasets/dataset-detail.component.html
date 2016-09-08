@@ -17,6 +17,14 @@
 	    </template>
     </md-tab>
     <md-tab>
+	    <template md-tab-label>Keys</template>
+	    <template md-tab-content>
+            <div class="centered-content top-bottom-padded-content">
+                <dataset-keys #childComponent2 [parentId]="id" [progressTracker]="progressTracker"></dataset-keys>
+            </div>
+	    </template>
+    </md-tab>
+    <md-tab>
 	    <template md-tab-label>Fields</template>
 	    <template md-tab-content>
             <div class="centered-content top-bottom-padded-content">

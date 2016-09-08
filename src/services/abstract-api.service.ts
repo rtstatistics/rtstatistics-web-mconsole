@@ -37,13 +37,18 @@ export abstract class AbstractApiService{
         }
     }
 
-    protected get(url: string) : Observable<ApiResponse<any>>{
+    get(url: string) : Observable<ApiResponse<any>>{
         return this.http.get(this.baseUrl + url)
             .map(response => this.getBody(response));
     }
 
     protected post(url: string, data: any) : Observable<ApiResponse<any>>{
         return this.http.post(this.baseUrl + url, JSON.stringify(data))
+            .map(response => this.getBody(response));
+    }
+
+    put(url: string, data?: any) : Observable<ApiResponse<any>>{
+        return this.http.put(this.baseUrl + url, data == null ? null : JSON.stringify(data))
             .map(response => this.getBody(response));
     }
 

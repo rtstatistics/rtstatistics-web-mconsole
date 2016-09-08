@@ -1,18 +1,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>net.sf.jabb</groupId>
-	<artifactId>rtstatistics-web-mconsole</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<groupId>com.rtstatistics</groupId>
+	<artifactId>web-mconsole</artifactId>
+	<version>1.0.10-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>rtstatistics-web-mconsole</name>
-	<url>https://github.com/james-hu/rtstatistics-web-mconsole</url>
+	<description>Single page management console application for rtstatistics.com</description>
+	<url>https://github.com/rtstatistics/rtstatistics-web-mconsole</url>
 
 	<scm>
-		<url>https://github.com/james-hu/rtstatistics-web-mconsole</url>
-		<connection>scm:git:https://github.com/james-hu/rtstatistics-web-mconsole.git</connection>
-		<developerConnection>scm:git:https://github.com/james-hu/rtstatistics-web-mconsole.git</developerConnection>
+		<url>https://github.com/rtstatistics/rtstatistics-web-mconsole</url>
+		<connection>scm:git:https://github.com/rtstatistics/rtstatistics-web-mconsole.git</connection>
+		<developerConnection>scm:git:https://github.com/rtstatistics/rtstatistics-web-mconsole.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
 	<licenses>
@@ -36,19 +37,76 @@
 	<dependencies>
 	</dependencies>
 	<build>
-        <resources>
-            <resource>
-                <directory>dist</directory>
-                <targetPath>META-INF/resources/webjars/rtstatistics-web-mconsole</targetPath>
-            </resource>
-        </resources>
 		<plugins>
-              <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.0.0</version>
-                    <configuration>
-                    </configuration>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.5.0</version>
+				<executions>
+					<!--
+					<execution>
+						<id>npm clean</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>npm</executable>
+							<arguments>
+								<argument>run</argument>
+								<argument>clean</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					-->
+					<execution>
+						<id>npm install</id>
+						<phase>generate-source</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>npm</executable>
+							<arguments>
+								<argument>install</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>npm test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>npm</executable>
+							<arguments>
+								<argument>test</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>npm build</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>npm</executable>
+							<arguments>
+								<argument>run</argument>
+								<argument>build-for-maven</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+            <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+				</configuration>
             </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -78,9 +136,16 @@
 	        <plugin>
 	            <groupId>external.atlassian.jgitflow</groupId>
 	            <artifactId>jgitflow-maven-plugin</artifactId>
-	            <version>1.0-m4.3</version>
+	            <version>1.0-m5.1</version>
 	            <configuration>
-	                <!-- see goals wiki page for configuration options -->
+					<flowInitContext>
+						<masterBranchName>master</masterBranchName>
+						<developBranchName>develop</developBranchName>
+						<featureBranchPrefix>feature/</featureBranchPrefix>
+						<releaseBranchPrefix>release/</releaseBranchPrefix>
+						<hotfixBranchPrefix>hotfix/</hotfixBranchPrefix>
+						<versionTagPrefix>v</versionTagPrefix>
+					</flowInitContext>
 	            </configuration>
 	        </plugin>
 		</plugins>
@@ -95,5 +160,4 @@
 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>
-	<description>Single page management console application for rtstatistics.com</description>
 </project>

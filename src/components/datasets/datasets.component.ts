@@ -41,7 +41,6 @@ import {TemplateCompiler} from '../../utils/template-compiler';
         LeftSidenavContentComponent
     ],
     providers: [
-        DatasetService
     ],
     precompile: [DatasetDetailComponent]
 })

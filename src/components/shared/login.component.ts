@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 
 import {MD_BUTTON_DIRECTIVES} from '@angular2-material/button';
 import {MD_CARD_DIRECTIVES} from '@angular2-material/card';
@@ -8,6 +8,7 @@ import {MD_CHECKBOX_DIRECTIVES} from '@angular2-material/checkbox';
 
 import {AuthService} from '../../services/auth.service';
 import {SettingsService} from '../../services/settings.service';
+import {CoreServices} from '../../services/core-services.service';
 
 @Component({
     moduleId: module.id,
@@ -22,7 +23,7 @@ import {SettingsService} from '../../services/settings.service';
         MD_CHECKBOX_DIRECTIVES
     ]
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy{
     message: string = '';
     visible: boolean = false;
 
@@ -32,13 +33,35 @@ export class LoginComponent {
 
     autoSaveApiKey: boolean = false;
 
-    constructor(private authService: AuthService) {
-        authService.login = this.activate.bind(this);
+    embeddedLoginEventListener: any = this.onEmbeddedLoginEvent.bind(this);
+
+    private authService: AuthService;
+
+    constructor(private coreServices: CoreServices) {
+        this.authService = coreServices.auth;
+        this.authService.login = this.activate.bind(this);
+    }
+
+    get embeddedLoginUrl(){
+        return this.coreServices.settings.manageApiBaseUrl + '/auth/login?embedded';
+    }
+
+    private registerEventListener(): void{
+        window.addEventListener('message', this.embeddedLoginEventListener, false);
+    }
+
+    private unregisterEventListener(): void{
+        window.removeEventListener('message', this.embeddedLoginEventListener, false);
+    }
+
+    ngOnDestroy() {
+    	this.unregisterEventListener();
     }
 
     activate(message: string) : Promise<boolean> {
         if (!this.visible){  // check to see if the dialog is already visible
             this.message = message;
+            this.registerEventListener();
             this.visible = true;
 
             this.result = new Promise<boolean>((resolve, reject)=> {
@@ -49,9 +72,9 @@ export class LoginComponent {
         return this.result;
     }
 
-
     onCancel(){
         this.visible = false;
+        this.unregisterEventListener();
         this.resultResolve(false);
     }
 
@@ -59,7 +82,18 @@ export class LoginComponent {
         this.authService.setOrganizationApiKey(key, save);
         this.autoSaveApiKey = save;
         this.visible = false;
+        this.unregisterEventListener();
         this.resultResolve(true);
+    }
+
+    onEmbeddedLoginEvent(event: any): void{
+        let msg: string = event.data;
+        if (msg == 'EmbeddedLogin:succeeded'){
+            this.authService.setOrganizationApiKey(null);
+            this.visible = false;
+            this.unregisterEventListener();
+            this.resultResolve(true);
+       }
     }
 
 }

@@ -35,10 +35,12 @@ export class SettingsService {
 
     get organizationApiKey(): string{
         let key = localStorage.getItem(this.ORG_API_KEY);
+        /*
         if (key == null){ // first time, nothing set
             key = SettingsService.DEMO_ACCOUNT_API_KEY;
             this.setInLocalStorage(this.ORG_API_KEY, key);
         }
+        */
         return key;
     }
 

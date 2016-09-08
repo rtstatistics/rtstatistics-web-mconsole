@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import {Router, ROUTER_DIRECTIVES} from '@angular/router';
 import {MdIcon} from '@angular2-material/icon';
 import {ToasterContainerComponent, ToasterService, ToasterConfig} from 'angular2-toaster/angular2-toaster';
+import {Md2SelectDispatcher } from 'md2/select';
 
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {DatasetsComponent} from './datasets/datasets.component';
@@ -21,6 +22,8 @@ import {DatasetService} from '../services/dataset.service';
 import {PeriodsService} from '../services/periods.service';
 import {UserService} from '../services/user.service';
 import {ReferenceService} from '../services/reference.service';
+import {StatisticsService} from '../services/statistics.service';
+import {FieldService} from '../services/field.service';
 
 
 @Component({
@@ -35,7 +38,10 @@ import {ReferenceService} from '../services/reference.service';
     ],
     providers: [
         AuthService, ApiHttp, SettingsService, 
-        CoreServices, ReferenceService
+        CoreServices, ReferenceService,
+        DatasetService, FieldService, PeriodsService, StatisticsService,
+        UserService,
+        Md2SelectDispatcher
     ],
     precompile: [SettingsComponent, DatasetsComponent, PeriodsComponent, StatisticsComponent, UsersComponent]
 })

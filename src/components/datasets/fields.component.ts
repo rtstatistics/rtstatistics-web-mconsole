@@ -37,7 +37,6 @@ import {Field} from '../../models/field';
         FieldDetailComponent
     ],
     providers: [
-        FieldService
     ]
 })
 export class FieldsComponent extends AbstractAssetsComponent<Field>{
