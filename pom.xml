@@ -3,7 +3,7 @@
 
 	<groupId>com.rtstatistics</groupId>
 	<artifactId>web-mconsole</artifactId>
-	<version>1.0.9</version>
+	<version>1.0.10</version>
 	<packaging>jar</packaging>
 
 	<name>rtstatistics-web-mconsole</name>
@@ -106,6 +106,38 @@
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>3.0.0</version>
 				<configuration>
+				</configuration>
+            </plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.12</version>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals><goal>add-source</goal></goals>
+						<configuration>
+							<sources>
+								<source>src</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+            <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.0.1</version>
+				<configuration>
+					<includes>
+						<include>**/*.ts</include>
+						<include>**/*.html</include>
+						<include>**/*.css</include>
+						<include>**/*.sass</include>
+						<include>**/*.jpg</include>
+						<include>**/*.png</include>
+						<include>**/*.json</include>
+					</includes>
 				</configuration>
             </plugin>
 			<plugin>

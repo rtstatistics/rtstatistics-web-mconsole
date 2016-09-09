@@ -75,12 +75,16 @@ export class AbstractAssetDetailComponent<T extends Asset>
     }
 
     ngOnInit() {
-        this.activatedRoute.params
-            .map(params => params['id'])
-            .subscribe(id => {
-                this.id = id
-                this.refresh();
-            });
+        if (this.activatedRoute != null){
+            this.activatedRoute.params
+                .map(params => params['id'])
+                .subscribe(id => {
+                    this.id = id
+                    this.refresh();
+                });
+        }else{
+            this.resetEditedDetail();
+        }
     }
 
     protected doGetDetail(): Observable<ApiResponse<T>>{
