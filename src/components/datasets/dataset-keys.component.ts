@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, OnChanges } from '@angular/core';
 import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 import {MdIcon} from '@angular2-material/icon';
 import {MD_SIDENAV_DIRECTIVES} from '@angular2-material/sidenav';
@@ -38,7 +38,7 @@ import {DatasetKeys} from '../../models/dataset-keys';
     providers: [
     ]
 })
-export class DatasetKeysComponent extends AbstractProgressiveComponent implements AfterViewInit{
+export class DatasetKeysComponent extends AbstractProgressiveComponent implements OnChanges{
     parentId: string;   // id of the dataset
 
     keys: DatasetKeys;
@@ -47,7 +47,7 @@ export class DatasetKeysComponent extends AbstractProgressiveComponent implement
         super();
     }
 
-    ngAfterViewInit() {
+    ngOnChanges() {
         this.refresh();
     }
 

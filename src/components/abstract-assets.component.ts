@@ -1,4 +1,4 @@
-import { Component, ViewChild, Input, AfterViewInit, OnInit } from '@angular/core';
+import { Component, ViewChild, Input, AfterViewInit, OnInit, OnChanges } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute} from '@angular/router';
 import { Asset } from '../models/asset';
@@ -19,7 +19,7 @@ import { ProgressTracker } from '../utils/progress-tracker';
  * @template T  type of the asset
  */
 export class AbstractAssetsComponent<T extends Asset> 
-    extends AbstractProgressiveComponent implements OnInit{
+    extends AbstractProgressiveComponent implements OnInit, OnChanges{
 
     /**
      * ID of the parent asset.
@@ -96,6 +96,10 @@ export class AbstractAssetsComponent<T extends Asset>
     }
 
     ngOnInit(){
+        this.refresh();
+    }
+
+    ngOnChanges(){
         this.refresh();
     }
 
