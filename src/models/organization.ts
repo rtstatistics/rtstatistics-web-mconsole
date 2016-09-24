@@ -1,5 +1,5 @@
-import {Asset} from './asset';
+import { Asset } from './asset';
 
-export class Organization extends Asset{
+export class Organization extends Asset {
     apiKeys: string[];
 }

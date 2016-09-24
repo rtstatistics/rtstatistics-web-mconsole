@@ -1,6 +1,6 @@
 {
   "name": "rtstatistics-web-mconsole",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "repository": {
     "type": "git",
     "url": "https://github.com/james-hu/rtstatistics-web-mconsole.git"
@@ -9,16 +9,17 @@
     "clean": "rimraf node_modules doc dist && npm cache clean",
     "start": "concurrent \"npm run tsc:w\" \"npm run lite\" ",
     "lite": "lite-server",
+    "lint": "tslint -c tslint.json src/**/*.ts",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "typings": "typings",
     "heroku-prebuild": "npm install typings",
     "heroku-postbuild": "npm run build",
     "postinstall": "typings install",
-    "server": "tsc && webpack-dev-server --inline --progress --port 3000",
-    "build": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail",
-    "build-for-maven": "rimraf target/classes/META-INF/resources && webpack --config config/webpack.prod.maven.js --progress --profile --bail",
-    "test": "karma start"
+    "server": "tsc && npm run lint && webpack-dev-server --inline --progress --port 3000",
+    "build": "rimraf dist && npm run lint && webpack --config config/webpack.prod.js --progress --profile --bail",
+    "build-for-maven": "rimraf target/classes/META-INF/resources && npm run lint && webpack --config config/webpack.prod.maven.js --progress --profile --bail",
+    "test": "npm run lint && karma start"
   },
   "license": "Apache-2.0",
   "dependencies": {
@@ -63,6 +64,7 @@
     "babel-core": "^6.10.4",
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.9.0",
+    "codelyzer": "0.0.28",
     "concurrently": "^2.0.0",
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^1.0.1",
@@ -88,6 +90,7 @@
     "style-loader": "^0.13.1",
     "systemjs-plugin-text": "0.0.8",
     "ts-loader": "^0.8.1",
+    "tslint": "^3.15.1",
     "typescript": "^1.8.10",
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1",

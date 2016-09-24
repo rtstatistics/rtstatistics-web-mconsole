@@ -15,7 +15,7 @@ export class SettingsService {
 
     get manageApiBaseUrl(){
         return localStorage.getItem(this.MANAGE_API_BASE_URL)
-            || "https://manage.rtstatistics.com";
+            || 'https://manage.rtstatistics.com';
     }
 
     set manageApiBaseUrl(url: string){
@@ -25,7 +25,7 @@ export class SettingsService {
 
     get dataApiBaseUrl(){
         return localStorage.getItem(this.DATA_API_BASE_URL)
-            || "https://api.rtstatistics.com";
+            || 'https://api.rtstatistics.com';
     }
 
     set dataApiBaseUrl(url: string){
@@ -49,14 +49,14 @@ export class SettingsService {
         this.organizationApiKeyValues.emit(apiKey);
     }
 
-    removeOrganizationApiKey(){
+    removeOrganizationApiKey() {
         localStorage.removeItem(this.ORG_API_KEY);
     }
 
-    private setInLocalStorage(key: string, value: string){
-        if (value === null){
+    private setInLocalStorage(key: string, value: string) {
+        if (value === null) {
             localStorage.removeItem(key);
-        }else{
+        }else {
             localStorage.setItem(key, value);
         }
     }

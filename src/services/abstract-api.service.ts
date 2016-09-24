@@ -1,16 +1,15 @@
 import { Observable } from 'rxjs/Observable';
-import {Injectable} from "@angular/core";
-import {Response} from '@angular/http';
-import {ApiHttp} from "./api-http.service";
-import {ApiResponse} from "../models/api-response";
+import { Injectable } from '@angular/core';
+import { Response } from '@angular/http';
+import { ApiHttp } from './api-http.service';
 
-import {SettingsService} from "../services/settings.service";
-import {AuthService} from "./auth.service";
+import { SettingsService } from '../services/settings.service';
+import { AuthService } from './auth.service';
 
 @Injectable()
-export abstract class AbstractApiService{
+export abstract class AbstractApiService {
 
-    constructor(protected http: ApiHttp, protected settings: SettingsService, protected authService: AuthService){
+    constructor(protected http: ApiHttp, protected settings: SettingsService, protected authService: AuthService) {
     }
 
     protected abstract getBaseUrl(settings: SettingsService): string;
@@ -19,48 +18,54 @@ export abstract class AbstractApiService{
         return this.getBaseUrl(this.settings);
     }
 
-    private getBody(response: Response){
+    /**
+     * Get the body returned in the response 
+     * 
+     * @private
+     * @param {Response} response   http response
+     * @returns {*}     null if no body, otherwise the body as an object
+     */
+    private getBody(response: Response): any {
         this.authService.authenticated(); // a successful API response received
-        if (response.status === 204){
+        if (response.status === 204) {
             return null;
-        }else{
-            try{
+        }else {
+            try {
                 return response.json();
-            }catch(e){
+            }catch (e) {
                 let text = response.text();
-                if (text == null || text == ''){
+                if (text == null || text === '') {
                     return null;
-                }else{
+                }else {
                     return text;
                 }
             }
         }
     }
 
-    get(url: string) : Observable<ApiResponse<any>>{
+    protected rawGet(url: string): Observable<any> {
         return this.http.get(this.baseUrl + url)
             .map(response => this.getBody(response));
     }
 
-    protected post(url: string, data: any) : Observable<ApiResponse<any>>{
+    protected rawPost(url: string, data: any): Observable<any> {
         return this.http.post(this.baseUrl + url, JSON.stringify(data))
             .map(response => this.getBody(response));
     }
 
-    put(url: string, data?: any) : Observable<ApiResponse<any>>{
+    protected rawPut(url: string, data?: any): Observable<any> {
         return this.http.put(this.baseUrl + url, data == null ? null : JSON.stringify(data))
             .map(response => this.getBody(response));
     }
 
-    protected delete(url: string) : Observable<ApiResponse<any>>{
+    protected rawPatch(url: string, data?: any): Observable<any> {
+        return this.http.patch(this.baseUrl + url, data == null ? null : JSON.stringify(data))
+            .map(response => this.getBody(response));
+    }
+
+    protected rawDelete(url: string): Observable<any> {
         return this.http.delete(this.baseUrl + url)
             .map(response => this.getBody(response));
     }
-    
-    protected update(url: string, data: any) : Observable<ApiResponse<any>>{
-        return this.http.put(this.baseUrl + url, JSON.stringify(data))
-            .map(response => this.getBody(response));
-    }
-    
 
 }

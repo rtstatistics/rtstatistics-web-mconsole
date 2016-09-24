@@ -1,14 +1,14 @@
-import {provideRouter, RouterConfig} from '@angular/router';
-import {DashboardComponent} from './dashboard/dashboard.component';
-import {DatasetsComponent} from './datasets/datasets.component';
-import {DatasetDetailComponent} from './datasets/dataset-detail.component';
-import {PeriodsComponent} from './periods/periods.component';
-import {PeriodsDetailComponent} from './periods/periods-detail.component';
-import {StatisticsComponent} from './statistics/statistics.component';
-import {StatisticsDetailComponent} from './statistics/statistics-detail.component';
-import {UsersComponent} from './users/users.component';
-import {OrganizationComponent} from './organization/organization.component';
-import {SettingsComponent} from './settings/settings.component';
+import { RouterConfig, provideRouter } from '@angular/router';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { DatasetsComponent } from './datasets/datasets.component';
+import { DatasetDetailComponent } from './datasets/dataset-detail.component';
+import { PeriodsComponent } from './periods/periods.component';
+import { PeriodsDetailComponent } from './periods/periods-detail.component';
+import { StatisticsComponent } from './statistics/statistics.component';
+import { StatisticsDetailComponent } from './statistics/statistics-detail.component';
+import { UsersComponent } from './users/users.component';
+import { OrganizationComponent } from './organization/organization.component';
+import { SettingsComponent } from './settings/settings.component';
 
 export const routes: RouterConfig = [
   {path: 'dashboard', component: DashboardComponent},

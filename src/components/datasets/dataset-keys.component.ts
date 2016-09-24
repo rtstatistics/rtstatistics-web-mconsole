@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, OnChanges } from '@angular/core';
 import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 import {MdIcon} from '@angular2-material/icon';
 import {MD_SIDENAV_DIRECTIVES} from '@angular2-material/sidenav';
@@ -12,7 +12,6 @@ import {MdDataTable} from 'ng2-material/components/data-table/index';
 
 import {AbstractProgressiveComponent} from '../abstract-progressive.component';
 import { CoreServices } from '../../services/core-services.service';
-import { ApiResponse } from '../../models/api-response';
 
 import {LeftSidenavContentComponent} from '../shared/left-sidenav-content.component';
 import {FieldDetailComponent} from './field-detail.component';
@@ -39,7 +38,7 @@ import {DatasetKeys} from '../../models/dataset-keys';
     providers: [
     ]
 })
-export class DatasetKeysComponent extends AbstractProgressiveComponent implements AfterViewInit{
+export class DatasetKeysComponent extends AbstractProgressiveComponent implements OnChanges{
     parentId: string;   // id of the dataset
 
     keys: DatasetKeys;
@@ -48,19 +47,19 @@ export class DatasetKeysComponent extends AbstractProgressiveComponent implement
         super();
     }
 
-    ngAfterViewInit() {
+    ngOnChanges() {
         this.refresh();
     }
 
     refresh(){
 	    this.startProgress();
 	    this.datasetService.getKeys(this.parentId)
-	        .finally<ApiResponse<DatasetKeys>>(()=>{
+	        .finally<DatasetKeys>(()=>{
                 this.endProgress();
             })
             .subscribe(
                 data => {
-                    this.keys = data.result;
+                    this.keys = data;
                 },
                 err => {
                     this.coreServices.notification.showErrorToast(
@@ -73,12 +72,12 @@ export class DatasetKeysComponent extends AbstractProgressiveComponent implement
     regenerate(oldKey: string){
 	    this.startProgress();
 	    this.datasetService.regenerateKey(this.parentId, oldKey)
-	        .finally<ApiResponse<string>>(()=>{
+	        .finally<string>(()=>{
                 this.endProgress();
             })
             .subscribe(
                 data => {
-                    this.replaceKey(oldKey, data.result);
+                    this.replaceKey(oldKey, data);
                 },
                 err => {
                     this.coreServices.notification.showErrorToast(

@@ -1,13 +1,10 @@
-import { Component, ViewChild, Input, AfterViewInit, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Router, ActivatedRoute} from '@angular/router';
-import { ApiResponse } from '../models/api-response';
 import { Asset } from '../models/asset';
-import { CoreServices } from '../services/core-services.service';
-import { NotificationService } from '../services/notification.service';
 import { AbstractAssetService } from '../services/abstract-asset.service';
+import { CoreServices } from '../services/core-services.service';
 import { AbstractProgressiveComponent } from './abstract-progressive.component';
-import { ProgressTracker } from '../utils/progress-tracker';
+import { OnChanges, OnInit, SimpleChanges, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 
 /**
  * Component that manages a list of assets.
@@ -19,8 +16,8 @@ import { ProgressTracker } from '../utils/progress-tracker';
  * @implements {AfterViewInit}
  * @template T  type of the asset
  */
-export class AbstractAssetsComponent<T extends Asset> 
-    extends AbstractProgressiveComponent implements OnInit{
+export class AbstractAssetsComponent<T extends Asset>
+    extends AbstractProgressiveComponent implements OnInit, OnChanges, OnDestroy {
 
     /**
      * ID of the parent asset.
@@ -28,7 +25,7 @@ export class AbstractAssetsComponent<T extends Asset>
      * 
      * @type {string}
      */
-    parentId: string; 
+    parentId: string;
 
     /**
      * Index of the asset in the list that is current in edit
@@ -37,8 +34,8 @@ export class AbstractAssetsComponent<T extends Asset>
      * @type {number}
      */
     private indexInEdit: number;
-    quitEditingFunction: (i: number)=>void = this.quitEditing.bind(this);
-    hideDetailFunction: (i?: number)=>void = ()=>this.isDetailActive = false;
+    quitEditingFunction: (i: number) => void = this.quitEditing.bind(this);
+    hideDetailFunction: (i?: number) => void = () => this.isDetailActive = false;
 
     assets: T[];
 
@@ -76,35 +73,39 @@ export class AbstractAssetsComponent<T extends Asset>
     }
     set isCreationFormActive(b: boolean){
         this._isCreationFormActive = b;
-        if (b && this.indexInEdit != null){
+        if (b && this.indexInEdit != null) {
             this.indexInEdit = null;
         }
     }
 
-    protected createdSubscription:any;
-    protected updatedSubscription:any;
-    protected deletedSubscription:any;
+    protected createdSubscription: any;
+    protected updatedSubscription: any;
+    protected deletedSubscription: any;
 
 
     constructor(
-        protected router: Router, 
+        protected router: Router,
         protected activatedRoute: ActivatedRoute,
         protected coreServices: CoreServices,
-        protected assetService: AbstractAssetService<T>){
+        protected assetService: AbstractAssetService<T>) {
             super();
-            this.resetNewAsset()
+            this.resetNewAsset();
             this.setupAssetChangeHandler();
     }
 
-    ngOnInit(){
+    ngOnInit() {
         this.refresh();
     }
 
-    protected resetNewAsset(){
+    ngOnChanges() {
+        this.refresh();
+    }
+
+    protected resetNewAsset() {
         this.newAsset = this.assetService.convert({});
     }
 
-    protected doGetAll():Observable<ApiResponse<T[]>>{
+    protected doGetAll(): Observable<T[]> {
         return this.assetService.getAll(this.parentId);
     }
 
@@ -117,53 +118,53 @@ export class AbstractAssetsComponent<T extends Asset>
      * 
      * @protected
      */
-    protected setupAssetChangeHandler(){
-        this.createdSubscription = this.assetService.created.subscribe(asset=>{
-            if (this.parentId == null || asset == null || asset.parentId == null || asset.parentId == this.parentId){
+    protected setupAssetChangeHandler() {
+        this.createdSubscription = this.assetService.created.subscribe(asset => {
+            if (this.parentId == null || asset == null || asset.parentId == null || asset.parentId === this.parentId) {
                 this.refresh();
             }
         });
-        this.updatedSubscription = this.assetService.updated.subscribe(asset=>{
-            if (this.parentId == null || asset == null || asset.parentId == null || asset.parentId == this.parentId){
+        this.updatedSubscription = this.assetService.updated.subscribe(asset => {
+            if (this.parentId == null || asset == null || asset.parentId == null || asset.parentId === this.parentId) {
                 this.refresh();
             }
         });
-        this.deletedSubscription = this.assetService.deleted.subscribe(asset=>{
-            if (this.parentId == null || asset == null || asset.parentId == null || asset.parentId == this.parentId){
+        this.deletedSubscription = this.assetService.deleted.subscribe(asset => {
+            if (this.parentId == null || asset == null || asset.parentId == null || asset.parentId === this.parentId) {
                 this.refresh();
             }
             this.navigateToThis();
         });
     }
 
-    protected disposeAssetChangeHandler(){
-        if (this.createdSubscription != null){
+    protected disposeAssetChangeHandler() {
+        if (this.createdSubscription != null) {
             this.createdSubscription.unsubscribe();
             this.createdSubscription = null;
         }
-        if (this.updatedSubscription != null){
+        if (this.updatedSubscription != null) {
             this.updatedSubscription.unsubscribe();
             this.updatedSubscription = null;
         }
-        if (this.deletedSubscription != null){
+        if (this.deletedSubscription != null) {
             this.deletedSubscription.unsubscribe();
             this.deletedSubscription = null;
         }
     }
 
-    ngOnDestroy(){
+    ngOnDestroy() {
         this.disposeAssetChangeHandler();
     }
 
-    refresh(){
-	    this.startProgress();
-  	    this.doGetAll()
-	        .finally<ApiResponse<T[]>>(()=>{
-          	    this.endProgress();
-   	        })
+    refresh() {
+        this.startProgress();
+        this.doGetAll()
+            .finally<T[]>(() => {
+                this.endProgress();
+            })
             .subscribe(
                 data => {
-                    this.assets = data.result.sort((a, b)=>a.name.localeCompare(b.name));
+                    this.assets = data == null ? null : data.sort((a, b) => a.name.localeCompare(b.name));
                 },
                 err => {
                     this.coreServices.notification.showErrorToast(
@@ -173,18 +174,18 @@ export class AbstractAssetsComponent<T extends Asset>
             );
     }
 
-    create(...args: any[]){
+    create(...args: any[]) {
         this.doCreate();
     }
 
-    protected doCreate(){
+    protected doCreate() {
         this.startProgress();
         this.assetService.create(this.newAsset, this.parentId)
-            .finally<ApiResponse<any>>(()=>{
+            .finally<any>(() => {
                 this.endProgress();
             })
             .subscribe(
-                response => {
+                data => {
                     this.isCreationFormActive = false;
                     this.coreServices.notification.showSuccessToast('Created: ' + this.newAsset.name);
                     // this.refresh(); // createdSubscription will do it
@@ -196,29 +197,29 @@ export class AbstractAssetsComponent<T extends Asset>
                             );
                 }
             );
-        
+
     }
 
 
-    navigateToThis(){
-        if (this.router && this.activatedRoute && this.isDetailActive){
+    navigateToThis() {
+        if (this.router && this.activatedRoute && this.isDetailActive) {
             this.router.navigate(['./'], {relativeTo: this.activatedRoute});
         }
     }
 
-    isEditing(i: number): boolean{
+    isEditing(i: number): boolean {
         return i === this.indexInEdit;
     }
 
-    toggleEditing(i: number){
+    toggleEditing(i: number) {
         this.indexInEdit = this.isEditing(i) ? undefined : i;
-        if (this.indexInEdit != null){
+        if (this.indexInEdit != null) {
             this.isCreationFormActive = false;
         }
     }
 
-    quitEditing(i?: number){
-        if (i == null || i === this.indexInEdit){
+    quitEditing(i?: number) {
+        if (i == null || i === this.indexInEdit) {
             this.indexInEdit = null;
         }
     }

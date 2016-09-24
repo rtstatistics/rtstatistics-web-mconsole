@@ -1,11 +1,11 @@
-import {Asset} from './asset';
+import { Asset } from './asset';
 
-export class User extends Asset{
+export class User extends Asset {
     username: string;
     enabled: boolean;
     email: string;
 
-    constructor(id?: string, username?: string, fullName?: string){
+    constructor(id?: string, username?: string, fullName?: string) {
         super(id, fullName);
         this.username = username;
     }
@@ -19,9 +19,9 @@ export class User extends Asset{
     }
 
     logins: Login[];
-} 
+}
 
-export class Login{
+export class Login {
     provider: string;
     id: string;
     emails: string[];

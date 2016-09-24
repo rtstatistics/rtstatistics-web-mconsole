@@ -1,10 +1,10 @@
-import {Injectable, Optional} from '@angular/core';
-import {Http} from '@angular/http';
+import { Injectable, Optional } from '@angular/core';
+import { Http } from '@angular/http';
 
-import {ApiHttp} from './api-http.service';
-import {AuthService} from './auth.service';
-import {NotificationService} from './notification.service';
-import {SettingsService} from './settings.service';
+import { ApiHttp } from './api-http.service';
+import { AuthService } from './auth.service';
+import { NotificationService } from './notification.service';
+import { SettingsService } from './settings.service';
 
 /**
  * This is the holder of for all core services.

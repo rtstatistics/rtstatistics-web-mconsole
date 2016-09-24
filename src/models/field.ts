@@ -1,6 +1,6 @@
-import {Asset} from './asset';
+import { Asset } from './asset';
 
-export class Field extends Asset{
+export class Field extends Asset {
     static TYPE_NATIVE: string = 'native';
     static TYPE_CALCULATED: string = 'calculated';
 
@@ -10,7 +10,7 @@ export class Field extends Asset{
     path: string;
     formula: string;
 
-    constructor(name?: string, type?: string, path?: string, formula?: string, datasetId?: string){
+    constructor(name?: string, type?: string, path?: string, formula?: string, datasetId?: string) {
         super(name, name, datasetId);
         this.type = type;
         this.path = path;
@@ -24,17 +24,17 @@ export class Field extends Asset{
     get datasetId(){
         return this.parentId;
     }
-    
+
     set datasetId(datasetId: string){
         this.parentId = datasetId;
     }
 
     get isNative(){
-        return Field.TYPE_NATIVE == this.type;
+        return Field.TYPE_NATIVE === this.type;
     }
 
     get isCalculated(){
-        return Field.TYPE_CALCULATED == this.type;
+        return Field.TYPE_CALCULATED === this.type;
     }
 
 } 

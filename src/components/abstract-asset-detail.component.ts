@@ -1,7 +1,6 @@
-import { Component, ViewChild, Input, AfterViewInit, OnInit } from '@angular/core';
+import { Component, ViewChild, Input, AfterViewInit, OnInit, OnChanges } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { ApiResponse } from "../models/api-response";
 import { CoreServices } from '../services/core-services.service';
 import { AbstractAssetService } from '../services/abstract-asset.service';
 import { Asset } from '../models/asset';
@@ -17,8 +16,8 @@ import { ProgressTracker } from '../utils/progress-tracker';
  * @implements {AfterViewInit}
  * @template T  type of the asset
  */
-export class AbstractAssetDetailComponent<T extends Asset> 
-    extends AbstractProgressiveComponent implements OnInit{
+export class AbstractAssetDetailComponent<T extends Asset>
+    extends AbstractProgressiveComponent implements OnInit, OnChanges {
 
     /**
      * ID of the parent asset.
@@ -26,7 +25,7 @@ export class AbstractAssetDetailComponent<T extends Asset>
      * 
      * @type {string}
      */
-    parentId: string; 
+    parentId: string;
 
     /**
      * ID of the asset.
@@ -56,7 +55,7 @@ export class AbstractAssetDetailComponent<T extends Asset>
      * 
      * @type {(i?: number)=>void}
      */
-    quitFunction: (i?: number)=>void;
+    quitFunction: (i?: number) => void;
 
     /**
      * Copy of the asset that can be modified.
@@ -66,56 +65,60 @@ export class AbstractAssetDetailComponent<T extends Asset>
     editedDetail: T;
 
     constructor(
-        protected router: Router, 
+        protected router: Router,
         protected activatedRoute: ActivatedRoute,
         protected coreServices: CoreServices,
-        protected assetService: AbstractAssetService<T>){
+        protected assetService: AbstractAssetService<T>) {
             super();
             this.editedDetail = assetService.convert({});
     }
 
     ngOnInit() {
-        if (this.activatedRoute != null){
+        if (this.activatedRoute != null) {
             this.activatedRoute.params
                 .map(params => params['id'])
                 .subscribe(id => {
-                    this.id = id
+                    this.id = id;
                     this.refresh();
                 });
-        }else{
+        }else {
             this.resetEditedDetail();
         }
     }
 
-    protected doGetDetail(): Observable<ApiResponse<T>>{
+    ngOnChanges() {
+        this.refresh();
+    }
+
+    protected doGetDetail(): Observable<T> {
         return this.assetService.get(this.id, this.parentId);
     }
 
-    protected doDelete(): Observable<ApiResponse<any>>{
+    protected doDelete(): Observable<any> {
         return this.assetService.delete(this.id, this.parentId);
     }
 
-    protected doUpdate(newDetail: T): Observable<ApiResponse<any>>{
+    protected doUpdate(newDetail: T): Observable<any> {
         return this.assetService.update(this.id, newDetail, this.parentId);
     }
 
-    resetEditedDetail(){
+    resetEditedDetail() {
         this.editedDetail = this.assetService.convert(this.detail);
     }
 
-    syncEditedDetail(){
+    syncEditedDetail() {
         this.detail = this.assetService.convert(this.editedDetail);
     }
 
-    refresh(){
-	    this.startProgress();
-	    this.doGetDetail()
-	        .finally<ApiResponse<T>>(()=>{
+    refresh() {
+        this.startProgress();
+        this.doGetDetail()
+            .finally<T>(() => {
                 this.endProgress();
             })
             .subscribe(
                 data => {
-                    this.detail = data.result;
+                    this.detail = data;
                     this.resetEditedDetail();
                 },
                 err => {
@@ -126,11 +129,11 @@ export class AbstractAssetDetailComponent<T extends Asset>
             );
     }
 
-    delete(){
+    delete() {
         let name = this.detail.name;
         this.startProgress();
         this.doDelete()
-            .finally<ApiResponse<any>>(()=>{
+            .finally<any>(() => {
                 this.endProgress();
             })
             .subscribe(
@@ -145,11 +148,11 @@ export class AbstractAssetDetailComponent<T extends Asset>
             );
     }
 
-    update(){
+    update() {
         let name = this.editedDetail.name;
-	    this.startProgress();
-	    this.doUpdate(this.editedDetail)
-	        .finally<ApiResponse<any>>(()=>{
+        this.startProgress();
+        this.doUpdate(this.editedDetail)
+            .finally<any>(() => {
                 this.endProgress();
             })
             .subscribe(
@@ -165,14 +168,14 @@ export class AbstractAssetDetailComponent<T extends Asset>
             );
     }
 
-    navigateToParent(){
-        this.router.navigate(['../'], {relativeTo: this.activatedRoute}); 
+    navigateToParent() {
+        this.router.navigate(['../'], {relativeTo: this.activatedRoute});
     }
 
-    quitThis(){
-        if (this.quitFunction){
+    quitThis() {
+        if (this.quitFunction) {
             this.quitFunction(this.index);
-        }else if (this.router && this.activatedRoute){
+        }else if (this.router && this.activatedRoute) {
             this.navigateToParent();
         }
     }

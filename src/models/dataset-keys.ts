@@ -1,4 +1,4 @@
-export class DatasetKeys{
+export class DatasetKeys {
     queryKeys: string[];
     sendKeys: string[];
 } 
