@@ -2,7 +2,7 @@
 
 import Mustache = require('mustache');
 
-export class TemplateCompiler{
+export class TemplateCompiler {
     /*
     static compile(templatePath: string, subTemplatePaths?: any, parameters?: any): string{
         let template = require(templatePath);
@@ -28,14 +28,14 @@ export class TemplateCompiler{
      * Compile the template. Variables in the template are supposed to be
      * surranded by '<<' and '>>'.
      */
-    static compile(template: string, context?: any): string{
-        if (context == null){
+    static compile(template: string, context?: any): string {
+        if (context == null) {
             return template;
         }
 
         Mustache.parse(template, ['<<', '>>']);
         let output = Mustache.render(template, context);
-        //console.log(output);
+        // console.log(output);
         return output;
     }
 

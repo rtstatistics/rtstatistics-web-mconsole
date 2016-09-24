@@ -2,15 +2,15 @@ export class SingleResult<T>{
     result: T;
 }
 
-export class SingleId{
+export class SingleId {
     id: string;
 }
 
-export class SingleKey{
+export class SingleKey {
     key: string;
 }
 
-export class ErrorDetail{
+export class ErrorDetail {
     incidentId: string;
     type: string;
     message: string;

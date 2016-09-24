@@ -1,10 +1,10 @@
-import {Injectable, EventEmitter} from "@angular/core";
-import {Headers, Http, RequestOptionsArgs} from '@angular/http';
+import { Injectable, EventEmitter } from '@angular/core';
+import { Headers, Http, RequestOptionsArgs } from '@angular/http';
 
-import {SettingsService} from "../services/settings.service";
+import { SettingsService } from '../services/settings.service';
 
-import {User} from '../models/user';
-import {Organization} from '../models/organization';
+import { User } from '../models/user';
+import { Organization } from '../models/organization';
 
 @Injectable()
 export class AuthService {
@@ -23,33 +23,33 @@ export class AuthService {
     private _shouldRefreshUserAndOrganization: boolean = false;
 
 
-    constructor(protected http: Http, protected settings: SettingsService){
+    constructor(protected http: Http, protected settings: SettingsService) {
         this.unauthenticated();
         settings.organizationApiKeyValues.subscribe(
-            key=>{
-                this._orgApiKey=key;
+            key => {
+                this._orgApiKey = key;
                 this.authenticationMayChange();
             }
         );
     }
 
     get isAuthenticated(){
-        return this._currentUser != null && this._currentUser.id != 'Unknown';
+        return this._currentUser != null && this._currentUser.id !== 'Unknown';
     }
 
-    authenticationMayChange(){
+    authenticationMayChange() {
         this._shouldRefreshUserAndOrganization = true;
     }
 
-    unauthenticated(){
+    unauthenticated() {
         this._currentUser = new User('Unknown', 'Unknown', 'Unknown');
         this._currentOrganization = new Organization('Unknown', 'Unknown');
     }
 
-    authenticated(){
-        if (!this.isAuthenticated || this._shouldRefreshUserAndOrganization){
+    authenticated() {
+        if (!this.isAuthenticated || this._shouldRefreshUserAndOrganization) {
             // reload user and organization
-            let baseUrl:string = this.settings.manageApiBaseUrl;
+            let baseUrl: string = this.settings.manageApiBaseUrl;
             let headers = new Headers();
             headers.append('Accept', 'application/json');
             this.appendHeaders(headers);
@@ -60,13 +60,13 @@ export class AuthService {
                 data => {
                     let user = data.json().result;
                     this._currentUser = Object.assign(new User(), user);
-                    if (user.organization){
+                    if (user.organization) {
                         this._currentOrganization = Object.assign(new Organization(), user.organization);
                     }
                     this._shouldRefreshUserAndOrganization = false;
                 },
                 err => {
-                    if (err.status === 404){    // if authenticated by api key
+                    if (err.status === 404) {    // if authenticated by api key
                         this._currentUser = new User(null, null, '*API Client*');
                         this.http.get(baseUrl + '/organizations/mine', options).subscribe(
                             data => {
@@ -84,18 +84,18 @@ export class AuthService {
         }
     }
 
-    setOrganizationApiKey(key: string, save?: boolean){
+    setOrganizationApiKey(key: string, save?: boolean) {
         this._orgApiKey = key;
-        if (save){
+        if (save) {
             this.settings.organizationApiKey = key;
             // and the same key will be propogated back through subscripting to the observable
         }
         this.authenticationMayChange();
     }
 
-    private getOrgApiKey(){
-        if (this._orgApiKey == null){
-            this._orgApiKey = this.settings.organizationApiKey
+    private getOrgApiKey() {
+        if (this._orgApiKey == null) {
+            this._orgApiKey = this.settings.organizationApiKey;
         }
         return this._orgApiKey;
     }
@@ -107,8 +107,8 @@ export class AuthService {
     /**
      * Append authentication related headers.
      */
-    appendHeaders(headers: Headers){
-        if (this.isOrgApiKeySet){
+    appendHeaders(headers: Headers) {
+        if (this.isOrgApiKeySet) {
             headers.append('Authorization', 'Basic ' + btoa(this.getOrgApiKey()));
         }
     }

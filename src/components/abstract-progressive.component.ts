@@ -11,7 +11,7 @@ import { ProgressTracker } from '../utils/progress-tracker';
  * @export
  * @class AbstractProgressiveComponent
  */
-export class AbstractProgressiveComponent{
+export class AbstractProgressiveComponent {
     /**
      * The progress tracker that this component should use.
      * If it is not injected/overriden externally, a default one associated
@@ -26,14 +26,14 @@ export class AbstractProgressiveComponent{
         return this.progressTracker.isInProgress;
     }
 
-    startProgress(){
-        setTimeout(()=>{    // to ensure change detection
+    startProgress() {
+        setTimeout(() => {    // to ensure change detection
             this.progressTracker.startProgress();
         }, 0);
     }
 
-    endProgress(){
-        setTimeout(()=>{    // to ensure change detection
+    endProgress() {
+        setTimeout(() => {    // to ensure change detection
             this.progressTracker.endProgress();
         }, 0);
     }

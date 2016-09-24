@@ -2,9 +2,9 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/observable/throw';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/observable/fromPromise';
-import {Injectable} from "@angular/core";
-import {Http, Headers, ConnectionBackend, RequestOptions, Request, Response, RequestOptionsArgs} from '@angular/http';
-import {AuthService} from "./auth.service";
+import { Injectable } from '@angular/core';
+import { Http, Headers, ConnectionBackend, RequestOptions, Request, Response, RequestOptionsArgs } from '@angular/http';
+import { AuthService } from './auth.service';
 
 /**
  * Http service that automatically handles ask-for-authentication-then-retry for REST API calls.
@@ -17,21 +17,21 @@ export class ApiHttp {
     /**
      * Append request headers for REST API calls.
      */
-    private appendCommonHeaders(withJsonContentType: boolean, options?: RequestOptionsArgs): RequestOptionsArgs{
+    private appendCommonHeaders(withJsonContentType: boolean, options?: RequestOptionsArgs): RequestOptionsArgs {
         let headers;
-        if (options == null){
+        if (options == null) {
             headers = new Headers();
             options = {headers: headers};
-        }else if (options.headers == null){
+        }else if (options.headers == null) {
             headers = new Headers();
             options.headers = headers;
-        }else{
+        }else {
             headers = options.headers;
         }
-        
+
         headers.append('Accept', 'application/json');
-        if (withJsonContentType){
-            headers.append('Content-Type','application/json');
+        if (withJsonContentType) {
+            headers.append('Content-Type', 'application/json');
         }
         this.authService.appendHeaders(headers);
         return options;
@@ -41,17 +41,17 @@ export class ApiHttp {
      * This function handles automatic retry when 401 error happens.
      * The returned Observable throws errors with user friendly messages.
      */
-    private withRetry(initialResult: Observable<Response>, func: (...params: any[]) => Observable<Response>, ...params: any[]) : Observable<Response>{
+    private withRetry(initialResult: Observable<Response>, func: (...params: any[]) => Observable<Response>, ...params: any[]): Observable<Response> {
         return initialResult
             .catch(error => {
-                if (error.status === 401){
+                if (error.status === 401) {
                     this.authService.unauthenticated();     // 401 means authentication required
                     let message = this.authService.isOrgApiKeySet ? 'Incorrect organization API key' : 'Authentication is required';
                     return Observable.fromPromise(this.authService.login(message))
                         .mergeMap(confirmed => {
-                            if (confirmed){ // logged in again, or updated api key
+                            if (confirmed) { // logged in again, or updated api key
                                 this.authService.authenticationMayChange();
-                                switch(params.length){
+                                switch (params.length) {
                                     case 1:
                                         return func(params[0]);
                                     case 2:
@@ -61,13 +61,13 @@ export class ApiHttp {
                                     default:
                                         return Observable.throw(new Error('Wrong number of parameters: ' + params));
                                 }
-                            }else{      // canceled
+                            }else {      // canceled
                                 return Observable.throw(new Error('User cancelled authentication'));
                             }
                         });
-                }else{
+                }else {
                     let errorDetail = error.json();
-                    if (errorDetail){
+                    if (errorDetail) {
                         this.authService.authenticated();  // a valid API response received
                         return Observable.throw(new Error(errorDetail.type + ': ' + errorDetail.message));
                     }
@@ -80,7 +80,7 @@ export class ApiHttp {
     /**
      * Performs a request with `get` http method.
      */
-    get(url: string, options?: RequestOptionsArgs): Observable<Response>{
+    get(url: string, options?: RequestOptionsArgs): Observable<Response> {
         return this.withRetry(this.http.get(url, this.appendCommonHeaders(false, options)),
             this.get.bind(this), url, options);
     }
@@ -88,7 +88,7 @@ export class ApiHttp {
     /**
      * Performs a request with `post` http method.
      */
-    post(url: string, body: string, options?: RequestOptionsArgs): Observable<Response>{
+    post(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
         return this.withRetry(this.http.post(url, body, this.appendCommonHeaders(true, options)),
             this.post.bind(this), url, body, options);
     }
@@ -96,7 +96,7 @@ export class ApiHttp {
     /**
      * Performs a request with `put` http method.
      */
-    put(url: string, body: string, options?: RequestOptionsArgs): Observable<Response>{
+    put(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
         return this.withRetry(this.http.put(url, body, this.appendCommonHeaders(true, options)),
             this.put.bind(this), url, body, options);
     }
@@ -104,7 +104,7 @@ export class ApiHttp {
     /**
      * Performs a request with `patch` http method.
      */
-    patch(url: string, body: string, options?: RequestOptionsArgs): Observable<Response>{
+    patch(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
         return this.withRetry(this.http.patch(url, body, this.appendCommonHeaders(true, options)),
             this.patch.bind(this), url, body, options);
     }
@@ -112,7 +112,7 @@ export class ApiHttp {
     /**
      * Performs a request with `delete` http method.
      */
-    delete(url: string, options?: RequestOptionsArgs): Observable<Response>{
+    delete(url: string, options?: RequestOptionsArgs): Observable<Response> {
         return this.withRetry(this.http.delete(url, this.appendCommonHeaders(false, options)),
             this.delete.bind(this), url, options);
     }

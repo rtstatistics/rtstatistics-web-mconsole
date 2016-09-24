@@ -1,11 +1,11 @@
-import {Asset} from './asset';
+import { Asset } from './asset';
 
-export class Dataset extends Asset{
-    constructor(name?: string, id?: string){
+export class Dataset extends Asset {
+    constructor(name?: string, id?: string) {
         super(id, name);
     }
 
-    copy(): Dataset{
+    copy(): Dataset {
         return new Dataset(this.name, this.id);
     }
 } 
