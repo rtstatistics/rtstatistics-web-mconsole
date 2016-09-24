@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { ApiResponse } from '../models/api-response';
 import { Asset } from '../models/asset';
 import { NotificationService } from '../services/notification.service';
 import { AbstractAssetService } from '../services/abstract-asset.service';

@@ -1,9 +1,16 @@
-export class ApiResponse<T>{
+export class SingleResult<T>{
     result: T;
-    error: ApiError;
 }
 
-export class ApiError{
+export class SingleId{
+    id: string;
+}
+
+export class SingleKey{
+    key: string;
+}
+
+export class ErrorDetail{
     incidentId: string;
     type: string;
     message: string;

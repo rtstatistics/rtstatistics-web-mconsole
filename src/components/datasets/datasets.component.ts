@@ -12,7 +12,6 @@ import {MdDataTable} from 'ng2-material/components/data-table/index';
 
 import {AbstractAssetsComponent} from '../abstract-assets.component';
 import { CoreServices } from '../../services/core-services.service';
-import { ApiResponse } from '../../models/api-response';
 
 import {LeftSidenavContentComponent} from '../shared/left-sidenav-content.component';
 import {DatasetDetailComponent} from './dataset-detail.component';

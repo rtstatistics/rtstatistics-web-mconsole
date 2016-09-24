@@ -1,7 +1,6 @@
 import { Component, ViewChild, Input, AfterViewInit, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { ApiResponse } from "../models/api-response";
 import { CoreServices } from '../services/core-services.service';
 import { AbstractAssetService } from '../services/abstract-asset.service';
 import { Asset } from '../models/asset';
@@ -87,15 +86,15 @@ export class AbstractAssetDetailComponent<T extends Asset>
         }
     }
 
-    protected doGetDetail(): Observable<ApiResponse<T>>{
+    protected doGetDetail(): Observable<T>{
         return this.assetService.get(this.id, this.parentId);
     }
 
-    protected doDelete(): Observable<ApiResponse<any>>{
+    protected doDelete(): Observable<any>{
         return this.assetService.delete(this.id, this.parentId);
     }
 
-    protected doUpdate(newDetail: T): Observable<ApiResponse<any>>{
+    protected doUpdate(newDetail: T): Observable<any>{
         return this.assetService.update(this.id, newDetail, this.parentId);
     }
 
@@ -110,12 +109,12 @@ export class AbstractAssetDetailComponent<T extends Asset>
     refresh(){
 	    this.startProgress();
 	    this.doGetDetail()
-	        .finally<ApiResponse<T>>(()=>{
+	        .finally<T>(()=>{
                 this.endProgress();
             })
             .subscribe(
                 data => {
-                    this.detail = data.result;
+                    this.detail = data;
                     this.resetEditedDetail();
                 },
                 err => {
@@ -130,7 +129,7 @@ export class AbstractAssetDetailComponent<T extends Asset>
         let name = this.detail.name;
         this.startProgress();
         this.doDelete()
-            .finally<ApiResponse<any>>(()=>{
+            .finally<any>(()=>{
                 this.endProgress();
             })
             .subscribe(
@@ -149,7 +148,7 @@ export class AbstractAssetDetailComponent<T extends Asset>
         let name = this.editedDetail.name;
 	    this.startProgress();
 	    this.doUpdate(this.editedDetail)
-	        .finally<ApiResponse<any>>(()=>{
+	        .finally<any>(()=>{
                 this.endProgress();
             })
             .subscribe(

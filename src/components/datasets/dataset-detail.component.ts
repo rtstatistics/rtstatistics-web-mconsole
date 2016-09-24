@@ -18,7 +18,6 @@ import {DatasetService} from '../../services/dataset.service';
 import {FieldService} from '../../services/field.service';
 import {Dataset} from '../../models/dataset';
 import {Field} from '../../models/field';
-import { ApiResponse } from '../../models/api-response';
 import {TemplateCompiler} from '../../utils/template-compiler';
 
 
@@ -47,6 +46,7 @@ export class DatasetDetailComponent extends AbstractAssetDetailComponent<Dataset
     }
 
     ngAfterViewInit() {
+        
     }
 
     refresh(){

@@ -1,7 +1,6 @@
 import { Component, ViewChild, Input, AfterViewInit, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute} from '@angular/router';
-import { ApiResponse } from '../models/api-response';
 import { Asset } from '../models/asset';
 import { CoreServices } from '../services/core-services.service';
 import { NotificationService } from '../services/notification.service';
@@ -104,7 +103,7 @@ export class AbstractAssetsComponent<T extends Asset>
         this.newAsset = this.assetService.convert({});
     }
 
-    protected doGetAll():Observable<ApiResponse<T[]>>{
+    protected doGetAll():Observable<T[]>{
         return this.assetService.getAll(this.parentId);
     }
 
@@ -158,12 +157,12 @@ export class AbstractAssetsComponent<T extends Asset>
     refresh(){
 	    this.startProgress();
   	    this.doGetAll()
-	        .finally<ApiResponse<T[]>>(()=>{
+	        .finally<T[]>(()=>{
           	    this.endProgress();
    	        })
             .subscribe(
                 data => {
-                    this.assets = data.result.sort((a, b)=>a.name.localeCompare(b.name));
+                    this.assets = data == null ? null : data.sort((a, b)=>a.name.localeCompare(b.name));
                 },
                 err => {
                     this.coreServices.notification.showErrorToast(
@@ -180,11 +179,11 @@ export class AbstractAssetsComponent<T extends Asset>
     protected doCreate(){
         this.startProgress();
         this.assetService.create(this.newAsset, this.parentId)
-            .finally<ApiResponse<any>>(()=>{
+            .finally<any>(()=>{
                 this.endProgress();
             })
             .subscribe(
-                response => {
+                data => {
                     this.isCreationFormActive = false;
                     this.coreServices.notification.showSuccessToast('Created: ' + this.newAsset.name);
                     // this.refresh(); // createdSubscription will do it

@@ -12,7 +12,6 @@ import {MdDataTable} from 'ng2-material/components/data-table/index';
 
 import {AbstractProgressiveComponent} from '../abstract-progressive.component';
 import { CoreServices } from '../../services/core-services.service';
-import { ApiResponse } from '../../models/api-response';
 
 import {LeftSidenavContentComponent} from '../shared/left-sidenav-content.component';
 import {FieldDetailComponent} from './field-detail.component';
@@ -55,12 +54,12 @@ export class DatasetKeysComponent extends AbstractProgressiveComponent implement
     refresh(){
 	    this.startProgress();
 	    this.datasetService.getKeys(this.parentId)
-	        .finally<ApiResponse<DatasetKeys>>(()=>{
+	        .finally<DatasetKeys>(()=>{
                 this.endProgress();
             })
             .subscribe(
                 data => {
-                    this.keys = data.result;
+                    this.keys = data;
                 },
                 err => {
                     this.coreServices.notification.showErrorToast(
@@ -73,12 +72,12 @@ export class DatasetKeysComponent extends AbstractProgressiveComponent implement
     regenerate(oldKey: string){
 	    this.startProgress();
 	    this.datasetService.regenerateKey(this.parentId, oldKey)
-	        .finally<ApiResponse<string>>(()=>{
+	        .finally<string>(()=>{
                 this.endProgress();
             })
             .subscribe(
                 data => {
-                    this.replaceKey(oldKey, data.result);
+                    this.replaceKey(oldKey, data);
                 },
                 err => {
                     this.coreServices.notification.showErrorToast(

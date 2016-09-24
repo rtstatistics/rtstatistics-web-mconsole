@@ -30,7 +30,7 @@ export class ReferenceService {
         this.datasetService.getAll()
             .subscribe(
                 data => {
-                    this.datasets = data.result
+                    this.datasets = data
                         .map(x=>new Dataset(x.name, x.id))
                         .sort((a, b)=>a.name.localeCompare(b.name));
                 },
@@ -48,7 +48,7 @@ export class ReferenceService {
         this.periodsService.getAll()
             .subscribe(
                 data => {
-                    this.periods = data.result
+                    this.periods = data
                         .map(x=>new PeriodsHierarchy(x.id, x.name))
                         .sort((a, b)=>a.name.localeCompare(b.name));
                 },

@@ -7,7 +7,7 @@ import {Http, Headers, ConnectionBackend, RequestOptions, Request, Response, Req
 import {AuthService} from "./auth.service";
 
 /**
- * Http service that handles authentication for REST API calls.
+ * Http service that automatically handles ask-for-authentication-then-retry for REST API calls.
  */
 @Injectable()
 export class ApiHttp {
@@ -38,8 +38,8 @@ export class ApiHttp {
     }
 
     /**
-     * This function handles automatical retry when 401 error happens.
-     * It the returned Observable throws errors with user friendly messages.
+     * This function handles automatic retry when 401 error happens.
+     * The returned Observable throws errors with user friendly messages.
      */
     private withRetry(initialResult: Observable<Response>, func: (...params: any[]) => Observable<Response>, ...params: any[]) : Observable<Response>{
         return initialResult
@@ -66,13 +66,10 @@ export class ApiHttp {
                             }
                         });
                 }else{
-                    let errBody = error.json();
-                    if (errBody){
+                    let errorDetail = error.json();
+                    if (errorDetail){
                         this.authService.authenticated();  // a valid API response received
-                        let errorDetail = errBody.error;
-                        if (errorDetail){
-                            return Observable.throw(new Error(errorDetail.type + ': ' + errorDetail.message));
-                        }
+                        return Observable.throw(new Error(errorDetail.type + ': ' + errorDetail.message));
                     }
                     console.log('API call failed: ' + JSON.stringify(error));
                     return Observable.throw(error);
@@ -102,6 +99,14 @@ export class ApiHttp {
     put(url: string, body: string, options?: RequestOptionsArgs): Observable<Response>{
         return this.withRetry(this.http.put(url, body, this.appendCommonHeaders(true, options)),
             this.put.bind(this), url, body, options);
+    }
+
+    /**
+     * Performs a request with `patch` http method.
+     */
+    patch(url: string, body: string, options?: RequestOptionsArgs): Observable<Response>{
+        return this.withRetry(this.http.patch(url, body, this.appendCommonHeaders(true, options)),
+            this.patch.bind(this), url, body, options);
     }
 
     /**

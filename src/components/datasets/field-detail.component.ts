@@ -15,7 +15,6 @@ import {AbstractAssetDetailComponent} from '../abstract-asset-detail.component';
 
 import {FieldService} from '../../services/field.service';
 import {Field} from '../../models/field';
-import { ApiResponse } from '../../models/api-response';
 
 
 @Component({
