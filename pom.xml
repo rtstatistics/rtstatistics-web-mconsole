@@ -3,7 +3,7 @@
 
 	<groupId>com.rtstatistics</groupId>
 	<artifactId>web-mconsole</artifactId>
-	<version>1.0.12-SNAPSHOT</version>
+	<version>1.0.11</version>
 	<packaging>jar</packaging>
 
 	<name>rtstatistics-web-mconsole</name>
