@@ -1,14 +1,14 @@
-import {Component, OnDestroy} from '@angular/core';
+import { DomSanitizationService } from '@angular/platform-browser';
+import { AuthService } from '../../services/auth.service';
+import { CoreServices } from '../../services/core-services.service';
+import { Component, OnDestroy } from '@angular/core';
+import { MD_BUTTON_DIRECTIVES } from '@angular2-material/button';
+import { MD_CARD_DIRECTIVES } from '@angular2-material/card';
+import { MD_CHECKBOX_DIRECTIVES } from '@angular2-material/checkbox';
+import { MD_INPUT_DIRECTIVES } from '@angular2-material/input';
+import { MD_TABS_DIRECTIVES } from '@angular2-material/tabs';
 
-import {MD_BUTTON_DIRECTIVES} from '@angular2-material/button';
-import {MD_CARD_DIRECTIVES} from '@angular2-material/card';
-import {MD_TABS_DIRECTIVES} from '@angular2-material/tabs';
-import {MD_INPUT_DIRECTIVES} from '@angular2-material/input';
-import {MD_CHECKBOX_DIRECTIVES} from '@angular2-material/checkbox';
 
-import {AuthService} from '../../services/auth.service';
-import {SettingsService} from '../../services/settings.service';
-import {CoreServices} from '../../services/core-services.service';
 
 @Component({
     moduleId: module.id,
@@ -16,14 +16,14 @@ import {CoreServices} from '../../services/core-services.service';
     template: require('./login.component.html'),
     styles: [require('./login.component.css')],
     directives: [
-        MD_BUTTON_DIRECTIVES, 
-        MD_CARD_DIRECTIVES, 
-        MD_TABS_DIRECTIVES, 
-        MD_INPUT_DIRECTIVES, 
+        MD_BUTTON_DIRECTIVES,
+        MD_CARD_DIRECTIVES,
+        MD_TABS_DIRECTIVES,
+        MD_INPUT_DIRECTIVES,
         MD_CHECKBOX_DIRECTIVES
     ]
 })
-export class LoginComponent implements OnDestroy{
+export class LoginComponent implements OnDestroy {
     message: string = '';
     visible: boolean = false;
 
@@ -37,34 +37,35 @@ export class LoginComponent implements OnDestroy{
 
     private authService: AuthService;
 
-    constructor(private coreServices: CoreServices) {
+    constructor(private coreServices: CoreServices, private sanitizer: DomSanitizationService) {
         this.authService = coreServices.auth;
         this.authService.login = this.activate.bind(this);
     }
 
     get embeddedLoginUrl(){
-        return this.coreServices.settings.manageApiBaseUrl + '/auth/login?embedded';
+        return this.sanitizer.bypassSecurityTrustResourceUrl(
+            this.coreServices.settings.manageApiBaseUrl + '/auth/login?embedded');
     }
 
-    private registerEventListener(): void{
+    private registerEventListener(): void {
         window.addEventListener('message', this.embeddedLoginEventListener, false);
     }
 
-    private unregisterEventListener(): void{
+    private unregisterEventListener(): void {
         window.removeEventListener('message', this.embeddedLoginEventListener, false);
     }
 
     ngOnDestroy() {
-    	this.unregisterEventListener();
+        this.unregisterEventListener();
     }
 
     activate(message: string) : Promise<boolean> {
-        if (!this.visible){  // check to see if the dialog is already visible
+        if (!this.visible) {  // check to see if the dialog is already visible
             this.message = message;
             this.registerEventListener();
             this.visible = true;
 
-            this.result = new Promise<boolean>((resolve, reject)=> {
+            this.result = new Promise<boolean>((resolve, reject) => {
                 this.resultResolve = resolve;
                 this.resultReject = reject;
             });
@@ -72,13 +73,13 @@ export class LoginComponent implements OnDestroy{
         return this.result;
     }
 
-    onCancel(){
+    onCancel() {
         this.visible = false;
         this.unregisterEventListener();
         this.resultResolve(false);
     }
 
-    onApiKeySet(key: string, save: boolean){
+    onApiKeySet(key: string, save: boolean) {
         this.authService.setOrganizationApiKey(key, save);
         this.autoSaveApiKey = save;
         this.visible = false;
@@ -86,9 +87,9 @@ export class LoginComponent implements OnDestroy{
         this.resultResolve(true);
     }
 
-    onEmbeddedLoginEvent(event: any): void{
+    onEmbeddedLoginEvent(event: any): void {
         let msg: string = event.data;
-        if (msg == 'EmbeddedLogin:succeeded'){
+        if (msg === 'EmbeddedLogin:succeeded') {
             this.authService.setOrganizationApiKey(null);
             this.visible = false;
             this.unregisterEventListener();

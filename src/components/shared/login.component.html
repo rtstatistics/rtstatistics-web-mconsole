@@ -25,7 +25,7 @@
                     <template md-tab-label>Through providers</template>
                     <template md-tab-content>
                         <div class="centered top-bottom-padded-content">
-                            <iframe src="{{embeddedLoginUrl}}" 
+                            <iframe [src]="embeddedLoginUrl" 
                                 seamless frameborder="0" id="mainIframe" style="width:500px; height:300px">
                             </iframe>
                             <div align="right">
