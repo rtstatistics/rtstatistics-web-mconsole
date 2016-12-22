@@ -59,7 +59,7 @@ export class LoginComponent implements OnDestroy {
         this.unregisterEventListener();
     }
 
-    activate(message: string) : Promise<boolean> {
+    activate(message: string): Promise<boolean> {
         if (!this.visible) {  // check to see if the dialog is already visible
             this.message = message;
             this.registerEventListener();

@@ -5,11 +5,11 @@ import {
   beforeEachProviders,
   expect
 } from '@angular/core/testing';
-import {LoginComponent} from './login.component';
-import {AuthService} from '../../services/auth.service';
-import {SettingsService} from '../../services/settings.service';
-import {CoreServices} from '../../services/core-services.service';
-import {Headers, Http, HTTP_PROVIDERS} from '@angular/http';
+import { LoginComponent } from './login.component';
+import { AuthService } from '../../services/auth.service';
+import { SettingsService } from '../../services/settings.service';
+import { CoreServices } from '../../services/core-services.service';
+import { Headers, Http, HTTP_PROVIDERS } from '@angular/http';
 
 const EVENT_WAIT_MILLIS = 100;
 const SAMPLE_API_KEY = 'abcde XYZ 123';
@@ -22,19 +22,19 @@ describe('LoginComponent', () => {
   beforeEachProviders(() => [
     LoginComponent, AuthService, SettingsService, CoreServices, HTTP_PROVIDERS
   ]);
-  it ('should DI work', 
-    inject([LoginComponent, CoreServices], 
+  it ('should DI work',
+    inject([LoginComponent, CoreServices],
         (login: LoginComponent, coreServices: CoreServices) => {
             expect(login).toBeDefined();
             expect(coreServices).toBeDefined();
             expect(coreServices.auth).toBeDefined();
             expect(coreServices.settings).toBeDefined();
   }));
-  it ('should set and save api key work when it was empty', 
-    inject([LoginComponent, CoreServices, AuthService, SettingsService, Http], 
+  it ('should set and save api key work when it was empty',
+    inject([LoginComponent, CoreServices, AuthService, SettingsService, Http],
         (login: LoginComponent, coreServices: CoreServices, auth: AuthService, settings: SettingsService) => {
             settings.organizationApiKey = null;
-            setTimeout(()=>{
+            setTimeout(() => {
                 expect(!auth.isOrgApiKeySet).toBeTruthy();
 
                 let headers = new Headers();
@@ -51,11 +51,11 @@ describe('LoginComponent', () => {
                 expect(settings.organizationApiKey).toBe(SAMPLE_API_KEY);
             }, EVENT_WAIT_MILLIS);
   }));
-  it ('should set and save api key work when it was not empty', 
-    inject([LoginComponent, CoreServices, AuthService, SettingsService, Http], 
+  it ('should set and save api key work when it was not empty',
+    inject([LoginComponent, CoreServices, AuthService, SettingsService, Http],
         (login: LoginComponent, coreServices: CoreServices, auth: AuthService, settings: SettingsService) => {
             settings.organizationApiKey = 'xyz';
-            setTimeout(()=>{
+            setTimeout(() => {
                 expect(auth.isOrgApiKeySet).toBeTruthy();
                 let headers = new Headers();
                 auth.appendHeaders(headers);
@@ -71,11 +71,11 @@ describe('LoginComponent', () => {
                 expect(settings.organizationApiKey).toBe(SAMPLE_API_KEY);
             }, EVENT_WAIT_MILLIS);
   }));
-  it ('should set but not save api key work when it was empty', 
-    inject([LoginComponent, CoreServices, AuthService, SettingsService, Http], 
+  it ('should set but not save api key work when it was empty',
+    inject([LoginComponent, CoreServices, AuthService, SettingsService, Http],
         (login: LoginComponent, coreServices: CoreServices, auth: AuthService, settings: SettingsService) => {
             settings.organizationApiKey = null;
-            setTimeout(()=>{
+            setTimeout(() => {
                 expect(!auth.isOrgApiKeySet).toBeTruthy();
 
                 let headers = new Headers();
@@ -92,11 +92,11 @@ describe('LoginComponent', () => {
                 expect(settings.organizationApiKey).toBeNull();
             }, EVENT_WAIT_MILLIS);
   }));
-  it ('should set but not save api key work when it was not empty', 
-    inject([LoginComponent, CoreServices, AuthService, SettingsService, Http], 
+  it ('should set but not save api key work when it was not empty',
+    inject([LoginComponent, CoreServices, AuthService, SettingsService, Http],
         (login: LoginComponent, coreServices: CoreServices, auth: AuthService, settings: SettingsService) => {
             settings.organizationApiKey = SAMPLE_API_KEY2;
-            setTimeout(()=>{
+            setTimeout(() => {
                 expect(auth.isOrgApiKeySet).toBeTruthy();
                 let headers = new Headers();
                 auth.appendHeaders(headers);

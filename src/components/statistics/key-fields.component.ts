@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import {MD_INPUT_DIRECTIVES} from '@angular2-material/input';
-import {MdIcon} from '@angular2-material/icon';
-import {InterchangeableFieldsComponent} from './interchangeable-fields.component';
+import { MD_INPUT_DIRECTIVES } from '@angular2-material/input';
+import { MdIcon } from '@angular2-material/icon';
+import { InterchangeableFieldsComponent } from './interchangeable-fields.component';
 
 @Component({
     moduleId: module.id,
@@ -21,7 +21,7 @@ export class KeyFieldsComponent {
 
     constructor() { }
 
-    addEmpty(){
+    addEmpty() {
         /* avoid creating new object
         if (this.fields == null){
             this.fields = [];
@@ -29,12 +29,12 @@ export class KeyFieldsComponent {
         this.fields.push('');
     }
 
-    update(index: number, input: string|string[]){
-        if (input == null || Array.isArray(input)){
+    update(index: number, input: string|string[]) {
+        if (input == null || Array.isArray(input)) {
             this.fields[index] = input;
         } else { // typeof input === 'string'
-            let splitted: string[] = input.split(/[, ]+/).filter(x=>x !== '');
-            switch(splitted.length){
+            let splitted: string[] = input.split(/[, ]+/).filter(x => x !== '');
+            switch (splitted.length) {
                 case 0:
                     this.fields[index] = null;
                     break;
@@ -47,7 +47,7 @@ export class KeyFieldsComponent {
         }
     }
 
-    delete(index: number){
+    delete(index: number) {
         this.fields.splice(index, 1);
     }
 }

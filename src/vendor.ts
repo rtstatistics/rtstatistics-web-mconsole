@@ -22,7 +22,7 @@ import '@angular2-material/slide-toggle';
 
 // Material Design Icons
 import 'material-design-icons';
-require('material-design-icons/iconfont/material-icons.css')
+require('material-design-icons/iconfont/material-icons.css');
 
 // MD2
 import 'md2/select';

@@ -1,15 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import {MdIcon} from '@angular2-material/icon';
-import {MD_LIST_DIRECTIVES} from '@angular2-material/list';
-import {MD_PROGRESS_BAR_DIRECTIVES} from '@angular2-material/progress-bar';
-import {MD_BUTTON_DIRECTIVES} from '@angular2-material/button';
-import {MD_CARD_DIRECTIVES} from '@angular2-material/card';
-import {MD_INPUT_DIRECTIVES} from '@angular2-material/input';
+import { MdIcon } from '@angular2-material/icon';
+import { MD_LIST_DIRECTIVES } from '@angular2-material/list';
+import { MD_PROGRESS_BAR_DIRECTIVES } from '@angular2-material/progress-bar';
+import { MD_BUTTON_DIRECTIVES } from '@angular2-material/button';
+import { MD_CARD_DIRECTIVES } from '@angular2-material/card';
+import { MD_INPUT_DIRECTIVES } from '@angular2-material/input';
 
 import { DoCheck, KeyValueDiffers, IterableDiffers } from '@angular/core';
 
-import {Period} from '../../models/periods-hierarchy';
+import { Period } from '../../models/periods-hierarchy';
 
 @Component({
     moduleId: module.id,
@@ -23,17 +23,17 @@ import {Period} from '../../models/periods-hierarchy';
     ],
 
 })
-export class PeriodComponent implements OnInit{//, DoCheck{
+export class PeriodComponent implements OnInit {// , DoCheck{
     @Input()
     isRoot: boolean = false;
 
     _period: Period;
     @Input()
-    set period(p: Period){
+    set period(p: Period) {
         this._period = p;
     }
-    get period(){
-        if (this._period == null){
+    get period() {
+        if (this._period == null) {
             this._period = new Period();
         }
         return this._period;
@@ -42,10 +42,10 @@ export class PeriodComponent implements OnInit{//, DoCheck{
     objDiffer: any;
     arrDiffer: any;
 
-    constructor(private kvDiffers: KeyValueDiffers, private itrDiffers: IterableDiffers) { 
+    constructor(private kvDiffers: KeyValueDiffers, private itrDiffers: IterableDiffers) {
     }
 
-    ngOnInit() { 
+    ngOnInit() {
         this.objDiffer = this.kvDiffers.find({}).create(null);
         this.arrDiffer = this.itrDiffers.find([]).create(null);
     }
@@ -75,15 +75,15 @@ export class PeriodComponent implements OnInit{//, DoCheck{
         }
 	}
 */
-    addEmptyUpperLevel(){
-        if (this.period.upperLevelPeriods == null){
+    addEmptyUpperLevel() {
+        if (this.period.upperLevelPeriods == null) {
             this.period.upperLevelPeriods = [];
         }
 
         this.period.upperLevelPeriods.push(new Period());
     }
 
-    deleteUpperLevel(i: number){
+    deleteUpperLevel(i: number) {
         this.period.upperLevelPeriods.splice(i, 1);
     }
 }

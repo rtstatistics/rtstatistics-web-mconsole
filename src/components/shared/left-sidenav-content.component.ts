@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import {ROUTER_DIRECTIVES} from '@angular/router';
+import { ROUTER_DIRECTIVES } from '@angular/router';
 import { MdIcon } from '@angular2-material/icon';
-import {MD_LIST_DIRECTIVES} from '@angular2-material/list';
+import { MD_LIST_DIRECTIVES } from '@angular2-material/list';
 
-import {AuthService} from '../../services/auth.service';
-import {User} from '../../models/user';
-import {Organization} from '../../models/organization';
+import { AuthService } from '../../services/auth.service';
+import { User } from '../../models/user';
+import { Organization } from '../../models/organization';
 
 
 @Component({
@@ -14,14 +14,14 @@ import {Organization} from '../../models/organization';
     template: require('./left-sidenav-content.component.html'),
     styles: [require('./left-sidenav-content.component.css')],
     directives: [
-        ROUTER_DIRECTIVES, 
+        ROUTER_DIRECTIVES,
         MdIcon, MD_LIST_DIRECTIVES
     ],
     providers: [
     ]
 })
 export class LeftSidenavContentComponent {
-    constructor(protected authService: AuthService){
+    constructor(protected authService: AuthService) {
 
     }
 
@@ -42,9 +42,9 @@ export class LeftSidenavContentComponent {
      */
     get currentOrganizationNameIfDifferentThanUserName(): string{
         let orgName = this.currentOrganization == null ? null : this.currentOrganization.name;
-        if (orgName != null && (this.currentUser == null || orgName != this.currentUser.name)){
+        if (orgName != null && (this.currentUser == null || orgName !== this.currentUser.name)) {
             return orgName;
-        }else{
+        } else {
             return null;
         }
     }

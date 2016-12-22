@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
-import {MdIcon} from '@angular2-material/icon';
-import {MD_SIDENAV_DIRECTIVES} from '@angular2-material/sidenav';
-import {MD_LIST_DIRECTIVES} from '@angular2-material/list';
-import {MD_TOOLBAR_DIRECTIVES} from '@angular2-material/toolbar';
-import {MD_PROGRESS_BAR_DIRECTIVES} from '@angular2-material/progress-bar';
+import { MdIcon } from '@angular2-material/icon';
+import { MD_SIDENAV_DIRECTIVES } from '@angular2-material/sidenav';
+import { MD_LIST_DIRECTIVES } from '@angular2-material/list';
+import { MD_TOOLBAR_DIRECTIVES } from '@angular2-material/toolbar';
+import { MD_PROGRESS_BAR_DIRECTIVES } from '@angular2-material/progress-bar';
 
-import {LeftSidenavContentComponent} from '../shared/left-sidenav-content.component';
-import {TemplateCompiler} from '../../utils/template-compiler';
+import { LeftSidenavContentComponent } from '../shared/left-sidenav-content.component';
+import { TemplateCompiler } from '../../utils/template-compiler';
 
 @Component({
     moduleId: module.id,
     selector: 'organization',
     template: TemplateCompiler.compile(
-        require('../shared/sidenav.template.html'),{
+        require('../shared/sidenav.template.html'), {
         toolbarTitle:   'Organization',
         toolbarContent: '',
         content:        require('./organization.component.html')
@@ -26,5 +26,5 @@ import {TemplateCompiler} from '../../utils/template-compiler';
 
     ]
 })
-export class OrganizationComponent{
+export class OrganizationComponent {
 }
