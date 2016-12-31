@@ -13,7 +13,7 @@ import { AbstractAssetDetailComponent } from '../abstract-asset-detail.component
 import { PeriodsService } from '../../services/periods.service';
 import { PeriodsHierarchy } from '../../models/periods-hierarchy';
 import { TemplateCompiler } from '../../utils/template-compiler';
-import { PeriodComponent } from './period.component';
+import { OnePeriodComponent } from './one-period.component';
 
 @Component({
     moduleId: module.id,
@@ -27,7 +27,7 @@ import { PeriodComponent } from './period.component';
     // inputs: ['progressTracker', 'parentId', 'id', 'quitFunction'],
     directives: [
         MD_INPUT_DIRECTIVES, MD_BUTTON_DIRECTIVES, MD_LIST_DIRECTIVES, MD_TOOLBAR_DIRECTIVES, MD_PROGRESS_BAR_DIRECTIVES, MdIcon,
-        PeriodComponent
+        OnePeriodComponent
     ],
     providers: [
     ]

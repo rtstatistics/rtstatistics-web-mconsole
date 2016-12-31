@@ -13,17 +13,17 @@ import { Period } from '../../models/periods-hierarchy';
 
 @Component({
     moduleId: module.id,
-    selector: 'period',
-    template: require('./period.component.html'),
-    styles: [require('./period.component.css')],
+    selector: 'one-period',
+    template: require('./one-period.component.html'),
+    styles: [require('./one-period.component.css')],
     directives: [
         MD_CARD_DIRECTIVES, MD_BUTTON_DIRECTIVES, MD_INPUT_DIRECTIVES,
         MD_LIST_DIRECTIVES, MD_PROGRESS_BAR_DIRECTIVES, MdIcon,
-        PeriodComponent
+        OnePeriodComponent
     ],
 
 })
-export class PeriodComponent implements OnInit {// , DoCheck{
+export class OnePeriodComponent implements OnInit {// , DoCheck{
     @Input()
     isRoot: boolean = false;
 

@@ -31,7 +31,6 @@ import { TemplateCompiler } from '../../utils/template-compiler';
 
 @Component({
     moduleId: module.id,
-    selector: 'statistics',
     template: TemplateCompiler.compile(
         require('../shared/sidenav.template.html'), {
         toolbarTitle:   'Statistics',

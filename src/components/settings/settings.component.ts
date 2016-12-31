@@ -12,7 +12,6 @@ import { SettingsService } from '../../services/settings.service';
 
 @Component({
     moduleId: module.id,
-    selector: 'settings',
     template: require('./settings.component.html'),
     styles: [require('./settings.component.css')],
     directives: [

@@ -23,9 +23,9 @@ import { Field } from '../../models/field';
 
 @Component({
     moduleId: module.id,
-    selector: 'fields',
-    template: require('./fields.component.html'),
-    styles: [require('./fields.component.css')],
+    selector: 'all-fields',
+    template: require('./all-fields.component.html'),
+    styles: [require('./all-fields.component.css')],
     inputs: ['progressTracker', 'parentId'],
     directives: [
         ROUTER_DIRECTIVES,
@@ -38,7 +38,7 @@ import { Field } from '../../models/field';
     providers: [
     ]
 })
-export class FieldsComponent extends AbstractAssetsComponent<Field> {
+export class AllFieldsComponent extends AbstractAssetsComponent<Field> {
     supportedTypes: string[] = Field.ALL_TYPES;
 
     constructor(router: Router, coreServices: CoreServices, fieldService: FieldService) {

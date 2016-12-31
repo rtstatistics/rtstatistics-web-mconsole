@@ -12,7 +12,7 @@ import { CoreServices } from '../../services/core-services.service';
 
 import { LeftSidenavContentComponent } from '../shared/left-sidenav-content.component';
 import { PeriodsDetailComponent } from './periods-detail.component';
-import { PeriodComponent } from './period.component';
+import { OnePeriodComponent } from './one-period.component';
 
 import { PeriodsService } from '../../services/periods.service';
 
@@ -22,7 +22,6 @@ import { TemplateCompiler } from '../../utils/template-compiler';
 
 @Component({
     moduleId: module.id,
-    selector: 'periods',
     template: TemplateCompiler.compile(
         require('../shared/sidenav.template.html'), {
         toolbarTitle:   'Statistics Periods Hierarchies',
@@ -35,7 +34,7 @@ import { TemplateCompiler } from '../../utils/template-compiler';
         MD_INPUT_DIRECTIVES, MD_SIDENAV_DIRECTIVES, MD_TOOLBAR_DIRECTIVES, MD_PROGRESS_BAR_DIRECTIVES, MdIcon,
         MdDataTable,
         LeftSidenavContentComponent,
-        PeriodComponent
+        OnePeriodComponent
     ],
     providers: [
     ],

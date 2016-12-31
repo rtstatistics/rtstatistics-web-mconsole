@@ -1,7 +1,7 @@
 <div class="centered-content top-bottom-padded-content">
     <md-input placeholder="ID" [(ngModel)]="editedDetail.id" disabled maxLength="100" style="width: 100%"></md-input>
     <md-input [(ngModel)]="editedDetail.name" placeholder="Name" maxLength="200" style="width: 100%"></md-input>
-    <period [isRoot]="true" [(period)]="editedDetail"></period>
+    <one-period [isRoot]="true" [(period)]="editedDetail"></one-period>
 </div>
 <div align="right">
     <button md-raised-button (click)="resetEditedDetail()">

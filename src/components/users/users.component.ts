@@ -20,7 +20,6 @@ import { TemplateCompiler } from '../../utils/template-compiler';
 
 @Component({
     moduleId: module.id,
-    selector: 'users',
     template: TemplateCompiler.compile(
         require('../shared/sidenav.template.html'), {
         toolbarTitle:   'Users',
